@@ -51,7 +51,7 @@ namespace LEA
             Console.SetCursorPosition(0, 3);
             Console.Write("abcd");
             Console.SetCursorPosition(0, oldLine);
-            Console.WriteLine($"{Effects.Bold}{Effects.Underline}{Effects.Italic}{FgBright.Red}{Bg.Blue}Bar{Fg.Reset}{Bg.Reset}{Effects.Reset}Bar");
+            Console.WriteLine($"{Effects.Bold}{Effects.Underline}{Effects.Italic}{Fg.BrightRed}{Bg.Blue}Bar{Fg.Reset}{Bg.Reset}{Effects.Reset}Bar");
             Console.WriteLine($"{Effects.Bold}Foo{Effects.Reset}");
             Console.WriteLine($"{Effects.Reverse}Foo{Effects.Reset}");
             Console.WriteLine($"{Effects.Italic}Foo{Effects.Reset}");

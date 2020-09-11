@@ -16,21 +16,16 @@ namespace LEA
         public static readonly string Cyan    = $"{Constants.Csi}36m";
         public static readonly string White   = $"{Constants.Csi}37m";
 
+        public static readonly string BrightBlack   = $"{Constants.Csi}90m";
+        public static readonly string BrightRed     = $"{Constants.Csi}91m";
+        public static readonly string BrightGreen   = $"{Constants.Csi}92m";
+        public static readonly string BrightYellow  = $"{Constants.Csi}93m";
+        public static readonly string BrightBlue    = $"{Constants.Csi}94m";
+        public static readonly string BrightMagenta = $"{Constants.Csi}95m";
+        public static readonly string BrightCyan    = $"{Constants.Csi}96m";
+        public static readonly string BrightWhite   = $"{Constants.Csi}97m";
+
         public static readonly string Reset = $"{Constants.Csi}39m";
-    }
-
-    public static class FgBright
-    {
-        public static readonly string Black   = $"{Constants.Csi}90m";
-        public static readonly string Red     = $"{Constants.Csi}91m";
-        public static readonly string Green   = $"{Constants.Csi}92m";
-        public static readonly string Yellow  = $"{Constants.Csi}93m";
-        public static readonly string Blue    = $"{Constants.Csi}94m";
-        public static readonly string Magenta = $"{Constants.Csi}95m";
-        public static readonly string Cyan    = $"{Constants.Csi}96m";
-        public static readonly string White   = $"{Constants.Csi}97m";
-
-        public static readonly string Reset = Fg.Reset;
     }
 
     public static class Bg
@@ -44,21 +39,16 @@ namespace LEA
         public static readonly string Cyan    = $"{Constants.Csi}46m";
         public static readonly string White   = $"{Constants.Csi}47m";
 
+        public static readonly string BrightBlack   = $"{Constants.Csi}100m";
+        public static readonly string BrightRed     = $"{Constants.Csi}101m";
+        public static readonly string BrightGreen   = $"{Constants.Csi}102m";
+        public static readonly string BrightYellow  = $"{Constants.Csi}103m";
+        public static readonly string BrightBlue    = $"{Constants.Csi}104m";
+        public static readonly string BrightMagenta = $"{Constants.Csi}105m";
+        public static readonly string BrightCyan    = $"{Constants.Csi}106m";
+        public static readonly string BrightWhite   = $"{Constants.Csi}107m";
+
         public static readonly string Reset = $"{Constants.Csi}49m";
-    }
-
-    public static class BgBright
-    {
-        public static readonly string Black   = $"{Constants.Csi}100m";
-        public static readonly string Red     = $"{Constants.Csi}101m";
-        public static readonly string Green   = $"{Constants.Csi}102m";
-        public static readonly string Yellow  = $"{Constants.Csi}103m";
-        public static readonly string Blue    = $"{Constants.Csi}104m";
-        public static readonly string Magenta = $"{Constants.Csi}105m";
-        public static readonly string Cyan    = $"{Constants.Csi}106m";
-        public static readonly string White   = $"{Constants.Csi}107m";
-
-        public static readonly string Reset = Bg.Reset;
     }
 
     public static class Effects
