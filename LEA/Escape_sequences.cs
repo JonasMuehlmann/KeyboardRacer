@@ -63,14 +63,14 @@ namespace LEA
 
     public static class Effects
     {
-        public static readonly string Reset = $"{Constants.Csi}0m";
+        public static readonly string Reset   = $"{Constants.Csi}0m";
         public static readonly string Reverse = $"{Constants.Csi}7m";
 
         public static readonly string Bold   = $"{Constants.Csi}1m";
         public static readonly string NoBold = $"{Constants.Csi}21m";
-        
+
         // Fix: Broken
-        public static readonly string Faint = $"{Constants.Csi}2m";
+        public static readonly string Faint   = $"{Constants.Csi}2m";
         public static readonly string NoFaint = $"{Constants.Csi}22m";
 
         // Fix: Broken
@@ -82,8 +82,8 @@ namespace LEA
 
         // Fix: Broken
         public static readonly string Overline   = $"{Constants.Csi}53m";
-        public static readonly string NoOverline= $"{Constants.Csi}55m";
-        
+        public static readonly string NoOverline = $"{Constants.Csi}55m";
+
         public static readonly string SlowBlink = $"{Constants.Csi}5m";
         public static readonly string NoBlink   = $"{Constants.Csi}25m";
     }
