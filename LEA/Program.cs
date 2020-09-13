@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Threading;
 
 
 namespace LEA
@@ -9,9 +7,10 @@ namespace LEA
     {
         private static void Main(string[] args)
         {
+            /*
             const int frametime = 1000 / 144 / 2;
 
-                const string car = @"         ¸______¸
+            const string car = @"         ¸______¸
         ɍ___ǁ____ƪ___
         ¬(˽)----¬(˽)-'";
 
@@ -51,11 +50,26 @@ namespace LEA
             Console.SetCursorPosition(0, 3);
             Console.Write("abcd");
             Console.SetCursorPosition(0, oldLine);
-            Console.WriteLine($"{Effects.Bold}{Effects.Underline}{Effects.Italic}{Fg.BrightRed}{Bg.Blue}Bar{Fg.Reset}{Bg.Reset}{Effects.Reset}Bar");
+
+            Console.WriteLine($"{Effects.Bold}{Effects.Underline}{Effects.Italic}{Fg.BrightRed}{Bg.Blue}Bar{Fg.Reset}{Bg.Reset}{Effects.Reset}Bar"
+                             );
+
             Console.WriteLine($"{Effects.Bold}Foo{Effects.Reset}");
             Console.WriteLine($"{Effects.Reverse}Foo{Effects.Reset}");
             Console.WriteLine($"{Effects.Italic}Foo{Effects.Reset}");
             Console.WriteLine($"{Effects.Underline}Foo{Effects.Reset}");
+            */
+
+            var text =
+                "Lorem ipsum dolor sit amet.";
+
+            var race = new Race(ref text);
+
+            Player[] players = {new Player("Player1", Fg.Blue, race),
+                                new Player("Player2", Fg.Blue, race),
+                                new Player("Player3", Fg.Blue, race)};
+
+            players[0].TypeText();
         }
     }
 }

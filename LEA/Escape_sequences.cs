@@ -2,7 +2,7 @@ namespace LEA
 {
     public static class Constants
     {
-        public static readonly string Csi = "\x1b[";
+        public const string Csi = "\x1b[";
     }
 
     public static class Fg
@@ -74,7 +74,7 @@ namespace LEA
         public static readonly string Overline   = $"{Constants.Csi}53m";
         public static readonly string NoOverline = $"{Constants.Csi}55m";
 
-        public static readonly string SlowBlink = $"{Constants.Csi}5m";
+        public static readonly string Blink = $"{Constants.Csi}5m";
         public static readonly string NoBlink   = $"{Constants.Csi}25m";
     }
 }
