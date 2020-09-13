@@ -12,7 +12,7 @@ namespace LEA
 
         private string Color { get; }
 
-        private Stack<(char _char, bool isCorrect)> TypedText { get; }
+        private Stack<char> TypedText { get; }
 
         private int CurErrors { get; set; }
 
@@ -27,8 +27,7 @@ namespace LEA
         {
             Name        = name;
             Color       = color;
-            TypedText   = new Stack<(char _char, bool isCorrect)>(CurrentRace.Text.Length);
-            string foo = new String(' ', currentRace.Text.Length);
+            TypedText   = new Stack<char>(CurrentRace.Text.Length);
             TotalErrors = 0;
             CurErrors   = 0;
             CurrentRace = currentRace;
@@ -37,14 +36,14 @@ namespace LEA
 
         private void HandleCorrectChar(char enteredChar)
         {
-            TypedText.Push((_char: enteredChar, isCorrect: true));
+            TypedText.Push(enteredChar);
             Console.Write($"{Fg.White}{enteredChar}{Fg.Reset}");
         }
 
 
         private void HandleFalseChar(char enteredChar)
         {
-            TypedText.Push((_char: enteredChar, isCorrect: true));
+            TypedText.Push(enteredChar);
 
             if (enteredChar == ' ')
             {
@@ -54,7 +53,6 @@ namespace LEA
             {
                 Console.Write($"{Fg.Red}{enteredChar}{Fg.Reset}");
             }
-
             ++CurErrors;
             ++TotalErrors;
         }
@@ -67,7 +65,7 @@ namespace LEA
                 return;
             }
 
-            if (!TypedText.Peek().isCorrect)
+            if (TypedText.Peek() != CurrentRace.Text[TypedText.Count - 1])
             {
                 --CurErrors;
             }
