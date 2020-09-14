@@ -41,13 +41,18 @@ namespace LEA
             Console.Write($"{Fg.White}{enteredChar}{Fg.Reset}");
         }
 
-        private int WordsPerMinute(Race currentRace){
-            DateTime endOfRace = DateTime.Now;
-            int timeInSeconds = Convert.ToInt32((endOfRace - CurrentRace.StartOfRace).TotalSeconds);
-            int wordsPerMinute = (((currentRace.Text.Length/5)/timeInSeconds)/60);
-            
+
+        private int WordsPerMinute(Race currentRace)
+        {
+            DateTime endOfRace      = DateTime.Now;
+            double   timeInSeconds  = (endOfRace - CurrentRace.StartOfRace).TotalSeconds;
+            double   charsPerSecond = CurrentRace.Text.Length / timeInSeconds;
+            double   wordsPerSecond = charsPerSecond          * 60;
+            int      wordsPerMinute = (int) Math.Floor(wordsPerSecond / 5);
+
             return wordsPerMinute;
         }
+
 
         private void HandleFalseChar(char enteredChar)
         {
