@@ -10,6 +10,8 @@ namespace LEA
 
         public string Text { get; private set; }
 
+        public DateTime StartOfRace {get; set;}
+
         #endregion
 
         #region Constructors
@@ -17,6 +19,7 @@ namespace LEA
         public Race(ref string text)
         {
             Text = text;
+            StartOfRace = DateTime.Now;
         }
 
         #endregion

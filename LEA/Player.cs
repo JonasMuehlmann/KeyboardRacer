@@ -20,6 +20,7 @@ namespace LEA
 
         private Race CurrentRace { get; }
 
+
         #endregion
 
 
@@ -27,10 +28,11 @@ namespace LEA
         {
             Name        = name;
             Color       = color;
+            CurrentRace = currentRace;
             TypedText   = new Stack<char>(CurrentRace.Text.Length);
             TotalErrors = 0;
             CurErrors   = 0;
-            CurrentRace = currentRace;
+            
         }
 
 
@@ -40,6 +42,13 @@ namespace LEA
             Console.Write($"{Fg.White}{enteredChar}{Fg.Reset}");
         }
 
+        private int WordsPerMinute(Race currentRace){
+            DateTime endOfRace = DateTime.Now;
+            int timeInSeconds = Convert.ToInt32((endOfRace - CurrentRace.StartOfRace).TotalSeconds);
+            int wordsPerMinute = (((currentRace.Text.Length/5)/timeInSeconds)/60);
+            
+            return wordsPerMinute;
+        }
 
         private void HandleFalseChar(char enteredChar)
         {
@@ -118,6 +127,8 @@ namespace LEA
                 var enteredKey = Console.ReadKey(true);
                 HandleKeyPress(enteredKey);
             }
+
+            Console.WriteLine(WordsPerMinute(CurrentRace));
         }
     }
 }
