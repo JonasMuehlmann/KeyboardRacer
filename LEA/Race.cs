@@ -10,7 +10,11 @@ namespace LEA
 
         public string Text { get; private set; }
 
-        public DateTime StartOfRace {get; set;}
+        public DateTime StartOfRace { get; set; }
+
+        public List<Player> Participants { get; set; }
+
+        public List<Player> CompletionOrder { get; set; }
 
         #endregion
 
@@ -21,8 +25,8 @@ namespace LEA
             Text            = text;
             Participants    = new List<Player>();
             CompletionOrder = new List<Player>();
-            Text = text;
-            StartOfRace = DateTime.Now;
+            Text            = text;
+            StartOfRace     = DateTime.Now;
         }
 
         #endregion
