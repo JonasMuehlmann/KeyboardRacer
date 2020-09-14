@@ -6,6 +6,23 @@ namespace LEA
 {
     public class Player
     {
+        #region Properties
+
+        private string Name { get; }
+
+        private string Color { get; }
+
+        private Stack<char> TypedText { get; }
+
+        private int CurErrors { get; set; }
+
+        private int TotalErrors { get; set; }
+
+        private Race CurrentRace { get; }
+
+        #endregion
+
+
         public Player(string name, string color, Race currentRace)
         {
             Name        = name;
@@ -14,6 +31,7 @@ namespace LEA
             TypedText   = new Stack<char>(CurrentRace.Text.Length);
             TotalErrors = 0;
             CurErrors   = 0;
+            CurrentRace = currentRace;
         }
 
 
@@ -23,6 +41,13 @@ namespace LEA
             Console.Write($"{Fg.White}{enteredChar}{Fg.Reset}");
         }
 
+        private int WordsPerMinute(Race currentRace){
+            DateTime endOfRace = DateTime.Now;
+            int timeInSeconds = Convert.ToInt32((endOfRace - CurrentRace.StartOfRace).TotalSeconds);
+            int wordsPerMinute = (((currentRace.Text.Length/5)/timeInSeconds)/60);
+            
+            return wordsPerMinute;
+        }
 
         private void HandleFalseChar(char enteredChar)
         {
@@ -103,26 +128,9 @@ namespace LEA
                 HandleKeyPress(enteredKey);
             }
 
+            Console.WriteLine(WordsPerMinute(CurrentRace));
+
             CurrentRace.CompletionOrder.Add(this);
         }
-
-
-        // TODO: Add Time points for start and end of race and calculate WPM.
-
-        #region Properties
-
-        private string Name { get; }
-
-        private string Color { get; }
-
-        private Stack<char> TypedText { get; }
-
-        private int CurErrors { get; set; }
-
-        private int TotalErrors { get; set; }
-
-        private Race CurrentRace { get; }
-
-        #endregion
     }
 }
