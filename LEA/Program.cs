@@ -10,17 +10,19 @@ namespace LEA
     {
         private static void Main(string[] args)
         {
-            // TODO: Maybe bundle a good terminal like alacritty with the game
-            /*
-            const int frametime = 1000 / 144 / 2;
+            // TODO: Maybe bundle a good terminal like alacritty or kritty with the game
 
+            #region RenderTest
+
+            /*
             const string car = @"         ¸______¸
         ɍ___ǁ____ƪ___
         ¬(˽)----¬(˽)-'";
 
             Console.WriteLine(car);
+
             // for (var i = 0; i < 100; i++)
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < 200; i++)
             {
                 var indentation = new string(' ', i);
 
@@ -31,13 +33,79 @@ namespace LEA
                                                   )
                                           );
 
-                Console.WriteLine(indented);
-                Thread.Sleep(frametime * 5);
-                Console.Clear();
-                Console.WriteLine("\x1b[38;2;<255>;<125>;<0>mFoo");
-                Console.WriteLine("\x1b[51;2;<0>;<125>;<255>mBar");
-            }
+                Console.WriteLine(Bg.Black
+                                + Fg.BrightWhite
+                                + indented
+                                + '\n'
+                                + Bg.Blue
+                                + Fg.Black
+                                + indented
+                                + '\n'
+                                + Bg.Cyan
+                                + Fg.Blue
+                                + indented
+                                + '\n'
+                                + Bg.Green
+                                + Fg.Cyan
+                                + indented
+                                + '\n'
+                                + Bg.Magenta
+                                + Fg.Green
+                                + indented
+                                + '\n'
+                                + Bg.Red
+                                + Fg.Magenta
+                                + indented
+                                + '\n'
+                                + Bg.White
+                                + Fg.Red
+                                + indented
+                                + '\n'
+                                + Bg.Yellow
+                                + Fg.White
+                                + indented
+                                + '\n'
+                                + Bg.BrightBlack
+                                + Fg.Yellow
+                                + indented
+                                + '\n'
+                                + Bg.BrightBlue
+                                + Fg.BrightBlack
+                                + indented
+                                + '\n'
+                                + Bg.BrightCyan
+                                + Fg.BrightBlue
+                                + indented
+                                + '\n'
+                                + Bg.BrightGreen
+                                + Fg.BrightCyan
+                                + indented
+                                + '\n'
+                                + Bg.BrightMagenta
+                                + Fg.BrightGreen
+                                + indented
+                                + '\n'
+                                + Bg.Blue
+                                + Fg.Black
+                                + indented
+                                + '\n'
+                                + Bg.Cyan
+                                + Fg.Blue
+                                + indented
+                                + Fg.Reset
+                                + Bg.Reset
+                                 );
 
+                Thread.Sleep(16);
+                Console.Clear();
+            }
+            */
+
+            #endregion RenderTest
+
+            /*
+            Console.WriteLine("\x1b[38;2;<255>;<125>;<0>mFoo");
+            Console.WriteLine("\x1b[51;2;<0>;<125>;<255>mBar");
             // https://notes.burke.libbey.me/ansi-escape-codes/
             // \x1b or \e  or \u001b or \033 gibt Folgen von escape sequence an
             Console.Write("\x1b[36mTEST\x1b[0m");
