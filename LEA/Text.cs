@@ -1,8 +1,9 @@
+using System;
+using System.IO;
 namespace LEA
 
 
 {
-    using Microsoft.VisualBasic.FileIO;
     public class Text
     {
         private int Id { get; set; } 
@@ -10,10 +11,16 @@ namespace LEA
      
         
         //TODO: Constructor
-        //TODO: Load Phrase based on ID
         //TODO: Load Phrase based on Difficulty
 
-
+        public string LoadRandomText()
+        {
+            Random rnd = new Random();
+            string[] testarray= File.ReadAllLines("/home/assaro/RiderProjects/LEA/LEA/data/texts.csv");
+            Console.WriteLine("Done");
+            string[] text =testarray[rnd.Next(1,testarray.Length)].Split(",,,");
+            return text[2];
+        }
 
 
 
