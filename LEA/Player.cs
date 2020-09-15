@@ -5,26 +5,57 @@ using System.Threading.Tasks;
 
 namespace LEA
 {
-    public class Player
+    public class Participant
     {
+        private string      _name;
+        private Stack<char> _typedText;
+        private Race        _currentRace;
+        private int         _totalErrors;
+        private int         _curErrors;
+        private string      _color;
+
         #region Properties
 
-        private string Name { get; }
+        public string Name
+        {
+            get => _name;
+            set => _name = value;
+        }
 
-        private string Color { get; }
+        public Stack<char> TypedText
+        {
+            get => _typedText;
+            set => _typedText = value;
+        }
 
-        private Stack<char> TypedText { get; }
+        public Race CurrentRace
+        {
+            get => _currentRace;
+            set => _currentRace = value;
+        }
 
-        private int CurErrors { get; set; }
+        public int TotalErrors
+        {
+            get => _totalErrors;
+            set => _totalErrors = value;
+        }
 
-        private int TotalErrors { get; set; }
+        public int CurErrors
+        {
+            get => _curErrors;
+            set => _curErrors = value;
+        }
 
-        private Race CurrentRace { get; }
+        public string Color
+        {
+            get => _color;
+            set => _color = value;
+        }
 
         #endregion
 
 
-        public Player(string name, string color, Race currentRace)
+        public Participant(string name, string color, Race currentRace)
         {
             Name        = name;
             Color       = color;
@@ -34,6 +65,11 @@ namespace LEA
             CurErrors   = 0;
             CurrentRace = currentRace;
         }
+    }
+
+    public class Player : Participant
+    {
+        public Player(string name, string color, Race currentRace) : base(name, color, currentRace) { }
 
 
         private void HandleCorrectChar(char enteredChar)
@@ -124,7 +160,7 @@ namespace LEA
         }
 
 
-        public async Task TypeText()
+        public void TypeText()
         {
             Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");
 
