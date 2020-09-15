@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Threading;
 
 
 namespace LEA
@@ -14,8 +16,9 @@ namespace LEA
         ɍ___ǁ____ƪ___
         ¬(˽)----¬(˽)-'";
 
+            Console.WriteLine(car);
             // for (var i = 0; i < 100; i++)
-            for (var i = 0; i < 1; i++)
+            for (var i = 0; i < 100; i++)
             {
                 var indentation = new string(' ', i);
 
@@ -66,10 +69,13 @@ namespace LEA
             var race = new Race(ref text);
 
             Player[] players = {new Player("Player1", Fg.Blue, race),
-                                new Player("Player2", Fg.Blue, race),
-                                new Player("Player3", Fg.Blue, race)};
+                                // new Player("Player2", Fg.Blue, race),
+                                // new Player("Player3", Fg.Blue, race)
+                                
+                            };
 
-            players[0].TypeText();
+            race.Participants.AddRange(players);
+            race.StartRace();
         }
     }
 }

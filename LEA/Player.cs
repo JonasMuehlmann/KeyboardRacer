@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 namespace LEA
@@ -123,7 +124,7 @@ namespace LEA
         }
 
 
-        public void TypeText()
+        public async Task TypeText()
         {
             Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");
 
@@ -132,8 +133,6 @@ namespace LEA
                 var enteredKey = Console.ReadKey(true);
                 HandleKeyPress(enteredKey);
             }
-
-            Console.WriteLine(WordsPerMinute(CurrentRace));
 
             CurrentRace.CompletionOrder.Add(this);
         }
