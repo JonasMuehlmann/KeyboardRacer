@@ -22,7 +22,10 @@ namespace LEA
             return text[2];
         }
 
-
+        public string LoadExternalText(string path)
+        {
+            return File.ReadAllText(path);
+        }
 
     }
 }
