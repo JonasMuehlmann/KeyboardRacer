@@ -18,9 +18,9 @@ namespace LEA
 
         public DateTime StartOfRace { get; set; }
 
-        public List<Player> Participants { get; set; }
+        public List<Participant> Participants { get; set; }
 
-        public List<Player> CompletionOrder { get; set; }
+        public List<Participant> CompletionOrder { get; set; }
 
         public int CompletionTime { get; set; }
 
@@ -33,14 +33,27 @@ namespace LEA
         public Race(ref string text)
         {
             Text            = text;
-            Participants    = new List<Player>();
-            CompletionOrder = new List<Player>();
+            Participants    = new List<Participant>();
+            CompletionOrder = new List<Participant>();
             Text            = text;
             StartOfRace     = DateTime.Now;
             CompletionTime  = DateTime.Now.AddSeconds(Text.Length * 10.0).Second;
         }
 
         #endregion
+
+
+        public List<string> CollectFrameFragments()
+        {
+            List<string> frameFragments = new List<string>(Participants.Count);
+
+            foreach (Participant participant in Participants)
+            {
+                frameFragments.Add(participant.CreateOwnFrameFragment());
+            }
+
+            return frameFragments;
+        }
 
 
         private void EndRace()
@@ -59,20 +72,17 @@ namespace LEA
 
         private async Task CountdownCompletionTime()
         {
-            await Task.Delay(CompletionTime   * 1000);
+            await Task.Delay(CompletionTime * 1000);
             EndRace();
         }
 
 
         public void StartRace()
         {
-            var tasks = new List<Task>();
-
-            foreach (var player in Participants)
+            foreach (Player participant in Participants)
             {
-                tasks.Add(player.TypeText());
+                participant.TypeText();
             }
-            Task.WaitAny(CountdownCompletionTime(), Task.WhenAll(tasks));
 
             EndRace();
         }

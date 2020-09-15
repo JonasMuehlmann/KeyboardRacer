@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -65,6 +66,29 @@ namespace LEA
             CurErrors   = 0;
             CurrentRace = currentRace;
         }
+
+
+        public int Progress()
+        {
+            double correctChars = (double) TypedText.Count - CurErrors;
+
+            return Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
+        }
+
+
+        public string CreateOwnFrameFragment()
+        {
+            var indentation = new string(' ', Progress());
+
+            var indentedCar = string.Join(Environment.NewLine,
+                                          new[] {indentation, indentation, indentation}
+                                             .Zip(Constants.Car.Split('\n'),
+                                                  (a, b) => string.Join("", a, b)
+                                                 )
+                                         );
+
+            return $"{Color}{indentedCar}{Fg.Reset}";
+        }
     }
 
     public class Player : Participant
@@ -79,7 +103,7 @@ namespace LEA
         }
 
 
-        private int WordsPerMinute(Race currentRace)
+        private int WordsPerMinute()
         {
             DateTime endOfRace      = DateTime.Now;
             double   timeInSeconds  = (endOfRace - CurrentRace.StartOfRace).TotalSeconds;
@@ -160,6 +184,17 @@ namespace LEA
         }
 
 
+        public void CreateCompleteRaceFrame(List<string> participantsFrameFragments)
+        {
+            Console.WriteLine(CreateOwnFrameFragment());
+
+            foreach (string fragment in participantsFrameFragments)
+            {
+                Console.WriteLine(fragment);
+            }
+        }
+
+
         public void TypeText()
         {
             Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");
@@ -168,6 +203,7 @@ namespace LEA
             {
                 var enteredKey = Console.ReadKey(true);
                 HandleKeyPress(enteredKey);
+                Console.WriteLine(CreateCompleteRaceFrame(CurrentRace.CollectFrameFragments()));
             }
 
             CurrentRace.CompletionOrder.Add(this);
