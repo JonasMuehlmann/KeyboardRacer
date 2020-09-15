@@ -10,7 +10,7 @@ namespace LEA
     {
         private static void Main(string[] args)
         {
-            // TODO: Maybe bundle a good terminal like alacritty or kritty with the game
+            // TODO: Maybe bundle a good terminal like alacritty or kritty with the game, maybe deploy via docker?
 
             #region RenderTest
 
@@ -147,6 +147,8 @@ namespace LEA
              race.Participants.AddRange(players);
              race.StartRace();
              */
+            Console.WriteLine("Foo");
+            Console.ReadKey();
         }
     }
 }

@@ -6,7 +6,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="data"/>
+      <Folder Include="data" />
       <Content Include="obj\project.packagespec.json" />
     </ItemGroup>
 

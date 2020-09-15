@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj": {}
+    "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj": {}
   },
   "projects": {
-    "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj": {
+    "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj",
-        "projectName": "LEA",
-        "projectPath": "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj",
+        "projectUniqueName": "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj",
+        "projectName": "Launcher",
+        "projectPath": "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj",
         "packagesPath": "/home/jonas/.nuget/packages/",
-        "outputPath": "/home/jonas/RiderProjects/LEA/LEA/obj/",
+        "outputPath": "/home/jonas/RiderProjects/LEA/Launcher/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/jonas/.nuget/NuGet/NuGet.Config"
