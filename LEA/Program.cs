@@ -68,7 +68,7 @@ namespace LEA
 
             var race = new Race(ref text);
 
-            Player[] players = {new Player("Player1", Fg.Blue, race),
+            Participant[] players = {new Bot("Bot1", Fg.Blue, race, 6),
                                 // new Player("Player2", Fg.Blue, race),
                                 // new Player("Player3", Fg.Blue, race)
                                 

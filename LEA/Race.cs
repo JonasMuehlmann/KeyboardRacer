@@ -18,9 +18,9 @@ namespace LEA
 
         public DateTime StartOfRace { get; set; }
 
-        public List<Player> Participants { get; set; }
+        public List<Participant> Participants { get; set; }
 
-        public List<Player> CompletionOrder { get; set; }
+        public List<Participant> CompletionOrder { get; set; }
 
         public int CompletionTime { get; set; }
 
@@ -33,8 +33,8 @@ namespace LEA
         public Race(ref string text)
         {
             Text            = text;
-            Participants    = new List<Player>();
-            CompletionOrder = new List<Player>();
+            Participants    = new List<Participant>();
+            CompletionOrder = new List<Participant>();
             Text            = text;
             StartOfRace     = DateTime.Now;
             CompletionTime  = DateTime.Now.AddSeconds(Text.Length * 10.0).Second;
@@ -68,11 +68,10 @@ namespace LEA
         {
             var tasks = new List<Task>();
 
-            foreach (var player in Participants)
+            foreach (var bot in Participants)
             {
-                tasks.Add(player.TypeText());
+                bot.TypeText(); 
             }
-            Task.WaitAny(CountdownCompletionTime(), Task.WhenAll(tasks));
 
             EndRace();
         }
