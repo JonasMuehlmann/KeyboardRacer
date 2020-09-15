@@ -7,19 +7,7 @@
 
     <ItemGroup>
       <Folder Include="data"/>
-      <Folder Include="obj\Debug\netcoreapp3.1" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Compile Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <EmbeddedResource Remove="obj\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="obj\**" />
+      <Content Include="obj\project.packagespec.json" />
     </ItemGroup>
 
 </Project>

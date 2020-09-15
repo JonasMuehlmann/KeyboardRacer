@@ -10,7 +10,7 @@ namespace LEA
     {
         private static void Main(string[] args)
         {
-            Random rnd = new Random();
+            // TODO: Maybe bundle a good terminal like alacritty with the game
             /*
             const int frametime = 1000 / 144 / 2;
 

@@ -208,14 +208,6 @@ namespace LEA
         }
 
 
-        public override int Progress()
-        {
-            double correctChars = (double) TypedText.Count - CurErrors;
-
-            return Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
-        }
-
-
         private void HandleBackspace()
         {
             if (TypedText.Count == 0)

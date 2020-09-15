@@ -1,16 +1,3 @@
-C:/Users/washa/Documents/GitHub/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.exe
-C:/Users/washa/Documents/GitHub/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.deps.json
-C:/Users/washa/Documents/GitHub/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.runtimeconfig.json
-C:/Users/washa/Documents/GitHub/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.runtimeconfig.dev.json
-C:/Users/washa/Documents/GitHub/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.dll
-C:/Users/washa/Documents/GitHub/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.pdb
-C:/Users/washa/Documents/GitHub/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.csprojAssemblyReference.cache
-C:/Users/washa/Documents/GitHub/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.AssemblyInfoInputs.cache
-C:/Users/washa/Documents/GitHub/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.AssemblyInfo.cs
-C:/Users/washa/Documents/GitHub/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.csproj.CoreCompileInputs.cache
-C:/Users/washa/Documents/GitHub/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.dll
-C:/Users/washa/Documents/GitHub/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.pdb
-C:/Users/washa/Documents/GitHub/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.genruntimeconfig.cache
 /home/jonas/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA
 /home/jonas/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.deps.json
 /home/jonas/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.runtimeconfig.json
