@@ -10,7 +10,7 @@ namespace LEA
     {
         private static void Main(string[] args)
         {
-            Random rnd= new Random();
+            Random rnd = new Random();
             /*
             const int frametime = 1000 / 144 / 2;
 
@@ -65,24 +65,20 @@ namespace LEA
             Console.WriteLine($"{Effects.Underline}Foo{Effects.Reset}");
             */
 
-           /* var text =
-                "Lorem ipsum dolor sit amet.";
-
-            var race = new Race(ref text);
-
-            Participant[] players = {new Bot("Bot1", Fg.Blue, race, 6),
-                                // new Player("Player2", Fg.Blue, race),
-                                // new Player("Player3", Fg.Blue, race)
-                                
-                            };
-
-            race.Participants.AddRange(players);
-            race.StartRace();
-            */
-
-
-
-
+            /* var text =
+                 "Lorem ipsum dolor sit amet.";
+ 
+             var race = new Race(ref text);
+ 
+             Participant[] players = {new Bot("Bot1", Fg.Blue, race, 6),
+                                 // new Player("Player2", Fg.Blue, race),
+                                 // new Player("Player3", Fg.Blue, race)
+                                 
+                             };
+ 
+             race.Participants.AddRange(players);
+             race.StartRace();
+             */
         }
     }
 }

@@ -8,23 +8,50 @@ namespace LEA
 {
     public class Race
     {
-        // TODO: Add reference to players in race
-        // TODO: Add way to detect a player ending the race
-        // TODO: Add scoreboard composition (first place, second place, etc)
+        private string            _text;
+        private DateTime          _startOfRace;
+        private List<Participant> _participants;
+        private List<Participant> _completionOrder;
+        private int               _completionTime;
+        private bool              _raceCompleted;
 
         #region Properties
 
-        public string Text { get; private set; }
+        public string Text
+        {
+            get => _text;
+            set => _text = value;
+        }
 
-        public DateTime StartOfRace { get; set; }
+        public DateTime StartOfRace
+        {
+            get => _startOfRace;
+            set => _startOfRace = value;
+        }
 
-        public List<Participant> Participants { get; set; }
+        public List<Participant> Participants
+        {
+            get => _participants;
+            set => _participants = value;
+        }
 
-        public List<Participant> CompletionOrder { get; set; }
+        public List<Participant> CompletionOrder
+        {
+            get => _completionOrder;
+            set => _completionOrder = value;
+        }
 
-        public int CompletionTime { get; set; }
+        public int CompletionTime
+        {
+            get => _completionTime;
+            set => _completionTime = value;
+        }
 
-        public bool RaceCompleted { get; set; }
+        public bool RaceCompleted
+        {
+            get => _raceCompleted;
+            set => _raceCompleted = value;
+        }
 
         #endregion
 
@@ -35,7 +62,6 @@ namespace LEA
             Text            = text;
             Participants    = new List<Participant>();
             CompletionOrder = new List<Participant>();
-            Text            = text;
             StartOfRace     = DateTime.Now;
             CompletionTime  = DateTime.Now.AddSeconds(Text.Length * 10.0).Second;
         }
@@ -79,7 +105,7 @@ namespace LEA
 
         public void StartRace()
         {
-            foreach (Player participant in Participants)
+            foreach (Participant participant in Participants)
             {
                 participant.TypeText();
             }

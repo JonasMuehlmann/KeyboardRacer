@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -55,9 +56,8 @@ namespace LEA
 
         #endregion
 
-        public Participant()
-        {
-        }
+        public Participant() { }
+
 
         public Participant(string name, string color, Race currentRace)
         {
@@ -92,27 +92,91 @@ namespace LEA
 
             return $"{Color}{indentedCar}{Fg.Reset}";
         }
-        
-        public virtual bool HasCompletedText()
-        {
-            return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
-        }
-        
-        public int WordsPerMinute(Race currentRace)
+
+
+        public abstract bool HasCompletedText();
+
+
+        public int WordsPerMinute()
         {
             DateTime endOfRace      = DateTime.Now;
             double   timeInSeconds  = (endOfRace - CurrentRace.StartOfRace).TotalSeconds;
             double   charsPerSecond = CurrentRace.Text.Length / timeInSeconds;
-            double   wordsPerSecond = charsPerSecond          /5;
-            int      wordsPerMinute = (int) Math.Floor(wordsPerSecond *60);
+            double   wordsPerSecond = charsPerSecond          / 5;
+            int      wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
 
             return wordsPerMinute;
         }
 
+
         public abstract void TypeText();
-
-
     }
+
+
+    public class Bot : Participant
+    {
+        private        int    _difficulty;
+        private        double _speed; //Speed in characters per second
+        private static Random rnd = new Random();
+
+        public static Random Rnd
+        {
+            get => rnd;
+        }
+
+        public int Difficulty
+        {
+            get => _difficulty;
+            set => _difficulty = value;
+        }
+
+        public double Speed
+        {
+            get => _speed;
+            set => _speed = value;
+        }
+
+
+        public Bot(string name, string color, Race currentRace, int difficulty) : base(name, color, currentRace)
+        {
+            Difficulty = difficulty;
+            Speed      = Difficulty * 1.66 + (Rnd.Next(0, 167) / 100.0);
+        }
+
+
+        public override bool HasCompletedText()
+        {
+            return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
+        }
+
+
+        public override void TypeText()
+        {
+            while (!HasCompletedText())
+            {
+                int rndSeconds = rnd.Next(3, 6);
+
+                if (rnd.Next(1, 21) == 20)
+                {
+                    Thread.Sleep(rnd.Next(1, 3) * 1000);
+                }
+
+                Thread.Sleep(rndSeconds * 100);
+                int steps = Convert.ToInt32((rndSeconds * Speed) / 10);
+
+                for (int i = 0; i < steps; i++)
+                {
+                    if (TypedText.Count < CurrentRace.Text.Length)
+                    {
+                        TypedText.Push(' ');
+                    }
+                }
+            }
+
+            CurrentRace.CompletionOrder.Add(this);
+        }
+    }
+
 
     public class Player : Participant
     {
@@ -123,18 +187,6 @@ namespace LEA
         {
             TypedText.Push(enteredChar);
             Console.Write($"{Fg.White}{enteredChar}{Fg.Reset}");
-        }
-
-
-        private int WordsPerMinute()
-        {
-            DateTime endOfRace      = DateTime.Now;
-            double   timeInSeconds  = (endOfRace - CurrentRace.StartOfRace).TotalSeconds;
-            double   charsPerSecond = CurrentRace.Text.Length / timeInSeconds;
-            double   wordsPerSecond = charsPerSecond          * 60;
-            int      wordsPerMinute = (int) Math.Floor(wordsPerSecond / 5);
-
-            return wordsPerMinute;
         }
 
 
@@ -153,6 +205,14 @@ namespace LEA
 
             ++CurErrors;
             ++TotalErrors;
+        }
+
+
+        public override int Progress()
+        {
+            double correctChars = (double) TypedText.Count - CurErrors;
+
+            return Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
         }
 
 
@@ -181,6 +241,12 @@ namespace LEA
         }
 
 
+        public override bool HasCompletedText()
+        {
+            return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
+        }
+
+
         private void HandleKeyPress(ConsoleKeyInfo enteredKey)
         {
             var enteredChar = enteredKey.KeyChar;
@@ -201,24 +267,20 @@ namespace LEA
         }
 
 
-        private bool HasCompletedText()
+        public string CreateCompleteRaceFrame(List<string> participantsFrameFragments)
         {
-            return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
-        }
-
-
-        public void CreateCompleteRaceFrame(List<string> participantsFrameFragments)
-        {
-            Console.WriteLine(CreateOwnFrameFragment());
+            string frame = CreateOwnFrameFragment();
 
             foreach (string fragment in participantsFrameFragments)
             {
-                Console.WriteLine(fragment);
+                frame += fragment + "\n";
             }
+
+            return frame;
         }
 
 
-        public void TypeText()
+        public override void TypeText()
         {
             Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");
 
