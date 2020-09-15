@@ -2,7 +2,7 @@
   "runtimeOptions": {
     "additionalProbingPaths": [
       "/home/jonas/.dotnet/store/|arch|/|tfm|",
-      "C:\\Users\\washa\\.nuget\\packages\\"
+      "/home/jonas/.nuget/packages"
     ]
   }
 }

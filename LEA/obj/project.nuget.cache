@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "EBfdJ2YKTXqm0vtu0NhMpOo1RFZANM6ukePNYt3PbTJOkHj9uBp6RLAzmRUmxcScEi3iwe3G1uKrFSXc48DCFA==",
+  "dgSpecHash": "cqvC3E4WIU2zOnSePgSSR63RHzL+YZ6/xGWjANTpeAAGcQiuf4QlY42dLITq4xZh9WXtTu39PAFkbPjTkSIx+w==",
   "success": true,
-  "projectFilePath": "C:\\Users\\washa\\Documents\\GitHub\\LEA\\LEA\\LEA.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj",
+  "expectedPackageFiles": [
+    "/home/jonas/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.8/microsoft.aspnetcore.app.ref.3.1.8.nupkg.sha512"
+  ],
   "logs": []
 }
