@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LEA
 {
-    public class Participant
+    public abstract class Participant
     {
         private string      _name;
         private Stack<char> _typedText;
@@ -55,6 +55,9 @@ namespace LEA
 
         #endregion
 
+        public Participant()
+        {
+        }
 
         public Participant(string name, string color, Race currentRace)
         {
@@ -89,6 +92,26 @@ namespace LEA
 
             return $"{Color}{indentedCar}{Fg.Reset}";
         }
+        
+        public virtual bool HasCompletedText()
+        {
+            return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
+        }
+        
+        public int WordsPerMinute(Race currentRace)
+        {
+            DateTime endOfRace      = DateTime.Now;
+            double   timeInSeconds  = (endOfRace - CurrentRace.StartOfRace).TotalSeconds;
+            double   charsPerSecond = CurrentRace.Text.Length / timeInSeconds;
+            double   wordsPerSecond = charsPerSecond          /5;
+            int      wordsPerMinute = (int) Math.Floor(wordsPerSecond *60);
+
+            return wordsPerMinute;
+        }
+
+        public abstract void TypeText();
+
+
     }
 
     public class Player : Participant

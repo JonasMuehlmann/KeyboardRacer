@@ -22,3 +22,16 @@ C:/Users/washa/Documents/GitHub/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.genruntimeco
 /home/jonas/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.AssemblyInfo.cs
 /home/jonas/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.dll
 /home/jonas/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.pdb
+/home/assaro/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA
+/home/assaro/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.deps.json
+/home/assaro/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.runtimeconfig.json
+/home/assaro/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.runtimeconfig.dev.json
+/home/assaro/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.dll
+/home/assaro/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA.pdb
+/home/assaro/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.csprojAssemblyReference.cache
+/home/assaro/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.AssemblyInfoInputs.cache
+/home/assaro/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.AssemblyInfo.cs
+/home/assaro/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.csproj.CoreCompileInputs.cache
+/home/assaro/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.dll
+/home/assaro/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.pdb
+/home/assaro/RiderProjects/LEA/LEA/obj/Debug/netcoreapp3.1/LEA.genruntimeconfig.cache

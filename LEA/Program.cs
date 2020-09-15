@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -9,6 +10,7 @@ namespace LEA
     {
         private static void Main(string[] args)
         {
+            Random rnd= new Random();
             /*
             const int frametime = 1000 / 144 / 2;
 
@@ -63,12 +65,12 @@ namespace LEA
             Console.WriteLine($"{Effects.Underline}Foo{Effects.Reset}");
             */
 
-            var text =
+           /* var text =
                 "Lorem ipsum dolor sit amet.";
 
             var race = new Race(ref text);
 
-            Player[] players = {new Player("Player1", Fg.Blue, race),
+            Participant[] players = {new Bot("Bot1", Fg.Blue, race, 6),
                                 // new Player("Player2", Fg.Blue, race),
                                 // new Player("Player3", Fg.Blue, race)
                                 
@@ -76,6 +78,11 @@ namespace LEA
 
             race.Participants.AddRange(players);
             race.StartRace();
+            */
+
+
+
+
         }
     }
 }
