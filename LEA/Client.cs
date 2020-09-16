@@ -1,5 +1,4 @@
 using System;
-using System.Net.Sockets;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -15,14 +14,6 @@ namespace LEA
 
         private const string IPAdress = "85.202.163.32";
 
-        public static void ClientConnect()
-        {
-            System.Net.IPAddress ipaddress = System.Net.IPAddress.Parse("85.202.163.32");
-            Console.Title = "Client";
-            ConnectToServer();
-            RequestLoop();
-            Exit();
-        }
         // Max Progress digits: 3
         // Separators:          3
         // Max Color chars:     7
