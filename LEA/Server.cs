@@ -4,40 +4,41 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 
-namespace MultiServer
+
+namespace LEA
 {
-    class Program
+    class Server
     {
-        private static readonly Socket serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        private static readonly List<Socket> clientSockets = new List<Socket>();
-        private const int BUFFER_SIZE = 2048;
-        private const int PORT = 100;
-        private static readonly byte[] buffer = new byte[BUFFER_SIZE];
+        private static readonly Socket serverSocket =
+            new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        static void Server()
-        {
-            Console.Title = "Server";
-            SetupServer();
-            Console.ReadLine(); // When we press enter close everything
-            CloseAllSockets();
-        }
+        private static readonly List<Socket> ClientSockets = new List<Socket>();
+        private const           int          BufferSize    = 33;
+        private const           int          Port          = 100;
+        private static readonly byte[]       Buffer        = new byte[BufferSize];
 
+
+        /// <summary>
+        /// Setup server and start accepting connections
+        /// </summary>
         private static void SetupServer()
         {
+            // FOR_DEBUGGING
             Console.WriteLine("Setting up server...");
-            serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
+            serverSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
             serverSocket.Listen(0);
-            serverSocket.BeginAccept(AcceptCallback, null);
+            serverSocket.BeginAccept(AcceptConnection, null);
+            // FOR_DEBUGGING
             Console.WriteLine("Server setup complete");
         }
 
+
         /// <summary>
-        /// Close all connected client (we do not need to shutdown the server socket as its connections
-        /// are already closed with the clients).
+        /// Request all connected clients to close their connection to the server
         /// </summary>
         private static void CloseAllSockets()
         {
-            foreach (Socket socket in clientSockets)
+            foreach (Socket socket in ClientSockets)
             {
                 socket.Shutdown(SocketShutdown.Both);
                 socket.Close();
@@ -46,73 +47,91 @@ namespace MultiServer
             serverSocket.Close();
         }
 
-        private static void AcceptCallback(IAsyncResult AR)
+
+        private static void AcceptConnection(IAsyncResult asyncRequest)
         {
-            Socket socket;
+            Socket requesterSocket;
 
             try
             {
-                socket = serverSocket.EndAccept(AR);
+                requesterSocket = serverSocket.EndAccept(asyncRequest);
             }
-            catch (ObjectDisposedException) // I cannot seem to avoid this (on exit when properly closing sockets)
+            // FIX: Always occurs when closing connections
+            catch (ObjectDisposedException)
             {
                 return;
             }
 
-           clientSockets.Add(socket);
-           socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, socket);
-           Console.WriteLine("Client connected, waiting for request...");
-           serverSocket.BeginAccept(AcceptCallback, null);
+            ClientSockets.Add(requesterSocket);
+
+            requesterSocket.BeginReceive(Buffer,
+                                         0,
+                                         BufferSize,
+                                         SocketFlags.None,
+                                         ReceiveMessage,
+                                         requesterSocket
+                                        );
+
+            // FOR_DEBUGGING
+            Console.WriteLine("Client has connected, waiting for their request...");
+            serverSocket.BeginAccept(AcceptConnection, null);
         }
 
-        private static void ReceiveCallback(IAsyncResult AR)
+
+        private static void ReceiveMessage(IAsyncResult asyncRequest)
         {
-            Socket current = (Socket)AR.AsyncState;
-            int received;
+            Socket currentClient = (Socket) asyncRequest.AsyncState;
+            int    receivedBytes;
 
             try
             {
-                received = current.EndReceive(AR);
+                receivedBytes = currentClient.EndReceive(asyncRequest);
             }
             catch (SocketException)
             {
+                // FOR_DEBUGGING
                 Console.WriteLine("Client forcefully disconnected");
-                // Don't shutdown because the socket may be disposed and its disconnected anyway.
-                current.Close(); 
-                clientSockets.Remove(current);
+                currentClient.Close();
+                ClientSockets.Remove(currentClient);
+
                 return;
             }
 
-            byte[] recBuf = new byte[received];
-            Array.Copy(buffer, recBuf, received);
-            string text = Encoding.ASCII.GetString(recBuf);
-            Console.WriteLine("Received Text: " + text);
+            byte[] ReceivedBuffer = new byte[receivedBytes];
+            Array.Copy(Buffer, ReceivedBuffer, receivedBytes);
+            string message = Encoding.ASCII.GetString(ReceivedBuffer);
+            // FOR_DEBUGGING
+            Console.WriteLine($"Received message: {message}");
 
-            if (text.ToLower() == "get time") // Client requested time
+            // Client has requested exit
+            if (message.ToLower() == "exit")
             {
-                Console.WriteLine("Text is a get time request");
-                byte[] data = Encoding.ASCII.GetBytes(DateTime.Now.ToLongTimeString());
-                current.Send(data);
-                Console.WriteLine("Time sent to client");
-            }
-            else if (text.ToLower() == "exit") // Client wants to exit gracefully
-            {
-                // Always Shutdown before closing
-                current.Shutdown(SocketShutdown.Both);
-                current.Close();
-                clientSockets.Remove(current);
-                Console.WriteLine("Client disconnected");
+                DisconnectClient(currentClient);
+
                 return;
             }
-            else
-            {
-                Console.WriteLine("Text is an invalid request");
-                byte[] data = Encoding.ASCII.GetBytes("Invalid request");
-                current.Send(data);
-                Console.WriteLine("Warning Sent");
-            }
 
-            current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
+            currentClient.BeginReceive(Buffer,
+                                       0,
+                                       BufferSize,
+                                       SocketFlags.None,
+                                       ReceiveMessage,
+                                       currentClient
+                                      );
+        }
+
+
+        /// <summary>
+        /// Gracefully disconnect client
+        /// </summary>
+        /// <param name="current"></param>
+        private static void DisconnectClient(Socket current)
+        {
+            current.Shutdown(SocketShutdown.Both);
+            current.Close();
+            ClientSockets.Remove(current);
+            // FOR_DEBUGGING
+            Console.WriteLine("Client has disconnected");
         }
     }
 }
