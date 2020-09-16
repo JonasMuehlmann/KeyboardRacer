@@ -22,6 +22,14 @@ namespace LEA
         }
 
 
+        public string LoadSpecificText(int id)
+        {
+            string[] lines = File.ReadAllLines("../../data/texts.csv");
+
+            return lines[id];
+        }
+
+
         public string LoadExternalText(string path)
         {
             return File.ReadAllText(path);
