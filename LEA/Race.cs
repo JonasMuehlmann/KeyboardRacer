@@ -79,7 +79,9 @@ namespace LEA
                 // playerDataFormat:  <Progress>;0-100 <= 3 letters
                 //                    <Color>; <= 7 letters
                 //                    <Name>; <    = 20 letters
-                // eg.: 0;
+                // eg.: 0;Red;Foo
+                // eg.: 1000;Magenta;Assaro
+                playerData.Add($"{participant.Progress()};{participant.Color};{participant.Name}");
             }
 
             return playerData;

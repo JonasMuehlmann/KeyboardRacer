@@ -271,9 +271,13 @@ namespace LEA
         {
             string frame = CreateFrameFragment(Progress(), Color, Name);
 
-            foreach (string fragment in participantData)
+            foreach (string dataPoint in participantData)
             {
-                frame += CreateFrameFragment() + "\n";
+                List<string> data     = dataPoint.Split(";").ToList();
+                int          progress = Convert.ToInt32(data[0]);
+                string       color    = data[1];
+                string       name     = data[2];
+                frame += CreateFrameFragment(progress, color, name) + "\n";
             }
 
             return frame;
