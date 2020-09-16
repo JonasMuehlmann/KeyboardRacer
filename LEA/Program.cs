@@ -147,8 +147,14 @@ namespace LEA
              race.Participants.AddRange(players);
              race.StartRace();
              */
-            Console.WriteLine("Foo");
-            Console.ReadKey();
+            var filenames = Directory
+                .GetFiles("../../../data/players/", "*", SearchOption.AllDirectories)
+                .Select(f => Path.GetFileName(f));
+            
+            foreach (var file in filenames)
+            {
+                Console.WriteLine(file);
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace MultiClient
 
         private const int PORT = 100;
 
-        static void Main()
+        public static void ClientConnect()
         {
             System.Net.IPAddress ipaddress = System.Net.IPAddress.Parse("85.202.163.32");
             Console.Title = "Client";

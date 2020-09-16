@@ -14,7 +14,7 @@ namespace MultiServer
         private const int PORT = 100;
         private static readonly byte[] buffer = new byte[BUFFER_SIZE];
 
-        static void Main()
+        static void Server()
         {
             Console.Title = "Server";
             SetupServer();
