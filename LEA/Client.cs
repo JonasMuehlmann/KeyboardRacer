@@ -1,101 +1,112 @@
 using System;
-using System.Net.Sockets;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
-namespace MultiClient
+
+namespace LEA
 {
-    class Program
+    class Client
     {
-        private static readonly Socket ClientSocket = new Socket
-            (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        private static readonly Socket ClientSocket =
+            new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        private const int PORT = 100;
+        private const string IPAdress = "85.202.163.32";
 
-        static void Main()
+        // Max Progress digits: 3
+        // Separators:          3
+        // Max Color chars:     7
+        // Max Name chars:      20
+        // Total:               33
+        private const int BufferSize = 33;
+        private const int Port       = 100;
+
+
+        /// <summary>
+        /// Attempt to establish connecting to the server at 200ms Intervalls for max 20 Attempts.
+        /// Returns when the connection has been established
+        /// </summary>
+        /// <exception cref="SocketException">
+        /// The connection could not be established after 20 attempts
+        /// </exception>
+        private static void ConnectToServer(string ipAdress)
         {
-            System.Net.IPAddress ipaddress = System.Net.IPAddress.Parse("85.202.163.32");
-            Console.Title = "Client";
-            ConnectToServer();
-            RequestLoop();
-            Exit();
-        }
-
-        private static void ConnectToServer()
-        {
-            int attempts = 0;
+            int attemptsLeft = 20;
 
             while (!ClientSocket.Connected)
             {
                 try
                 {
-                    attempts++;
-                    Console.WriteLine("Connection attempt " + attempts);
-                    // Change IPAddress.Loopback to a remote IP to connect to a remote host.
-                    ClientSocket.Connect(System.Net.IPAddress.Parse("85.202.163.32"),PORT);
+                    --attemptsLeft;
+
+                    // FOR_DEBUGGING
+                    Console.WriteLine($"Connection could not be established, "
+                                    + $"trying again in 200ms, attempts left: {attemptsLeft}"
+                                     );
+
+                    ClientSocket.Connect(IPAddress.Parse(ipAdress), Port);
+                    Thread.Sleep(200);
                 }
-                catch (SocketException) 
+                catch (SocketException)
                 {
+                    if (attemptsLeft == 0)
+                    {
+                        throw;
+                    }
+
                     Console.Clear();
                 }
             }
 
+            // FOR_DEBUGGING
             Console.Clear();
             Console.WriteLine("Connected");
         }
 
-        private static void RequestLoop()
-        {
-            Console.WriteLine(@"<Type ""exit"" to properly disconnect client>");
-
-            while (true)
-            {
-                SendRequest();
-                ReceiveResponse();
-            }
-        }
 
         /// <summary>
-        /// Close socket and exit program.
+        /// Close the socket and exit.
         /// </summary>
         private static void Exit()
         {
-            SendString("exit"); // Tell the server we are exiting
+            // Request the server to exit
+            SendMessage("exit");
             ClientSocket.Shutdown(SocketShutdown.Both);
             ClientSocket.Close();
-            Environment.Exit(0);
         }
 
-        private static void SendRequest()
-        {
-            Console.Write("Send a request: ");
-            string request = Console.ReadLine();
-            SendString(request);
 
-            if (request.ToLower() == "exit")
-            {
-                Exit();
-            }
-        }
-
+        /// <param name="message">
+        /// An ASCII encoded message
+        /// </param>
         /// <summary>
-        /// Sends a string to the server with ASCII encoding.
+        /// Decodes message and sends it to the server
         /// </summary>
-        private static void SendString(string text)
+        private static void SendMessage(string message)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes(text);
+            byte[] buffer = Encoding.ASCII.GetBytes(message);
             ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
         }
 
-        private static void ReceiveResponse()
+
+        /// <summary>
+        /// Returns the received message, or an empty string if the number of received bytes is 0
+        /// </summary>
+        private static string ReceiveResponse()
         {
-            var buffer = new byte[2048];
-            int received = ClientSocket.Receive(buffer, SocketFlags.None);
-            if (received == 0) return;
-            var data = new byte[received];
-            Array.Copy(buffer, data, received);
-            string text = Encoding.ASCII.GetString(data);
-            Console.WriteLine(text);
+            var buffer        = new byte[BufferSize];
+            int receivedBytes = ClientSocket.Receive(buffer, SocketFlags.None);
+
+            if (receivedBytes == 0)
+            {
+                return "";
+            }
+
+            var data = new byte[receivedBytes];
+            Array.Copy(buffer, data, receivedBytes);
+
+            return Encoding.ASCII.GetString(data);
         }
     }
 }
