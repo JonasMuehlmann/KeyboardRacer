@@ -9,7 +9,7 @@ namespace LEA
 {
     class Server
     {
-        private static readonly Socket serverSocket =
+        private static readonly Socket ServerSocket =
             new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         private static readonly List<Socket> ClientSockets = new List<Socket>();
@@ -25,9 +25,9 @@ namespace LEA
         {
             // FOR_DEBUGGING
             Console.WriteLine("Setting up server...");
-            serverSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
-            serverSocket.Listen(0);
-            serverSocket.BeginAccept(AcceptConnection, null);
+            ServerSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
+            ServerSocket.Listen(0);
+            ServerSocket.BeginAccept(AcceptConnection, null);
             // FOR_DEBUGGING
             Console.WriteLine("Server setup complete");
         }
@@ -44,7 +44,7 @@ namespace LEA
                 socket.Close();
             }
 
-            serverSocket.Close();
+            ServerSocket.Close();
         }
 
 
@@ -54,7 +54,7 @@ namespace LEA
 
             try
             {
-                requesterSocket = serverSocket.EndAccept(asyncRequest);
+                requesterSocket = ServerSocket.EndAccept(asyncRequest);
             }
             // FIX: Always occurs when closing connections
             catch (ObjectDisposedException)
@@ -74,7 +74,7 @@ namespace LEA
 
             // FOR_DEBUGGING
             Console.WriteLine("Client has connected, waiting for their request...");
-            serverSocket.BeginAccept(AcceptConnection, null);
+            ServerSocket.BeginAccept(AcceptConnection, null);
         }
 
 

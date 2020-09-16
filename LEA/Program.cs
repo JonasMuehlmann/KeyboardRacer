@@ -147,8 +147,6 @@ namespace LEA
              race.Participants.AddRange(players);
              race.StartRace();
              */
-            Console.WriteLine("Foo");
-            Console.ReadKey();
         }
     }
 }
