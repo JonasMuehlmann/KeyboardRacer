@@ -10,7 +10,6 @@ namespace LEA
     {
         //TODO:ADD loadPlayerStatistic void
         //TODO:ADD updatePlayerStatistic void
-        //TODO:ADD races calculation
         //TODO:ADD avgWPM calculation
         //TODO:ADD avgErrors calculation
         
@@ -61,5 +60,21 @@ namespace LEA
         {
             File.Create(("../../../data/players/" + name));
         }
+
+        public int CalcRaces(string[] datapoints)
+        {
+            return datapoints.Length;
+        }
+
+        public int CalcAvgWPM(string[] datapoints)
+        {
+            foreach (var line in datapoints)
+            {
+                
+            }
+            
+            return 0;
+        }
+        
     }
 }
