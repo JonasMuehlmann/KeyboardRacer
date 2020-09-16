@@ -25,7 +25,8 @@ namespace LEA
 
         /// <summary>
         /// Attempt to establish connecting to the server at 200ms Intervalls for max 20 Attempts.
-        /// Returns when the connection has been established
+        /// <para>Returns:</para>
+        /// When the connection has been established
         /// </summary>
         /// <exception cref="SocketException">
         /// The connection could not be established after 20 attempts
@@ -77,12 +78,12 @@ namespace LEA
         }
 
 
-        /// <param name="message">
-        /// An ASCII encoded message
-        /// </param>
         /// <summary>
         /// Decodes message and sends it to the server
         /// </summary>
+        /// <param name="message">
+        /// An ASCII encoded message
+        /// </param>
         private static void SendMessage(string message)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(message);
@@ -91,8 +92,12 @@ namespace LEA
 
 
         /// <summary>
-        /// Returns the received message, or an empty string if the number of received bytes is 0
+        /// <para>Returns:</para>
+        /// The received message, or an empty string if the number of received bytes is 0
         /// </summary>
+        /// <returns>
+        /// The received message, or an empty string if the number of received bytes is 0
+        /// </returns>
         private static string ReceiveResponse()
         {
             var buffer        = new byte[BufferSize];
