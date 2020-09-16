@@ -69,16 +69,20 @@ namespace LEA
         #endregion
 
 
-        public List<string> CollectFrameFragments()
+        public List<string> CollectPlayerData()
         {
-            List<string> frameFragments = new List<string>(Participants.Count);
+            List<string> playerData = new List<string>(Participants.Count);
 
             foreach (Participant participant in Participants)
             {
-                frameFragments.Add(participant.CreateOwnFrameFragment());
+                // Add  player data to playerData
+                // playerDataFormat:  <Progress>;0-100 <= 3 letters
+                //                    <Color>; <= 7 letters
+                //                    <Name>; <    = 20 letters
+                // eg.: 0;
             }
 
-            return frameFragments;
+            return playerData;
         }
 
 

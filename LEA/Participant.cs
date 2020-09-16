@@ -21,7 +21,15 @@ namespace LEA
         public string Name
         {
             get => _name;
-            set => _name = value;
+            set
+            {
+                if (value.Length > 20)
+                {
+                    throw new ArgumentException("Name cannot be longer than 20 characters");
+                }
+
+                _name = value;
+            }
         }
 
         public Stack<char> TypedText
@@ -76,21 +84,6 @@ namespace LEA
             double correctChars = (double) TypedText.Count - CurErrors;
 
             return Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
-        }
-
-
-        public string CreateOwnFrameFragment()
-        {
-            var indentation = new string(' ', Progress());
-
-            var indentedCar = string.Join(Environment.NewLine,
-                                          new[] {indentation, indentation, indentation}
-                                             .Zip(Constants.Car.Split('\n'),
-                                                  (a, b) => string.Join("", a, b)
-                                                 )
-                                         );
-
-            return $"{Color}{indentedCar}{Fg.Reset}";
         }
 
 
@@ -259,13 +252,28 @@ namespace LEA
         }
 
 
-        public string CreateCompleteRaceFrame(List<string> participantsFrameFragments)
+        public string CreateFrameFragment(int progess, string color, string name)
         {
-            string frame = CreateOwnFrameFragment();
+            var indentation = new string(' ', progess);
 
-            foreach (string fragment in participantsFrameFragments)
+            var indentedCar = string.Join(Environment.NewLine,
+                                          new[] {indentation, indentation, indentation}
+                                             .Zip(Constants.Car.Split('\n'),
+                                                  (a, b) => string.Join("", a, b)
+                                                 )
+                                         );
+
+            return $"{name}\n{color}{indentedCar}{Fg.Reset}";
+        }
+
+
+        public string CreateCompleteRaceFrame(List<string> participantData)
+        {
+            string frame = CreateFrameFragment(Progress(), Color, Name);
+
+            foreach (string fragment in participantData)
             {
-                frame += fragment + "\n";
+                frame += CreateFrameFragment() + "\n";
             }
 
             return frame;
@@ -280,7 +288,7 @@ namespace LEA
             {
                 var enteredKey = Console.ReadKey(true);
                 HandleKeyPress(enteredKey);
-                Console.WriteLine(CreateCompleteRaceFrame(CurrentRace.CollectFrameFragments()));
+                Console.WriteLine(CreateCompleteRaceFrame(CurrentRace.CollectPlayerData()));
             }
 
             CurrentRace.CompletionOrder.Add(this);
