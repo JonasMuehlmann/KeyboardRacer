@@ -48,6 +48,12 @@ namespace LEA
         }
 
 
+        /// <summary>
+        /// Accept the given connection attempt
+        /// </summary>
+        /// <param name="asyncRequest">
+        /// The request representing the connection attempt
+        /// </param>
         private static void AcceptConnection(IAsyncResult asyncRequest)
         {
             Socket requesterSocket;
@@ -78,6 +84,13 @@ namespace LEA
         }
 
 
+        /// <summary>
+        /// Start receiving messages from the client sending the asyncRequest and save it to this.Buffer
+        /// Closes connection to client if he sends 'exit'
+        /// </summary>
+        /// <param name="asyncRequest">
+        /// A request representing the transmission of a message
+        /// </param>
         private static void ReceiveMessage(IAsyncResult asyncRequest)
         {
             Socket currentClient = (Socket) asyncRequest.AsyncState;
@@ -90,20 +103,20 @@ namespace LEA
             catch (SocketException)
             {
                 // FOR_DEBUGGING
-                Console.WriteLine("Client forcefully disconnected");
+                Console.WriteLine("Client ungracefully disconnected");
                 currentClient.Close();
                 ClientSockets.Remove(currentClient);
 
                 return;
             }
 
-            byte[] ReceivedBuffer = new byte[receivedBytes];
-            Array.Copy(Buffer, ReceivedBuffer, receivedBytes);
-            string message = Encoding.ASCII.GetString(ReceivedBuffer);
+            byte[] receivedBuffer = new byte[receivedBytes];
+            Array.Copy(Buffer, receivedBuffer, receivedBytes);
+            string message = Encoding.ASCII.GetString(receivedBuffer);
             // FOR_DEBUGGING
             Console.WriteLine($"Received message: {message}");
 
-            // Client has requested exit
+            // Client has requested graceful disconnect
             if (message.ToLower() == "exit")
             {
                 DisconnectClient(currentClient);

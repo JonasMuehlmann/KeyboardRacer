@@ -63,24 +63,32 @@ namespace LEA
             Participants    = new List<Participant>();
             CompletionOrder = new List<Participant>();
             StartOfRace     = DateTime.Now;
-            CompletionTime  = DateTime.Now.AddSeconds(Text.Length * 10.0).Second;
+            CompletionTime  = DateTime.Now.AddSeconds(Text.Length * 3.0).Second;
         }
 
         #endregion
 
 
+        /// <summary>
+        /// playerDataFormat:<para />
+        /// Progress;       0-100, max 3 letters<para />
+        /// Color;          max 7 letters<para />
+        /// Name;           max 20 letters<para />
+        /// <para />
+        /// eg.: 0;Red;Foo<para />
+        /// eg.: 1000;Magenta;Assaro<para />
+        /// <para>Returns:</para>
+        /// A list of player data
+        /// </summary>
+        /// <returns>
+        /// A list of player data
+        /// </returns>
         public List<string> CollectPlayerData()
         {
             List<string> playerData = new List<string>(Participants.Count);
 
             foreach (Participant participant in Participants)
             {
-                // Add  player data to playerData
-                // playerDataFormat:  <Progress>;0-100 <= 3 letters
-                //                    <Color>; <= 7 letters
-                //                    <Name>; <    = 20 letters
-                // eg.: 0;Red;Foo
-                // eg.: 1000;Magenta;Assaro
                 playerData.Add($"{participant.Progress()};{participant.Color};{participant.Name}");
             }
 

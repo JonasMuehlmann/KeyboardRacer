@@ -1,5 +1,4 @@
 using System;
-using System.Net.Sockets;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
@@ -15,14 +14,6 @@ namespace LEA
 
         private const string IPAdress = "85.202.163.32";
 
-        public static void ClientConnect()
-        {
-            System.Net.IPAddress ipaddress = System.Net.IPAddress.Parse("85.202.163.32");
-            Console.Title = "Client";
-            ConnectToServer();
-            RequestLoop();
-            Exit();
-        }
         // Max Progress digits: 3
         // Separators:          3
         // Max Color chars:     7
@@ -34,7 +25,8 @@ namespace LEA
 
         /// <summary>
         /// Attempt to establish connecting to the server at 200ms Intervalls for max 20 Attempts.
-        /// Returns when the connection has been established
+        /// <para>Returns:</para>
+        /// When the connection has been established
         /// </summary>
         /// <exception cref="SocketException">
         /// The connection could not be established after 20 attempts
@@ -86,12 +78,12 @@ namespace LEA
         }
 
 
-        /// <param name="message">
-        /// An ASCII encoded message
-        /// </param>
         /// <summary>
         /// Decodes message and sends it to the server
         /// </summary>
+        /// <param name="message">
+        /// An ASCII encoded message
+        /// </param>
         private static void SendMessage(string message)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(message);
@@ -100,8 +92,12 @@ namespace LEA
 
 
         /// <summary>
-        /// Returns the received message, or an empty string if the number of received bytes is 0
+        /// <para>Returns:</para>
+        /// The received message, or an empty string if the number of received bytes is 0
         /// </summary>
+        /// <returns>
+        /// The received message, or an empty string if the number of received bytes is 0
+        /// </returns>
         private static string ReceiveResponse()
         {
             var buffer        = new byte[BufferSize];

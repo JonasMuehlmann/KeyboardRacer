@@ -4,62 +4,115 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 
+
 namespace LEA
 {
     public class Stats
     {
         //TODO:ADD loadPlayerStatistic void
         //TODO:ADD updatePlayerStatistic void
-        //TODO:ADD races calculation
         //TODO:ADD avgWPM calculation
         //TODO:ADD avgErrors calculation
-        
-        public string name;
-        public string[] datapoints;
-        public int races;
-        public int avgWPM;
-        public double avgErrors;
 
-        private string Name
+        private const string   StatsDir = "../../../data/statistics";
+        private       string   _name;
+        private       string[] _datapoints;
+        private       int      _races;
+        private       int      _avgWpm;
+        private       double   _avgErrors;
+
+        public string Name
         {
-            get => name;
-            set => name = value;
+            get => _name;
+            set => _name = value;
         }
 
-        private string[] Datapoints
+        public string[] Datapoints
         {
-            get => datapoints;
-            set => datapoints = value;
+            get => _datapoints;
+            set => _datapoints = value;
         }
 
-        private int Races
+        public int Races
         {
-            get => races;
-            set => races = value;
+            get => _races;
+            set => _races = value;
         }
 
-        private int AvgWpm
+        public int AvgWpm
         {
-            get => avgWPM;
-            set => avgWPM = value;
+            get => _avgWpm;
+            set => _avgWpm = value;
         }
 
-        private double AvgErrors
+        public double AvgErrors
         {
-            get => avgErrors;
-            set => avgErrors = value;
+            get => _avgErrors;
+            set => _avgErrors = value;
         }
 
-        public string[] getPlayerNames()
+
+        /// <summary>
+        /// <para>Returns:</para>
+        /// True if the player has a non-empty statistics file, false otherwise
+        /// </summary>
+        /// <param name="player">
+        /// Who's statistics file to check for
+        /// </param>
+        /// <returns>
+        /// True if the player has a non-empty statistics file, false otherwise
+        /// </returns>
+        public static bool HasStatisticsFile(string player)
         {
-            return Enumerable.ToArray(Directory
-                .GetFiles("../../../data/players/")
-                .Select(f => Path.GetFileName(f)));
+            string statsFile    = $"{StatsDir}/{player}";
+            var    statsFileIno = new FileInfo(statsFile);
+
+            return File.Exists(statsFile) && statsFileIno.Length != 0;
         }
 
-        public void CreateNewPlayer(string name)
+
+        /// <summary>
+        /// <para>
+        /// Returns:
+        /// </para>
+        /// A list of player names who have existing and non-empty statistics files
+        /// </summary>
+        /// <returns>
+        /// A list of player names who have existing and non-empty statistics files
+        /// </returns>
+        public string[] GetPlayerNames()
         {
-            File.Create(("../../../data/players/" + name));
+            return Directory
+                  .GetFiles(StatsDir)
+                  .Select(Path.GetFileName)
+                  .Where(HasStatisticsFile)
+                  .ToArray();
+        }
+
+
+        /// <summary>
+        /// Creates a statistics file for the given player
+        /// </summary>
+        /// <param name="player">
+        /// Player for whom a statistics file should be created
+        /// </param>
+        public void CreateNewStatisticsFile(string player)
+        {
+            File.Create($"{StatsDir}/{player}");
+        }
+
+
+        public int GetNumRaces(string[] datapoints)
+        {
+            return datapoints.Length;
+        }
+
+
+        public int GetAverageWpm(string[] datapoints)
+        {
+            foreach (var line in datapoints) { }
+
+            return 0;
         }
     }
 }
