@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 
 namespace LEA
@@ -11,8 +9,8 @@ namespace LEA
     {
         //TODO:ADD loadPlayerStatistic void
         //TODO:ADD updatePlayerStatistic void
-        
-        
+
+
         private const string   StatsDir = "../../../data/statistics";
         private       double   _avgErrors;
         private       int      _avgWpm;
@@ -67,8 +65,8 @@ namespace LEA
         /// </returns>
         public static bool HasStatistics(string player)
         {
-            string statsFile = $"{StatsDir}/{player}";
-            var statsFileInfo = new FileInfo(statsFile);
+            string statsFile     = $"{StatsDir}/{player}";
+            var    statsFileInfo = new FileInfo(statsFile);
 
             return File.Exists(statsFile) && statsFileInfo.Length != 0;
         }
@@ -93,25 +91,35 @@ namespace LEA
         }
 
 
-        public string FormatRaceData(int raceID, int textLength, int WPM, int errors, DateTime startOfRace,
-            DateTime endOfRace)
+        /// <summary>
+        /// Form a datapoint with the PostGameStats object's members in the desired format for writing
+        /// <para>Returns:</para>
+        /// A datapoint in a ready-to-write format
+        /// </summary>
+        /// <param name="stats"></param>
+        /// <returns></returns>
+        private string FormatRaceData(PostGameStats stats)
         {
-            int time = Convert.ToInt32((endOfRace - startOfRace).TotalSeconds);
-            double error = (errors + textLength) / Convert.ToDouble(errors);
-            
-            return ($"{raceID},,{WPM},,{Math.Round(error,2)},,{time}");
+            int    raceDuration = Convert.ToInt32((stats.EndOfRace - stats.StartOfRace).TotalSeconds);
+            double errorRate    = stats.TotalErrors / (double) (stats.TextLength + stats.TotalErrors);
+
+            return ($"{stats.RaceId},,{stats.Wpm},,{Math.Round(errorRate, 2)},,{raceDuration}");
         }
 
-        public void AddRaceData(string player, int raceID, int textLength, int WPM, int errors, DateTime startOfRace,
-            DateTime endOfRace)
+
+        /// <summary>
+        /// Take a stats object, use it to form a datapoint and write the datapoint to a players statistics file
+        /// </summary>
+        /// <param name="stats">A PostGameStats object to take values from</param>
+        public void AddRaceData(PostGameStats stats)
         {
-            string data = FormatRaceData(raceID, textLength, WPM, errors, startOfRace, endOfRace);
-            using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter($"{StatsDir}/{player}", true))
-            {
-                file.WriteLine(data);
-            }
+            string data = FormatRaceData(stats);
+
+            StreamWriter file = new StreamWriter($"{StatsDir}/{stats.Name}", true);
+
+            file.WriteLine(data);
         }
+
 
         public int GetNumRaces(string[] datapoints)
         {
@@ -121,29 +129,29 @@ namespace LEA
 
         public int GetAverageWpm(string[] datapoints)
         {
-            int _wpm = 0;
-            string[] cache;
+            int wpm = 0;
+
             foreach (var line in datapoints)
             {
-                cache = line.Split(",,");
-                _wpm += Convert.ToInt32(cache[2]);
+                var items = line.Split(",,");
+                wpm += Convert.ToInt32(items[2]);
             }
 
-            return (_wpm/datapoints.Length);
+            return (int) Math.Round(wpm / (double) datapoints.Length, 2);
         }
 
-        public double GetAverageErrors(string[] datapoints)
+
+        public double GetAverageErrorRate(string[] datapoints)
         {
-            double allErrors = 0;
-            string[] cache;
+            double sumErrorRate = 0;
+
             foreach (var line in datapoints)
             {
-                cache = line.Split(",,");
-                allErrors += Convert.ToDouble(cache[3]);
+                var items = line.Split(",,");
+                sumErrorRate += Convert.ToDouble(items[3]);
             }
 
-            return Math.Round((allErrors / datapoints.Length),2);
+            return Math.Round(sumErrorRate / (double) datapoints.Length, 2);
         }
-        
     }
 }
