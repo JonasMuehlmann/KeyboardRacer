@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -17,8 +16,7 @@ namespace LEA
         // Max Color chars:     7
         // Max Name chars:      20
         // Total:               33
-        private readonly Socket           _clientSocket;
-        private          List<Competitor> competitors;
+        private readonly Socket _clientSocket;
 
         #region Properties
 

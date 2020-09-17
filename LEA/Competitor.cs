@@ -1,7 +1,7 @@
 namespace LEA
 {
     /// <summary>
-    /// Describes a competitor in the context of a clients view
+    /// Describes a competitors constant data in the context of a clients view on the game
     /// </summary>
     public class Competitor
     {
