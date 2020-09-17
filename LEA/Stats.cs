@@ -62,12 +62,12 @@ namespace LEA
         /// <returns>
         /// True if the player has a non-empty statistics file, false otherwise
         /// </returns>
-        public static bool HasStatisticsFile(string player)
+        public static bool HasStatistics(string player)
         {
-            string statsFile    = $"{StatsDir}/{player}";
-            var    statsFileIno = new FileInfo(statsFile);
+            string statsFile = $"{StatsDir}/{player}";
+            var statsFileInfo = new FileInfo(statsFile);
 
-            return File.Exists(statsFile) && statsFileIno.Length != 0;
+            return File.Exists(statsFile) && statsFileInfo.Length != 0;
         }
 
 
@@ -90,17 +90,25 @@ namespace LEA
         }
 
 
-        /// <summary>
-        /// Creates a statistics file for the given player
-        /// </summary>
-        /// <param name="player">
-        /// Player for whom a statistics file should be created
-        /// </param>
-        public void CreateNewStatisticsFile(string player)
+        public string FormatRaceData(int raceID, int textLength, int WPM, int errors, DateTime startOfRace,
+            DateTime endOfRace)
         {
-            File.Create($"{StatsDir}/{player}");
+            int time = Convert.ToInt32((endOfRace - startOfRace).TotalSeconds);
+            double error = (errors + textLength) / Convert.ToDouble(errors);
+            
+            return ($"{raceID},,{WPM},,{error:1},,{time}");
         }
 
+        public void AddRaceData(string player, int raceID, int textLength, int WPM, int errors, DateTime startOfRace,
+            DateTime endOfRace)
+        {
+            string data = FormatRaceData(raceID, textLength, WPM, errors, startOfRace, endOfRace);
+            using (System.IO.StreamWriter file =
+                new System.IO.StreamWriter($"{StatsDir}/{player}", true))
+            {
+                file.WriteLine(data);
+            }
+        }
 
         public int GetNumRaces(string[] datapoints)
         {
@@ -110,9 +118,15 @@ namespace LEA
 
         public int GetAverageWpm(string[] datapoints)
         {
-            foreach (var line in datapoints) { }
+            int _wpm = 0;
+            string[] cache;
+            foreach (var line in datapoints)
+            {
+                cache = line.Split(",,");
+                _wpm += Convert.ToInt32(cache[2]);
+            }
 
-            return 0;
+            return (_wpm/datapoints.Length);
         }
     }
 }
