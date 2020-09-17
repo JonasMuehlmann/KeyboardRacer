@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Threading.Tasks;
 
 
@@ -8,12 +7,12 @@ namespace LEA
 {
     public class Race
     {
-        private string            _text;
-        private DateTime          _startOfRace;
-        private List<Participant> _participants;
         private List<Participant> _completionOrder;
         private int               _completionTime;
+        private List<Participant> _participants;
         private bool              _raceCompleted;
+        private DateTime          _startOfRace;
+        private string            _text;
 
         #region Properties
 

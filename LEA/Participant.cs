@@ -2,19 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 
 
 namespace LEA
 {
     public abstract class Participant
     {
-        private string      _name;
-        private Stack<char> _typedText;
-        private Race        _currentRace;
-        private int         _totalErrors;
-        private int         _curErrors;
         private string      _color;
+        private int         _curErrors;
+        private Race        _currentRace;
+        private string      _name;
+        private int         _totalErrors;
+        private Stack<char> _typedText;
 
         #region Properties
 
@@ -108,9 +107,11 @@ namespace LEA
 
     public class Bot : Participant
     {
+        private static Random rnd = new Random();
         private        int    _difficulty;
         private        double _speed; //Speed in characters per second
-        private static Random rnd = new Random();
+
+        #region Properties
 
         public static Random Rnd
         {
@@ -128,6 +129,8 @@ namespace LEA
             get => _speed;
             set => _speed = value;
         }
+
+        #endregion
 
 
         public Bot(string name, string color, Race currentRace, int difficulty) : base(name, color, currentRace)
@@ -176,6 +179,10 @@ namespace LEA
         public Player(string name, string color, Race currentRace) : base(name, color, currentRace) { }
 
 
+        /// <summary>
+        /// Add the char to TypedText and write the char to the console in the appropriate color
+        /// </summary>
+        /// <param name="enteredChar">The char read from the players console</param>
         private void HandleCorrectChar(char enteredChar)
         {
             TypedText.Push(enteredChar);
@@ -183,6 +190,10 @@ namespace LEA
         }
 
 
+        /// <summary>
+        /// Add the char to TypedText, increment CurErrors and TotalErrors and write the char to the console in the appropriate color
+        /// </summary>
+        /// <param name="enteredChar">The char read from the players console</param>
         private void HandleFalseChar(char enteredChar)
         {
             TypedText.Push(enteredChar);
@@ -201,6 +212,9 @@ namespace LEA
         }
 
 
+        /// <summary>
+        /// Delete the most recently entered char from TypedText and the console while decrementing CurErrors if the removed char was an error
+        /// </summary>
         private void HandleBackspace()
         {
             if (TypedText.Count == 0)
@@ -232,6 +246,10 @@ namespace LEA
         }
 
 
+        /// <summary>
+        /// Read a char from the console and handle it appropriately
+        /// </summary>
+        /// <param name="enteredKey">The key read from the players console</param>
         private void HandleKeyPress(ConsoleKeyInfo enteredKey)
         {
             var enteredChar = enteredKey.KeyChar;
@@ -252,9 +270,19 @@ namespace LEA
         }
 
 
-        public string CreateFrameFragment(int progess, string color, string name)
+        /// <summary>
+        /// A frame fragment is a 'race lane' in the client's view of the race<para />
+        /// 
+        /// <para>Returns:</para>
+        ///  A frame fragment to include in a clients view
+        /// </summary>
+        /// <param name="progress">The progress as an integer percentage</param>
+        /// <param name="color">A string containing the escape sequence for the players color</param>
+        /// <param name="name">A players name</param>
+        /// <returns>A frame fragment to include in a clients view</returns>
+        public string CreateFrameFragment(int progress, string color, string name)
         {
-            var indentation = new string(' ', progess);
+            var indentation = new string(' ', progress);
 
             var indentedCar = string.Join(Environment.NewLine,
                                           new[] {indentation, indentation, indentation}
@@ -267,6 +295,13 @@ namespace LEA
         }
 
 
+        /// <summary>
+        /// Collect all participants frame data, construct the frame fragments and merge them<para/>
+        /// <para>Returns:</para>
+        /// A constructed frame ready to be drawn
+        /// </summary>
+        /// <param name="participantData">A participants current race data encoded into a string</param>
+        /// <returns>A constructed frame ready to be drawn</returns>
         public string CreateCompleteRaceFrame(List<string> participantData)
         {
             string frame = CreateFrameFragment(Progress(), Color, Name);
@@ -284,6 +319,9 @@ namespace LEA
         }
 
 
+        /// <summary>
+        /// Let a player type the given text and handle their keypresses
+        /// </summary>
         public override void TypeText()
         {
             Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");

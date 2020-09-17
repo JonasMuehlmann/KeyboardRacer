@@ -15,11 +15,13 @@ namespace LEA
         //TODO:ADD avgErrors calculation
 
         private const string   StatsDir = "../../../data/statistics";
-        private       string   _name;
-        private       string[] _datapoints;
-        private       int      _races;
-        private       int      _avgWpm;
         private       double   _avgErrors;
+        private       int      _avgWpm;
+        private       string[] _datapoints;
+        private       string   _name;
+        private       int      _races;
+
+        #region Properties
 
         public string Name
         {
@@ -50,6 +52,8 @@ namespace LEA
             get => _avgErrors;
             set => _avgErrors = value;
         }
+
+        #endregion
 
 
         /// <summary>

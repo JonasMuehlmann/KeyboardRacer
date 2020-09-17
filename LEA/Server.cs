@@ -9,12 +9,13 @@ namespace LEA
 {
     class Server
     {
+        private const int BufferSize = 33;
+        private const int Port       = 100;
+
         private static readonly Socket ServerSocket =
             new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
         private static readonly List<Socket> ClientSockets = new List<Socket>();
-        private const           int          BufferSize    = 33;
-        private const           int          Port          = 100;
         private static readonly byte[]       Buffer        = new byte[BufferSize];
 
 

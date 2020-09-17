@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -9,10 +8,8 @@ namespace LEA
 {
     class Client
     {
-        private static readonly Socket ClientSocket =
-            new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-        private const string IPAdress = "85.202.163.32";
+        // ReSharper disable once InconsistentNaming
+        private const string IPAddress = "85.202.163.32";
 
         // Max Progress digits: 3
         // Separators:          3
@@ -21,6 +18,9 @@ namespace LEA
         // Total:               33
         private const int BufferSize = 33;
         private const int Port       = 100;
+
+        private static readonly Socket ClientSocket =
+            new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace LEA
         /// <exception cref="SocketException">
         /// The connection could not be established after 20 attempts
         /// </exception>
-        private static void ConnectToServer(string ipAdress)
+        private static void ConnectToServer(string ipAddress)
         {
             int attemptsLeft = 20;
 
@@ -46,7 +46,7 @@ namespace LEA
                                     + $"trying again in 200ms, attempts left: {attemptsLeft}"
                                      );
 
-                    ClientSocket.Connect(IPAddress.Parse(ipAdress), Port);
+                    ClientSocket.Connect(System.Net.IPAddress.Parse(ipAddress), Port);
                     Thread.Sleep(200);
                 }
                 catch (SocketException)
