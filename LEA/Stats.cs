@@ -11,9 +11,8 @@ namespace LEA
     {
         //TODO:ADD loadPlayerStatistic void
         //TODO:ADD updatePlayerStatistic void
-        //TODO:ADD avgWPM calculation
-        //TODO:ADD avgErrors calculation
-
+        
+        
         private const string   StatsDir = "../../../data/statistics";
         private       string   _name;
         private       string[] _datapoints;
@@ -85,7 +84,7 @@ namespace LEA
             return Directory
                   .GetFiles(StatsDir)
                   .Select(Path.GetFileName)
-                  .Where(HasStatisticsFile)
+                  .Where(HasStatistics)
                   .ToArray();
         }
 
@@ -96,7 +95,7 @@ namespace LEA
             int time = Convert.ToInt32((endOfRace - startOfRace).TotalSeconds);
             double error = (errors + textLength) / Convert.ToDouble(errors);
             
-            return ($"{raceID},,{WPM},,{error:1},,{time}");
+            return ($"{raceID},,{WPM},,{Math.Round(error,2)},,{time}");
         }
 
         public void AddRaceData(string player, int raceID, int textLength, int WPM, int errors, DateTime startOfRace,
@@ -128,5 +127,19 @@ namespace LEA
 
             return (_wpm/datapoints.Length);
         }
+
+        public double GetAverageErrors(string[] datapoints)
+        {
+            double allErrors = 0;
+            string[] cache;
+            foreach (var line in datapoints)
+            {
+                cache = line.Split(",,");
+                allErrors += Convert.ToDouble(cache[3]);
+            }
+
+            return Math.Round((allErrors / datapoints.Length),2);
+        }
+        
     }
 }
