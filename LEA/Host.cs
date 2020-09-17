@@ -7,26 +7,58 @@ using System.Text;
 
 namespace LEA
 {
-    class Server
+    /// <summary>
+    /// A network-host who runs a race
+    /// </summary>
+    class Host
     {
-        private const int BufferSize = 33;
-        private const int Port       = 100;
+        private byte[] _buffer = new byte[Network.BufferSize];
 
-        private static readonly Socket ServerSocket =
+        private List<Socket> _clientSockets = new List<Socket>();
+
+        private Socket _serverSocket =
             new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-        private static readonly List<Socket> ClientSockets = new List<Socket>();
-        private static readonly byte[]       Buffer        = new byte[BufferSize];
+        #region Properties
+
+        /// <summary>
+        /// Contains a received message
+        /// </summary>
+        public byte[] Buffer
+        {
+            get => _buffer;
+            set => _buffer = value;
+        }
+
+        /// <summary>
+        /// Contains the sockets of connected clients
+        /// </summary>
+        public List<Socket> ClientSockets
+        {
+            get => _clientSockets;
+            set => _clientSockets = value;
+        }
+
+        /// <summary>
+        /// The Hosts on socket
+        /// </summary>
+        public Socket ServerSocket
+        {
+            get => _serverSocket;
+            set => _serverSocket = value;
+        }
+
+        #endregion
 
 
         /// <summary>
         /// Setup server and start accepting connections
         /// </summary>
-        private static void SetupServer()
+        private void Setup()
         {
             // FOR_DEBUGGING
             Console.WriteLine("Setting up server...");
-            ServerSocket.Bind(new IPEndPoint(IPAddress.Any, Port));
+            ServerSocket.Bind(new IPEndPoint(IPAddress.Any, Network.Port));
             ServerSocket.Listen(0);
             ServerSocket.BeginAccept(AcceptConnection, null);
             // FOR_DEBUGGING
@@ -37,7 +69,7 @@ namespace LEA
         /// <summary>
         /// Request all connected clients to close their connection to the server
         /// </summary>
-        private static void CloseAllSockets()
+        private void CloseAllSockets()
         {
             foreach (Socket socket in ClientSockets)
             {
@@ -55,7 +87,7 @@ namespace LEA
         /// <param name="asyncRequest">
         /// The request representing the connection attempt
         /// </param>
-        private static void AcceptConnection(IAsyncResult asyncRequest)
+        private void AcceptConnection(IAsyncResult asyncRequest)
         {
             Socket requesterSocket;
 
@@ -73,7 +105,7 @@ namespace LEA
 
             requesterSocket.BeginReceive(Buffer,
                                          0,
-                                         BufferSize,
+                                         Network.BufferSize,
                                          SocketFlags.None,
                                          ReceiveMessage,
                                          requesterSocket
@@ -92,7 +124,7 @@ namespace LEA
         /// <param name="asyncRequest">
         /// A request representing the transmission of a message
         /// </param>
-        private static void ReceiveMessage(IAsyncResult asyncRequest)
+        private void ReceiveMessage(IAsyncResult asyncRequest)
         {
             Socket currentClient = (Socket) asyncRequest.AsyncState;
             int    receivedBytes;
@@ -127,7 +159,7 @@ namespace LEA
 
             currentClient.BeginReceive(Buffer,
                                        0,
-                                       BufferSize,
+                                       Network.BufferSize,
                                        SocketFlags.None,
                                        ReceiveMessage,
                                        currentClient
@@ -139,7 +171,7 @@ namespace LEA
         /// Gracefully disconnect client
         /// </summary>
         /// <param name="current"></param>
-        private static void DisconnectClient(Socket current)
+        private void DisconnectClient(Socket current)
         {
             current.Shutdown(SocketShutdown.Both);
             current.Close();

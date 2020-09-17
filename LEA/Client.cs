@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
@@ -6,21 +7,36 @@ using System.Threading;
 
 namespace LEA
 {
+    /// <summary>
+    /// A network-client that connects to the host and lets his player participate in the hosts game
+    /// </summary>
     class Client
     {
-        // ReSharper disable once InconsistentNaming
-        private const string IPAddress = "85.202.163.32";
-
         // Max Progress digits: 3
         // Separators:          3
         // Max Color chars:     7
         // Max Name chars:      20
         // Total:               33
-        private const int BufferSize = 33;
-        private const int Port       = 100;
+        private readonly Socket           _clientSocket;
+        private          List<Competitor> competitors;
 
-        private static readonly Socket ClientSocket =
-            new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        #region Properties
+
+        /// <summary>
+        /// The client's socket used for connecting to the host
+        /// </summary>
+        public Socket ClientSocket
+        {
+            get { return _clientSocket; }
+        }
+
+        #endregion
+
+
+        public Client()
+        {
+            _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+        }
 
 
         /// <summary>
@@ -31,11 +47,11 @@ namespace LEA
         /// <exception cref="SocketException">
         /// The connection could not be established after 20 attempts
         /// </exception>
-        private static void ConnectToServer(string ipAddress)
+        private void ConnectToServer(string ipAddress)
         {
             int attemptsLeft = 20;
 
-            while (!ClientSocket.Connected)
+            while (!_clientSocket.Connected)
             {
                 try
                 {
@@ -46,7 +62,7 @@ namespace LEA
                                     + $"trying again in 200ms, attempts left: {attemptsLeft}"
                                      );
 
-                    ClientSocket.Connect(System.Net.IPAddress.Parse(ipAddress), Port);
+                    _clientSocket.Connect(System.Net.IPAddress.Parse(ipAddress), Network.Port);
                     Thread.Sleep(200);
                 }
                 catch (SocketException)
@@ -69,12 +85,12 @@ namespace LEA
         /// <summary>
         /// Close the socket and exit.
         /// </summary>
-        private static void Exit()
+        private void Exit()
         {
             // Request the server to exit
             SendMessage("exit");
-            ClientSocket.Shutdown(SocketShutdown.Both);
-            ClientSocket.Close();
+            _clientSocket.Shutdown(SocketShutdown.Both);
+            _clientSocket.Close();
         }
 
 
@@ -84,10 +100,10 @@ namespace LEA
         /// <param name="message">
         /// An ASCII encoded message
         /// </param>
-        private static void SendMessage(string message)
+        private void SendMessage(string message)
         {
             byte[] buffer = Encoding.ASCII.GetBytes(message);
-            ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
+            _clientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
         }
 
 
@@ -98,10 +114,10 @@ namespace LEA
         /// <returns>
         /// The received message, or an empty string if the number of received bytes is 0
         /// </returns>
-        private static string ReceiveResponse()
+        private string ReceiveResponse()
         {
-            var buffer        = new byte[BufferSize];
-            int receivedBytes = ClientSocket.Receive(buffer, SocketFlags.None);
+            var buffer        = new byte[Network.BufferSize];
+            int receivedBytes = _clientSocket.Receive(buffer, SocketFlags.None);
 
             if (receivedBytes == 0)
             {

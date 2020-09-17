@@ -63,10 +63,10 @@ namespace LEA
 
         #endregion
 
-        public Participant() { }
+        protected Participant() { }
 
 
-        public Participant(string name, string color, Race currentRace)
+        protected Participant(string name, string color, Race currentRace)
         {
             Name        = name;
             Color       = color;
@@ -78,7 +78,12 @@ namespace LEA
         }
 
 
-        public int Progress()
+        /// <summary>
+        /// <para>Returns:</para>
+        /// The integer-percentage of the players progress until the end of the race
+        /// </summary>
+        /// <returns>The integer-percentage of the players progress until the end of the race</returns>
+        public int GetProgress()
         {
             double correctChars = (double) TypedText.Count - CurErrors;
 
@@ -89,13 +94,18 @@ namespace LEA
         public abstract bool HasCompletedText();
 
 
+        /// <summary>
+        /// Calculates the current Words-Per-Minute (WPM) rating<para />
+        ///<para>Returns:</para>
+        /// The current WPM rating as an integer 
+        /// </summary>
+        /// <returns>The current WPM rating as an integer</returns>
         public int WordsPerMinute()
         {
-            DateTime endOfRace      = DateTime.Now;
-            double   timeInSeconds  = (endOfRace - CurrentRace.StartOfRace).TotalSeconds;
-            double   charsPerSecond = CurrentRace.Text.Length / timeInSeconds;
-            double   wordsPerSecond = charsPerSecond          / 5;
-            int      wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
+            double timeInSeconds  = (DateTime.Now - CurrentRace.StartOfRace).TotalSeconds;
+            double charsPerSecond = CurrentRace.Text.Length / timeInSeconds;
+            double wordsPerSecond = charsPerSecond          / 5;
+            int    wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
 
             return wordsPerMinute;
         }
@@ -107,9 +117,12 @@ namespace LEA
 
     public class Bot : Participant
     {
-        private static Random rnd = new Random();
-        private        int    _difficulty;
-        private        double _speed; //Speed in characters per second
+        private static readonly Random rnd = new Random();
+
+        private int _difficulty;
+
+        //Speed is measured in characters per second
+        private double _speed;
 
         #region Properties
 
@@ -135,8 +148,7 @@ namespace LEA
 
         public Bot(string name, string color, Race currentRace, int difficulty) : base(name, color, currentRace)
         {
-            Difficulty = difficulty;
-            Speed      = Difficulty * 1.66 + (Rnd.Next(0, 167) / 100.0);
+            Speed = difficulty * 1.66 + (Rnd.Next(0, 167) / 100.0);
         }
 
 
@@ -146,6 +158,9 @@ namespace LEA
         }
 
 
+        /// <summary>
+        /// Simulate the bot playing the game
+        /// </summary>
         public override void TypeText()
         {
             while (!HasCompletedText())
@@ -286,7 +301,7 @@ namespace LEA
 
             var indentedCar = string.Join(Environment.NewLine,
                                           new[] {indentation, indentation, indentation}
-                                             .Zip(Constants.Car.Split('\n'),
+                                             .Zip(Car.Model.Split('\n'),
                                                   (a, b) => string.Join("", a, b)
                                                  )
                                          );
@@ -304,7 +319,7 @@ namespace LEA
         /// <returns>A constructed frame ready to be drawn</returns>
         public string CreateCompleteRaceFrame(List<string> participantData)
         {
-            string frame = CreateFrameFragment(Progress(), Color, Name);
+            string frame = CreateFrameFragment(GetProgress(), Color, Name);
 
             foreach (string dataPoint in participantData)
             {

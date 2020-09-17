@@ -68,9 +68,10 @@ namespace LEA
         #endregion
 
 
+        // TODO: Change logic to transfer a player's name and color only one, and only transfer the progress throughout the race
         /// <summary>
         /// playerDataFormat:<para />
-        /// Progress;       0-100, max 3 letters<para />
+        /// GetProgress;       0-100, max 3 letters<para />
         /// Color;          max 7 letters<para />
         /// Name;           max 20 letters<para />
         /// <para />
@@ -88,7 +89,7 @@ namespace LEA
 
             foreach (Participant participant in Participants)
             {
-                playerData.Add($"{participant.Progress()};{participant.Color};{participant.Name}");
+                playerData.Add($"{participant.GetProgress()};{participant.Color};{participant.Name}");
             }
 
             return playerData;
