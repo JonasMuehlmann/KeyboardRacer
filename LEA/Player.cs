@@ -7,9 +7,10 @@ namespace LEA
 {
     public class Player : Participant
     {
-        private List<Competitor> _competitors;
-        private int              _curErrors;
-        private Stack<char>      _typedText;
+        private readonly Client                          _networkClient;
+        private          List<ParticipantIdentification> _competitorIdentifications;
+        private          int                             _curErrors;
+        private          Stack<char>                     _typedText;
 
         #region Properties
 
@@ -25,14 +26,30 @@ namespace LEA
             set => _typedText = value;
         }
 
+        public Client NetworkClient
+        {
+            get => _networkClient;
+        }
+
+        public List<ParticipantIdentification> CompetitorIdentifications
+        {
+            get => _competitorIdentifications;
+        }
+
         #endregion
 
+        #region Constructors
 
-        public Player(string name, string color, Race currentRace) : base(name, color, currentRace)
+        public Player(ParticipantIdentification participantIdentification, Race currentRace) :
+            base(participantIdentification, currentRace)
         {
-            CurErrors = 0;
-            TypedText = new Stack<char>(CurrentRace.Text.Length);
+            CurErrors                  = 0;
+            TypedText                  = new Stack<char>(CurrentRace.Text.Length);
+            _networkClient             = new Client();
+            _competitorIdentifications = new List<ParticipantIdentification>();
         }
+
+        #endregion
 
 
         public override int GetProgress()
@@ -42,6 +59,84 @@ namespace LEA
             return Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
         }
 
+
+        public override bool HasCompletedText()
+        {
+            return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
+        }
+
+
+        /// <summary>
+        /// A frame fragment is a 'race lane' in the client's view of the race<para />
+        /// 
+        /// <para>Returns:</para>
+        ///  A frame fragment to include in a clients view
+        /// </summary>
+        /// <param name="progress">The progress as an integer percentage</param>
+        /// <param name="color">A string containing the escape sequence for the players color</param>
+        /// <param name="name">A players name</param>
+        /// <returns>A frame fragment to include in a clients view</returns>
+        private static string CreateFrameFragment(int progress, string color, string name)
+        {
+            var indentation = new string(' ', progress);
+
+            var indentedCar = string.Join(Environment.NewLine,
+                                          new[] {indentation, indentation, indentation}
+                                             .Zip(Car.Model.Split('\n'),
+                                                  (a, b) => string.Join("", a, b)
+                                                 )
+                                         );
+
+            return $"{name}\n{color}{indentedCar}{Fg.Reset}";
+        }
+
+
+        /// <summary>
+        /// Collect all participants frame data, construct the frame fragments and merge them<para/>
+        /// <para>Returns:</para>
+        /// A constructed frame ready to be drawn
+        /// </summary>
+        /// <param name="participantData">A participants current race data encoded into a string</param>
+        /// <returns>A constructed frame ready to be drawn</returns>
+        private string CreateCompleteRaceFrame(List<string> participantData)
+        {
+            string frame = CreateFrameFragment(GetProgress(),
+                                               ParticipantIdentification.Name,
+                                               ParticipantIdentification.Color
+                                              );
+
+            foreach (string dataPoint in participantData)
+            {
+                List<string> data     = dataPoint.Split(";").ToList();
+                int          progress = Convert.ToInt32(data[0]);
+                string       color    = data[1];
+                string       name     = data[2];
+                frame += CreateFrameFragment(progress, color, name) + "\n";
+            }
+
+            return frame;
+        }
+
+
+        /// <summary>
+        /// Let a player type the given text and handle their keypresses
+        /// </summary>
+        public override void TypeText()
+        {
+            Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");
+
+            while (!HasCompletedText())
+            {
+                var enteredKey = Console.ReadKey(true);
+                HandleKeyPress(enteredKey);
+                Console.WriteLine(CreateCompleteRaceFrame(CurrentRace.CollectPlayerData()));
+            }
+
+            CurrentRace.CompletionOrder.Add(this);
+        }
+
+
+        #region KeyHandlers
 
         /// <summary>
         /// Add the char to TypedText and write the char to the console in the appropriate color
@@ -104,12 +199,6 @@ namespace LEA
         }
 
 
-        public override bool HasCompletedText()
-        {
-            return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
-        }
-
-
         /// <summary>
         /// Read a char from the console and handle it appropriately
         /// </summary>
@@ -133,71 +222,6 @@ namespace LEA
             }
         }
 
-
-        /// <summary>
-        /// A frame fragment is a 'race lane' in the client's view of the race<para />
-        /// 
-        /// <para>Returns:</para>
-        ///  A frame fragment to include in a clients view
-        /// </summary>
-        /// <param name="progress">The progress as an integer percentage</param>
-        /// <param name="color">A string containing the escape sequence for the players color</param>
-        /// <param name="name">A players name</param>
-        /// <returns>A frame fragment to include in a clients view</returns>
-        private static string CreateFrameFragment(int progress, string color, string name)
-        {
-            var indentation = new string(' ', progress);
-
-            var indentedCar = string.Join(Environment.NewLine,
-                                          new[] {indentation, indentation, indentation}
-                                             .Zip(Car.Model.Split('\n'),
-                                                  (a, b) => string.Join("", a, b)
-                                                 )
-                                         );
-
-            return $"{name}\n{color}{indentedCar}{Fg.Reset}";
-        }
-
-
-        /// <summary>
-        /// Collect all participants frame data, construct the frame fragments and merge them<para/>
-        /// <para>Returns:</para>
-        /// A constructed frame ready to be drawn
-        /// </summary>
-        /// <param name="participantData">A participants current race data encoded into a string</param>
-        /// <returns>A constructed frame ready to be drawn</returns>
-        private string CreateCompleteRaceFrame(List<string> participantData)
-        {
-            string frame = CreateFrameFragment(GetProgress(), Color, Name);
-
-            foreach (string dataPoint in participantData)
-            {
-                List<string> data     = dataPoint.Split(";").ToList();
-                int          progress = Convert.ToInt32(data[0]);
-                string       color    = data[1];
-                string       name     = data[2];
-                frame += CreateFrameFragment(progress, color, name) + "\n";
-            }
-
-            return frame;
-        }
-
-
-        /// <summary>
-        /// Let a player type the given text and handle their keypresses
-        /// </summary>
-        public override void TypeText()
-        {
-            Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");
-
-            while (!HasCompletedText())
-            {
-                var enteredKey = Console.ReadKey(true);
-                HandleKeyPress(enteredKey);
-                Console.WriteLine(CreateCompleteRaceFrame(CurrentRace.CollectPlayerData()));
-            }
-
-            CurrentRace.CompletionOrder.Add(this);
-        }
+        #endregion
     }
 }

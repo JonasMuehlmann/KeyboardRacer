@@ -37,11 +37,15 @@ namespace LEA
 
         #endregion
 
+        #region Constructors
 
-        public Bot(string name, string color, Race currentRace, int difficulty) : base(name, color, currentRace)
+        public Bot(ParticipantIdentification participantIdentification, Race currentRace, int difficulty) :
+            base(participantIdentification, currentRace)
         {
             Speed = difficulty * 1.66 + (Rng.Next(0, 167) / 100.0);
         }
+
+        #endregion
 
 
         public override int GetProgress()

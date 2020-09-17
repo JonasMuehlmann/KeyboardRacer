@@ -10,7 +10,7 @@ namespace LEA
     /// <summary>
     /// A network-host who runs a race
     /// </summary>
-    class Host
+    public class Host
     {
         private byte[] _buffer = new byte[Network.BufferSize];
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -9,6 +10,7 @@ namespace LEA
     {
         private List<Participant> _completionOrder;
         private int               _completionTime;
+        private Host              _gameHost;
         private List<Participant> _participants;
         private bool              _raceCompleted;
         private DateTime          _startOfRace;
@@ -52,6 +54,11 @@ namespace LEA
             set => _raceCompleted = value;
         }
 
+        public Host GameHost
+        {
+            get => _gameHost;
+        }
+
         #endregion
 
         #region Constructors
@@ -63,12 +70,43 @@ namespace LEA
             CompletionOrder = new List<Participant>();
             StartOfRace     = DateTime.Now;
             CompletionTime  = DateTime.Now.AddSeconds(Text.Length * 3.0).Second;
+            _gameHost       = new Host();
         }
 
         #endregion
 
 
-        // TODO: Change logic to transfer a player's name and color only one, and only transfer the progress throughout the race
+        public bool HasParticipantWithName(string name)
+        {
+            return Participants.All(p => p.ParticipantIdentification.Name != name);
+        }
+
+
+        // TODO: Modify to work in multiplayer
+        public void SendConstantPropertiesToPlayers()
+        {
+            foreach (var participant in Participants)
+            {
+                // Bots do not need the data, because the do not render a view on the game
+                if (participant is Bot)
+                {
+                    continue;
+                }
+
+                var curParticipants = Participants;
+                // Remove yourself, to get only competitors
+                curParticipants.Remove(participant);
+
+                var curParticipantIdentifications =
+                    curParticipants.Select(p => p.ParticipantIdentification);
+
+                Player player = participant as Player;
+                player.CompetitorIdentifications.AddRange(curParticipantIdentifications);
+            }
+        }
+
+
+        // CHECK: If this method is still useful or not
         /// <summary>
         /// playerDataFormat:<para />
         /// GetProgress;       0-100, max 3 letters<para />
@@ -83,13 +121,13 @@ namespace LEA
         /// <returns>
         /// A list of player data
         /// </returns>
-        public List<string> CollectPlayerData()
+        public List<string> CollectConstantPlayerData()
         {
-            List<string> playerData = new List<string>(Participants.Count);
+            var playerData = new List<string>(Participants.Count);
 
             foreach (Participant participant in Participants)
             {
-                playerData.Add($"{participant.GetProgress()};{participant.Color};{participant.Name}");
+                playerData.Add($"{participant.ParticipantIdentification};{participant.ParticipantIdentification}");
             }
 
             return playerData;
@@ -121,6 +159,7 @@ namespace LEA
         {
             foreach (Participant participant in Participants)
             {
+                // TODO: Send ParticipantIdentification to players
                 participant.TypeText();
             }
 

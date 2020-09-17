@@ -5,26 +5,11 @@ namespace LEA
 {
     public abstract class Participant
     {
-        private string _color;
-        private Race   _currentRace;
-        private string _name;
-        private int    _totalErrors;
+        private readonly ParticipantIdentification _participantIdentification;
+        private          Race                      _currentRace;
+        private          int                       _totalErrors;
 
         #region Properties
-
-        public string Name
-        {
-            get => _name;
-            set
-            {
-                if (value.Length > 20)
-                {
-                    throw new ArgumentException("Name cannot be longer than 20 characters");
-                }
-
-                _name = value;
-            }
-        }
 
         public Race CurrentRace
         {
@@ -38,23 +23,23 @@ namespace LEA
             set => _totalErrors = value;
         }
 
-
-        public string Color
+        public ParticipantIdentification ParticipantIdentification
         {
-            get => _color;
-            set => _color = value;
+            get => _participantIdentification;
         }
 
         #endregion
 
+        #region Constructors
 
-        protected Participant(string name, string color, Race currentRace)
+        protected Participant(ParticipantIdentification participantIdentification, Race currentRace)
         {
-            Name        = name;
-            Color       = color;
-            CurrentRace = currentRace;
-            TotalErrors = 0;
+            _participantIdentification = participantIdentification;
+            CurrentRace                = currentRace;
+            TotalErrors                = 0;
         }
+
+        #endregion
 
 
         /// <summary>

@@ -1,9 +1,12 @@
+using System;
+
+
 namespace LEA
 {
     /// <summary>
-    /// Describes a competitors constant data in the context of a clients view on the game
+    /// Describes properties, that identify a participant
     /// </summary>
-    public class Competitor
+    public class ParticipantIdentification
     {
         private string _color;
         private string _name;
@@ -15,8 +18,16 @@ namespace LEA
         /// </summary>
         public string Name
         {
-            get { return _name; }
-            set { _name = value; }
+            get => _name;
+            set
+            {
+                if (value.Length > 20)
+                {
+                    throw new ArgumentException("Name cannot be longer than 20 characters");
+                }
+
+                _name = value;
+            }
         }
 
         /// <summary>
@@ -30,11 +41,14 @@ namespace LEA
 
         #endregion
 
+        #region Constructors
 
-        public Competitor(string name, string color)
+        public ParticipantIdentification(string name, string color)
         {
             Name  = name;
             Color = color;
         }
+
+        #endregion
     }
 }

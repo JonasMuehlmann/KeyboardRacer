@@ -9,7 +9,7 @@ namespace LEA
     /// <summary>
     /// A network-client that connects to the host and lets his player participate in the hosts game
     /// </summary>
-    class Client
+    public class Client
     {
         // Max Progress digits: 3
         // Separators:          3
@@ -30,11 +30,14 @@ namespace LEA
 
         #endregion
 
+        #region Constructors
 
         public Client()
         {
             _clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
+
+        #endregion
 
 
         /// <summary>
