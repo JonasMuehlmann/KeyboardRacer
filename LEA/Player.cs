@@ -7,10 +7,11 @@ namespace LEA
 {
     public class Player : Participant
     {
-        private readonly Client                          _networkClient;
-        private          List<ParticipantIdentification> _competitorIdentifications;
-        private          int                             _curErrors;
-        private          Stack<char>                     _typedText;
+        private readonly Client                     _networkClient;
+        private          Dictionary<string, string> _competitorColors;
+        private          int                        _curChar;
+        private          int                        _curErrors;
+        private          Stack<char>                _typedText;
 
         #region Properties
 
@@ -18,6 +19,18 @@ namespace LEA
         {
             get => _curErrors;
             set => _curErrors = value;
+        }
+
+        public Dictionary<string, string> CompetitorColors
+        {
+            get => _competitorColors;
+            set => _competitorColors = value;
+        }
+
+        public int CurChar
+        {
+            get => _curChar;
+            set => _curChar = value;
         }
 
         public Stack<char> TypedText
@@ -31,22 +44,19 @@ namespace LEA
             get => _networkClient;
         }
 
-        public List<ParticipantIdentification> CompetitorIdentifications
-        {
-            get => _competitorIdentifications;
-        }
-
         #endregion
 
         #region Constructors
 
-        public Player(ParticipantIdentification participantIdentification, Race currentRace) :
-            base(participantIdentification, currentRace)
+        public Player(string name, string color, Race currentRace) :
+            base(name, color, currentRace)
         {
-            CurErrors                  = 0;
-            TypedText                  = new Stack<char>(CurrentRace.Text.Length);
-            _networkClient             = new Client();
-            _competitorIdentifications = new List<ParticipantIdentification>();
+            CurErrors         = 0;
+            TypedText         = new Stack<char>(CurrentRace.Text.Length);
+            _networkClient    = new Client();
+            CurErrors         = 0;
+            CurChar           = 0;
+            _competitorColors = new Dictionary<string, string>();
         }
 
         #endregion
@@ -63,6 +73,13 @@ namespace LEA
         public override bool HasCompletedText()
         {
             return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
+        }
+
+
+        public void SetCompetitorColors()
+        {
+            CurrentRace.Participants.ForEach(participant => CompetitorColors.Add(participant.Name, participant.Color));
+            CompetitorColors.Remove(Name);
         }
 
 
@@ -87,7 +104,7 @@ namespace LEA
                                                  )
                                          );
 
-            return $"{name}\n{color}{indentedCar}{Fg.Reset}";
+            return $"\n{name}\n{color}{indentedCar}{Fg.Reset}";
         }
 
 
@@ -98,19 +115,20 @@ namespace LEA
         /// </summary>
         /// <param name="participantData">A participants current race data encoded into a string</param>
         /// <returns>A constructed frame ready to be drawn</returns>
-        private string CreateCompleteRaceFrame(List<string> participantData)
+        private string CreateCompleteRaceFrameSolo(Dictionary<string, int> participantData)
         {
-            string frame = CreateFrameFragment(GetProgress(),
-                                               ParticipantIdentification.Name,
-                                               ParticipantIdentification.Color
-                                              );
+            // Own data
+            string frame = CreateFrameFragment(GetProgress(), Color, Name) + '\n';
 
-            foreach (string dataPoint in participantData)
+            // Competitors data
+            participantData.Remove(Name);
+
+            foreach (var dataPoint in participantData)
             {
-                List<string> data     = dataPoint.Split(";").ToList();
-                int          progress = Convert.ToInt32(data[0]);
-                string       color    = data[1];
-                string       name     = data[2];
+                int    progress = dataPoint.Value;
+                string color    = CompetitorColors[dataPoint.Key];
+                string name     = dataPoint.Key;
+
                 frame += CreateFrameFragment(progress, color, name) + "\n";
             }
 
@@ -123,14 +141,46 @@ namespace LEA
         /// </summary>
         public override void TypeText()
         {
-            Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");
+            // TODO: Print WPM
+            // TODO: Redraw view at set framerate, so WPM and competitor progress can be shown in real time
+            Console.Clear();
+            Console.CursorVisible = false;
+            Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}{Fg.Reset}");
 
             while (!HasCompletedText())
             {
+                Console.Write($"\n\n{CreateCompleteRaceFrameSolo(CurrentRace.CollectProgress())}");
+                Console.Write(Cursor.To(4, TypedText.Count));
+
+                for (int i = 0; i <= (Car.Height + 2) * (CurrentRace.Participants.Count - 1); i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        Console.Write($"{Cursor.ToCol(RaceView.MaxWidth)}{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Fg.Reset}#{Cursor.Down(1)}"
+                                     );
+                    }
+                    else
+                    {
+                        Console.Write($"{Cursor.ToCol(RaceView.MaxWidth)}{Fg.Reset}#{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Cursor.Down(1)}"
+                                     );
+                    }
+                }
+
+                Console.Write(Cursor.To(1, TypedText.Count + 1));
                 var enteredKey = Console.ReadKey(true);
                 HandleKeyPress(enteredKey);
-                Console.WriteLine(CreateCompleteRaceFrame(CurrentRace.CollectPlayerData()));
+                Console.Write(Cursor.Down(1));
+
+                Console.Write(string.Concat(Enumerable.Repeat(new string(' ', RaceView.MaxWidth),
+                                                              Car.Height * (CurrentRace.Participants.Count + 2)
+                                                             )
+                                           )
+                             );
+
+                Console.Write(Cursor.To(1, TypedText.Count + 1));
             }
+
+            Console.CursorVisible = true;
 
             CurrentRace.CompletionOrder.Add(this);
         }

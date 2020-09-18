@@ -78,59 +78,24 @@ namespace LEA
 
         public bool HasParticipantWithName(string name)
         {
-            return Participants.All(p => p.ParticipantIdentification.Name != name);
+            return Participants.All(participant => participant.Name != name);
         }
 
 
-        // TODO: Modify to work in multiplayer
-        public void SendConstantPropertiesToPlayers()
+        private void SendCompetitorColors()
         {
-            foreach (var participant in Participants)
+            foreach (var player in Participants.OfType<Player>())
             {
-                // Bots do not need the data, because the do not render a view on the game
-                if (participant is Bot)
-                {
-                    continue;
-                }
-
-                var curParticipants = Participants;
-                // Remove yourself, to get only competitors
-                curParticipants.Remove(participant);
-
-                var curParticipantIdentifications =
-                    curParticipants.Select(p => p.ParticipantIdentification);
-
-                Player player = participant as Player;
-                player.CompetitorIdentifications.AddRange(curParticipantIdentifications);
+                player.SetCompetitorColors();
             }
         }
 
 
-        // CHECK: If this method is still useful or not
-        /// <summary>
-        /// playerDataFormat:<para />
-        /// GetProgress;       0-100, max 3 letters<para />
-        /// Color;          max 7 letters<para />
-        /// Name;           max 20 letters<para />
-        /// <para />
-        /// eg.: 0;Red;Foo<para />
-        /// eg.: 1000;Magenta;Assaro<para />
-        /// <para>Returns:</para>
-        /// A list of player data
-        /// </summary>
-        /// <returns>
-        /// A list of player data
-        /// </returns>
-        public List<string> CollectConstantPlayerData()
+        public Dictionary<string, int> CollectProgress()
         {
-            var playerData = new List<string>(Participants.Count);
-
-            foreach (Participant participant in Participants)
-            {
-                playerData.Add($"{participant.ParticipantIdentification};{participant.ParticipantIdentification}");
-            }
-
-            return playerData;
+            return Participants.ToDictionary(x => x.Name,
+                                             x => x.GetProgress()
+                                            );
         }
 
 
@@ -155,8 +120,10 @@ namespace LEA
         }
 
 
-        public void StartRace()
+        public void StartGameLoop()
         {
+            SendCompetitorColors();
+
             foreach (Participant participant in Participants)
             {
                 // TODO: Send ParticipantIdentification to players

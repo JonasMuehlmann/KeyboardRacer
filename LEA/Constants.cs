@@ -7,11 +7,19 @@ namespace LEA
 
     public static class Car
     {
-        public static readonly string Model = @"         ¸______¸
-        ɍ___ǁ____ƪ___
-        ¬(˽)----¬(˽)-'";
+        // @formatter:off
+        public static readonly string Model = @" ¸______¸
+ɍ___ǁ____ƪ___
+¬(˽)----¬(˽)-'";
+        // @formatter:on
 
         public static readonly int Height = 4;
+        public static readonly int Width  = 14;
+    }
+
+    public static class RaceView
+    {
+        public static readonly int MaxWidth = Car.Width + 100;
     }
 
     public static class Network
