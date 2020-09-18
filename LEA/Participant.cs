@@ -5,10 +5,9 @@ namespace LEA
 {
     public abstract class Participant
     {
-        private readonly string _color;
-        private readonly string _name;
-        private          Race   _currentRace;
-        private          int    _totalErrors;
+        private readonly ParticipantIdentification _participantIdentification;
+        private          Race                      _currentRace;
+        private          int                       _totalErrors;
 
         #region Properties
 
@@ -24,20 +23,20 @@ namespace LEA
             set => _totalErrors = value;
         }
 
-        public string Name => _name;
-
-        public string Color => _color;
+        public ParticipantIdentification ParticipantIdentification
+        {
+            get => _participantIdentification;
+        }
 
         #endregion
 
         #region Constructors
 
-        protected Participant(string name, string color, Race currentRace)
+        protected Participant(ParticipantIdentification participantIdentification, Race currentRace)
         {
-            _name       = name;
-            _color      = color;
-            CurrentRace = currentRace;
-            TotalErrors = 0;
+            _participantIdentification = participantIdentification;
+            CurrentRace                = currentRace;
+            TotalErrors                = 0;
         }
 
         #endregion

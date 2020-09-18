@@ -1,4 +1,10 @@
-﻿namespace LEA
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading;
+
+
+namespace LEA
 {
     internal class Program
     {
@@ -127,21 +133,20 @@
             Console.WriteLine($"{Effects.Underline}Foo{Effects.Reset}");
             */
 
-            var text =
-                "Lorem ipsum dolor sit amet.";
-
-            var race = new Race(ref text);
-
-            Participant[] players =
-            {
-                new Player("Foo", Fg.Magenta, race),
-                new Bot("Bot1", Fg.Blue,  race, 5),
-                new Bot("Bot2", Fg.Red,   race, 6),
-                new Bot("Bot3", Fg.Green, race, 7)
-            };
-
-            race.Participants.AddRange(players);
-            race.GameLoop();
+            /* var text =
+                 "Lorem ipsum dolor sit amet.";
+ 
+             var race = new Race(ref text);
+ 
+             Participant[] players = {new Bot("Bot1", Fg.Blue, race, 6),
+                                 // new Player("Player2", Fg.Blue, race),
+                                 // new Player("Player3", Fg.Blue, race)
+                                 
+                             };
+ 
+             race.Participants.AddRange(players);
+             race.StartRace();
+             */
         }
     }
 }
