@@ -7,10 +7,11 @@ namespace LEA
 {
     public class Player : Participant
     {
-        private readonly Client                          _networkClient;
-        private          List<ParticipantIdentification> _competitorIdentifications;
-        private          int                             _curErrors;
-        private          Stack<char>                     _typedText;
+        private readonly Client                     _networkClient;
+        private          Dictionary<string, string> _competitorColors;
+        private          int                        _curChar;
+        private          int                        _curErrors;
+        private          List<Char>                 _typedText;
 
         #region Properties
 
@@ -20,7 +21,13 @@ namespace LEA
             set => _curErrors = value;
         }
 
-        public Stack<char> TypedText
+        public int CurChar
+        {
+            get => _curChar;
+            set => _curChar = value;
+        }
+
+        public List<Char> TypedText
         {
             get => _typedText;
             set => _typedText = value;
@@ -31,30 +38,37 @@ namespace LEA
             get => _networkClient;
         }
 
-        public List<ParticipantIdentification> CompetitorIdentifications
+        public Dictionary<string, string> CompetitorColors
         {
-            get => _competitorIdentifications;
+            get => _competitorColors;
         }
 
         #endregion
 
         #region Constructors
 
-        public Player(ParticipantIdentification participantIdentification, Race currentRace) :
-            base(participantIdentification, currentRace)
+        public Player(string name, string color, Race currentRace) :
+            base(name, color, currentRace)
         {
-            CurErrors                  = 0;
-            TypedText                  = new Stack<char>(CurrentRace.Text.Length);
-            _networkClient             = new Client();
-            _competitorIdentifications = new List<ParticipantIdentification>();
+            CurErrors         = 0;
+            CurChar           = 0;
+            _networkClient    = new Client();
+            _competitorColors = new Dictionary<string, string>();
+            TypedText         = CurrentRace.Text.Select(c => new Char(c)).ToList();
         }
 
         #endregion
 
 
+        private int GetCorrectChars()
+        {
+            return TypedText.Count(c => c.Color == Fg.White);
+        }
+
+
         public override int GetProgress()
         {
-            double correctChars = TypedText.Count;
+            double correctChars = GetCorrectChars();
 
             return Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
         }
@@ -62,7 +76,14 @@ namespace LEA
 
         public override bool HasCompletedText()
         {
-            return TypedText.Count == CurrentRace.Text.Length && CurErrors == 0;
+            return CurrentRace.Text.Length == GetCorrectChars() && CurErrors == 0;
+        }
+
+
+        public void SetCompetitorColors()
+        {
+            CurrentRace.Participants.ForEach(participant => CompetitorColors.Add(participant.Name, participant.Color));
+            CompetitorColors.Remove(Name);
         }
 
 
@@ -98,11 +119,11 @@ namespace LEA
         /// </summary>
         /// <param name="participantData">A participants current race data encoded into a string</param>
         /// <returns>A constructed frame ready to be drawn</returns>
-        private string CreateCompleteRaceFrame(List<string> participantData)
+        private string CreateCompleteRaceFrameNetwork(List<string> participantData)
         {
             string frame = CreateFrameFragment(GetProgress(),
-                                               ParticipantIdentification.Name,
-                                               ParticipantIdentification.Color
+                                               Name,
+                                               Color
                                               );
 
             foreach (string dataPoint in participantData)
@@ -119,17 +140,49 @@ namespace LEA
 
 
         /// <summary>
+        /// Collect all participants frame data, construct the frame fragments and merge them<para/>
+        /// <para>Returns:</para>
+        /// A constructed frame ready to be drawn
+        /// </summary>
+        /// <param name="participantData">A participants current race data encoded into a string</param>
+        /// <returns>A constructed frame ready to be drawn</returns>
+        private string CreateCompleteRaceFrameSolo(Dictionary<string, int> participantData)
+        {
+            // Own data
+            string frame = CreateFrameFragment(GetProgress(), Color, Name) + '\n';
+
+            // Competitors data
+            participantData.Remove(Name);
+
+            foreach (var dataPoint in participantData)
+            {
+                int    progress = dataPoint.Value;
+                string color    = CompetitorColors[dataPoint.Key];
+                string name     = dataPoint.Key;
+
+                frame += CreateFrameFragment(progress, color, name) + "\n";
+            }
+
+            return frame;
+        }
+
+
+        /// <summary>
         /// Let a player type the given text and handle their keypresses
         /// </summary>
         public override void TypeText()
         {
-            Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}\r");
+            Console.Clear();
 
             while (!HasCompletedText())
             {
+                RenderTypedText();
+                Console.Write($"\n\n\n{CreateCompleteRaceFrameSolo(CurrentRace.CollectProgress())}");
+                Console.Write(Cursor.To(1, TypedText.Count));
+
                 var enteredKey = Console.ReadKey(true);
                 HandleKeyPress(enteredKey);
-                Console.WriteLine(CreateCompleteRaceFrame(CurrentRace.CollectPlayerData()));
+                Console.Clear();
             }
 
             CurrentRace.CompletionOrder.Add(this);
@@ -144,8 +197,8 @@ namespace LEA
         /// <param name="enteredChar">The char read from the players console</param>
         private void HandleCorrectChar(char enteredChar)
         {
-            TypedText.Push(enteredChar);
-            Console.Write($"{Fg.White}{enteredChar}{Fg.Reset}");
+            TypedText[CurChar].Color = Fg.White;
+            ++CurChar;
         }
 
 
@@ -155,19 +208,20 @@ namespace LEA
         /// <param name="enteredChar">The char read from the players console</param>
         private void HandleFalseChar(char enteredChar)
         {
-            TypedText.Push(enteredChar);
-
             if (enteredChar == ' ')
             {
-                Console.Write($"{Bg.Red}{enteredChar}{Bg.Reset}");
+                TypedText[CurChar].Color = Bg.Red;
+                TypedText[CurChar].Reset = Bg.Reset;
             }
             else
             {
-                Console.Write($"{Fg.Red}{enteredChar}{Fg.Reset}");
+                TypedText[CurChar].Color = Fg.Red;
+                TypedText[CurChar].Reset = Fg.Reset;
             }
 
             ++CurErrors;
             ++TotalErrors;
+            --CurChar;
         }
 
 
@@ -181,21 +235,19 @@ namespace LEA
                 return;
             }
 
-            if (TypedText.Peek() != CurrentRace.Text[TypedText.Count - 1])
+            if (TypedText[CurChar].C == CurrentRace.Text[TypedText.Count - 1])
             {
                 --CurErrors;
             }
 
-            TypedText.Pop();
+            TypedText[CurChar].Color = Fg.BrightBlack;
+            --CurChar;
+        }
 
-            try
-            {
-                Console.Write($"\b{Fg.BrightBlack}{CurrentRace.Text[TypedText.Count]}{Fg.Reset}\b");
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.Write("\b \b");
-            }
+
+        private void RenderTypedText()
+        {
+            Console.Write(new string(TypedText.Select(c => c.ToString())));
         }
 
 
@@ -211,8 +263,7 @@ namespace LEA
             {
                 HandleBackspace();
             }
-            // Fix: Exception when typing past the end of the text
-            else if (enteredChar == CurrentRace.Text[TypedText.Count])
+            else if (enteredChar == CurrentRace.Text[CurChar])
             {
                 HandleCorrectChar(enteredChar);
             }
