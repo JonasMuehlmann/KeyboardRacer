@@ -11,6 +11,7 @@ namespace LEA
         private          Dictionary<string, string> _competitorColors;
         private          int                        _curChar;
         private          int                        _curErrors;
+        private          int                        _maxProgress;
         private          Stack<char>                _typedText;
 
         #region Properties
@@ -19,6 +20,12 @@ namespace LEA
         {
             get => _curErrors;
             set => _curErrors = value;
+        }
+
+        public int MaxProgress
+        {
+            get => _maxProgress;
+            set => _maxProgress = value;
         }
 
         public Dictionary<string, string> CompetitorColors
@@ -56,6 +63,7 @@ namespace LEA
             _networkClient    = new Client();
             CurErrors         = 0;
             CurChar           = 0;
+            _maxProgress      = 0;
             _competitorColors = new Dictionary<string, string>();
         }
 
@@ -65,8 +73,14 @@ namespace LEA
         public override int GetProgress()
         {
             double correctChars = TypedText.Count;
+            int    curProgress  = Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
 
-            return Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
+            if (curProgress > MaxProgress)
+            {
+                MaxProgress = curProgress;
+            }
+
+            return MaxProgress;
         }
 
 
