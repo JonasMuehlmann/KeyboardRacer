@@ -155,6 +155,7 @@ namespace LEA
         /// </summary>
         public override void TypeText()
         {
+            // Check: If Backbuffering the console view might be useful: https://stackoverflow.com/questions/29920056/c-sharp-something-faster-than-console-write
             // TODO: Cleanup method
             // TODO: Print WPM
             // TODO: Redraw view at set framerate, so WPM and competitor progress can be shown in real time

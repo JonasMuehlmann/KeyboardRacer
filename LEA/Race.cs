@@ -76,7 +76,7 @@ namespace LEA
         #endregion
 
 
-        public bool HasParticipantWithName(string name)
+        public bool IsNameAvailable(string name)
         {
             return Participants.All(participant => participant.Name != name);
         }
@@ -113,24 +113,21 @@ namespace LEA
         }
 
 
-        private async Task CountdownCompletionTime()
-        {
-            await Task.Delay(CompletionTime * 1000);
-            EndRace();
-        }
-
-
         public void StartGameLoop()
         {
             SendCompetitorColors();
 
-            foreach (Participant participant in Participants)
+            var tasks = Participants.Select(participant => new Task(participant.TypeText)).ToArray();
+
+            foreach (var task in tasks)
             {
-                // TODO: Send ParticipantIdentification to players
-                participant.TypeText();
+                task.Start();
             }
 
-            EndRace();
+            Console.WriteLine(Task.WaitAll(tasks, TimeSpan.FromSeconds(8)) ? "Completed" : "Timed out");
+            // participant.TypeText();
+
+            // EndRace();
         }
     }
 }

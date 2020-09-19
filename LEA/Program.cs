@@ -106,9 +106,9 @@
             Participant[] players =
             {
                 new Player("Foo", Fg.Magenta, race),
-                // new Bot("Bot1", Fg.Blue,  race, 5),
-                // new Bot("Bot2", Fg.Red,   race, 6),
-                // new Bot("Bot3", Fg.Green, race, 7)
+                new Bot("Bot1", Fg.Blue,  race, 5),
+                new Bot("Bot2", Fg.Red,   race, 6),
+                new Bot("Bot3", Fg.Green, race, 7)
             };
 
             race.Participants.AddRange(players);
