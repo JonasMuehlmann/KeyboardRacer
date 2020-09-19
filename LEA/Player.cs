@@ -155,6 +155,7 @@ namespace LEA
         /// </summary>
         public override void TypeText()
         {
+            // TODO: Cleanup method
             // TODO: Print WPM
             // TODO: Redraw view at set framerate, so WPM and competitor progress can be shown in real time
             Console.Clear();
@@ -166,19 +167,7 @@ namespace LEA
                 Console.Write($"\n\n{CreateCompleteRaceFrameSolo(CurrentRace.CollectProgress())}");
                 Console.Write(Cursor.To(4, TypedText.Count));
 
-                for (int i = 0; i <= (Car.Height + 2) * (CurrentRace.Participants.Count - 1); i++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        Console.Write($"{Cursor.ToCol(RaceView.MaxWidth)}{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Fg.Reset}#{Cursor.Down(1)}"
-                                     );
-                    }
-                    else
-                    {
-                        Console.Write($"{Cursor.ToCol(RaceView.MaxWidth)}{Fg.Reset}#{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Cursor.Down(1)}"
-                                     );
-                    }
-                }
+                DrawFinishingLine();
 
                 Console.Write(Cursor.To(1, TypedText.Count + 1));
                 var enteredKey = Console.ReadKey(true);
@@ -197,6 +186,24 @@ namespace LEA
             Console.CursorVisible = true;
 
             CurrentRace.CompletionOrder.Add(this);
+        }
+
+
+        private void DrawFinishingLine()
+        {
+            for (int i = 1; i < RaceView.LaneHeight * CurrentRace.Participants.Count; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    Console.Write($"{Cursor.ToCol(RaceView.MaxWidth)}{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Fg.Reset}#{Cursor.Down(1)}"
+                                 );
+                }
+                else
+                {
+                    Console.Write($"{Cursor.ToCol(RaceView.MaxWidth)}{Fg.Reset}#{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Cursor.Down(1)}"
+                                 );
+                }
+            }
         }
 
 

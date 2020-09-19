@@ -19,7 +19,8 @@ namespace LEA
 
     public static class RaceView
     {
-        public static readonly int MaxWidth = Car.Width + 100;
+        public static readonly int MaxWidth   = Car.Width  + 100;
+        public static readonly int LaneHeight = Car.Height + 1;
     }
 
     public static class Network
