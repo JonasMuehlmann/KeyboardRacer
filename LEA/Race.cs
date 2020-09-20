@@ -18,7 +18,7 @@ namespace LEA
 
         public List<Participant> CompletionOrder { get; }
 
-        private int CompletionTime { get; }
+        private int SecondsUntilTimeout { get; }
 
         private bool RaceCompleted { get; set; }
 
@@ -30,12 +30,12 @@ namespace LEA
 
         public Race(ref string text)
         {
-            Text            = text;
-            Participants    = new List<Participant>();
-            CompletionOrder = new List<Participant>();
-            StartOfRace     = DateTime.Now;
-            CompletionTime  = DateTime.Now.AddSeconds(Text.Length * 3.0).Second;
-            GameHost        = new Host();
+            Text                = text;
+            Participants        = new List<Participant>();
+            CompletionOrder     = new List<Participant>();
+            StartOfRace         = DateTime.Now;
+            SecondsUntilTimeout = (int) Math.Round(Text.Length * 0.5);
+            GameHost            = new Host();
         }
 
         #endregion
@@ -89,7 +89,8 @@ namespace LEA
                 task.Start();
             }
 
-            Console.WriteLine(Task.WaitAll(tasks, TimeSpan.FromSeconds(CompletionTime)) ? "Completed" : "Timed out");
+            Console.WriteLine(Task.WaitAll(tasks, TimeSpan.FromSeconds(SecondsUntilTimeout)) ? "Completed" : "Timed out"
+                             );
             // participant.TypeText();
 
             // EndRace();
