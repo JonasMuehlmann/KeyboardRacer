@@ -98,17 +98,16 @@
             #endregion RenderTest
 
 
-            var text =
-                "Lorem ipsum dolor sit amet.";
+            var text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr";
 
             var race = new Race(ref text);
 
             Participant[] players =
             {
                 new Player("Foo", Fg.Magenta, race),
-                new Bot("Bot1", Fg.Blue,  race, 5),
-                new Bot("Bot2", Fg.Red,   race, 6),
-                new Bot("Bot3", Fg.Green, race, 7)
+                new Bot("Bot1", Fg.Blue,  race, 2),
+                new Bot("Bot2", Fg.Red,   race, 3),
+                new Bot("Bot3", Fg.Green, race, 4)
             };
 
             race.Participants.AddRange(players);
