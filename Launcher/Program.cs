@@ -3,9 +3,9 @@
 
 namespace Launcher
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             Process.Start("/usr/bin/konsole", "-e /home/jonas/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA");
         }

@@ -5,60 +5,25 @@ namespace LEA
 {
     public class PostGameStats
     {
-        private DateTime _endOfRace;
-        private string   _name;
-        private int      _raceId;
-        private DateTime _startOfRace;
-        private int      _textLength;
-        private int      _totalErrors;
-        private int      _wpm;
-
         #region Properties
 
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public string Name { get; set; }
 
-        public int RaceId
-        {
-            get => _raceId;
-            set => _raceId = value;
-        }
+        public int RaceId { get; set; }
 
-        public int TextLength
-        {
-            get => _textLength;
-            set => _textLength = value;
-        }
+        public int TextLength { get; set; }
 
-        public int Wpm
-        {
-            get => _wpm;
-            set => _wpm = value;
-        }
+        public int Wpm { get; set; }
 
-        public int TotalErrors
-        {
-            get => _totalErrors;
-            set => _totalErrors = value;
-        }
+        public int TotalErrors { get; set; }
 
-        public DateTime StartOfRace
-        {
-            get => _startOfRace;
-            set => _startOfRace = value;
-        }
+        public DateTime StartOfRace { get; set; }
 
-        public DateTime EndOfRace
-        {
-            get => _endOfRace;
-            set => _endOfRace = value;
-        }
+        public DateTime EndOfRace { get; set; }
 
         #endregion
 
+        #region Constructors
 
         public PostGameStats(
             string   name,
@@ -78,5 +43,7 @@ namespace LEA
             TotalErrors = totalErrors;
             Wpm         = wpm;
         }
+
+        #endregion
     }
 }

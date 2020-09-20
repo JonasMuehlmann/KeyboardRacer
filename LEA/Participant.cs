@@ -5,28 +5,15 @@ namespace LEA
 {
     public abstract class Participant
     {
-        private readonly string _color;
-        private readonly string _name;
-        private          Race   _currentRace;
-        private          int    _totalErrors;
-
         #region Properties
 
-        public Race CurrentRace
-        {
-            get => _currentRace;
-            set => _currentRace = value;
-        }
+        protected Race CurrentRace { get; }
 
-        public int TotalErrors
-        {
-            get => _totalErrors;
-            set => _totalErrors = value;
-        }
+        protected int TotalErrors { get; set; }
 
-        public string Color => _color;
+        public string Color { get; }
 
-        public string Name => _name;
+        public string Name { get; }
 
         #endregion
 
@@ -34,8 +21,8 @@ namespace LEA
 
         protected Participant(string name, string color, Race currentRace)
         {
-            _name       = name;
-            _color      = color;
+            Name        = name;
+            Color       = color;
             CurrentRace = currentRace;
             TotalErrors = 0;
         }
@@ -44,8 +31,8 @@ namespace LEA
 
 
         /// <summary>
-        /// <para>Returns:</para>
-        /// The integer-percentage of the players progress until the end of the race
+        ///     <para>Returns:</para>
+        ///     The integer-percentage of the players progress until the end of the race
         /// </summary>
         /// <returns>The integer-percentage of the players progress until the end of the race</returns>
         public abstract int GetProgress();
@@ -55,9 +42,10 @@ namespace LEA
 
 
         /// <summary>
-        /// Calculates the current Words-Per-Minute (WPM) rating<para />
-        ///<para>Returns:</para>
-        /// The current WPM rating as an integer 
+        ///     Calculates the current Words-Per-Minute (WPM) rating
+        ///     <para />
+        ///     <para>Returns:</para>
+        ///     The current WPM rating as an integer
         /// </summary>
         /// <returns>The current WPM rating as an integer</returns>
         public int WordsPerMinute()

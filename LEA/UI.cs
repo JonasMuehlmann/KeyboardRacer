@@ -1,2 +1,1 @@
-namespace LEA
-{}
+namespace LEA {}

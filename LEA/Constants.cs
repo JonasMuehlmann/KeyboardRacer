@@ -107,7 +107,7 @@ namespace LEA
     public static class Cursor
     {
         /// <summary>
-        /// Represents escape code to move cursor up n lines.
+        ///     Represents escape code to move cursor up n lines.
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -118,7 +118,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Represents escape code to move cursor down n lines.
+        ///     Represents escape code to move cursor down n lines.
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -129,7 +129,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Represents escape code to move cursor left n column.
+        ///     Represents escape code to move cursor left n column.
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -140,7 +140,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Represents escape code to move cursor right n columns.
+        ///     Represents escape code to move cursor right n columns.
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -151,7 +151,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Move Cursor to the n'th column in the current line
+        ///     Move Cursor to the n'th column in the current line
         /// </summary>
         /// <param name="n"></param>
         /// <returns></returns>
@@ -162,7 +162,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Move to cursor to the position (row,column)
+        ///     Move to cursor to the position (row,column)
         /// </summary>
         /// <param name="row"></param>
         /// <param name="col"></param>
@@ -182,7 +182,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Erase from the beginning of the line to the current cursor position
+        ///     Erase from the beginning of the line to the current cursor position
         /// </summary>
         /// <returns></returns>
         public static string EraseToCursors()
@@ -192,7 +192,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Erase from the current cursor position the the end of the line
+        ///     Erase from the current cursor position the the end of the line
         /// </summary>
         /// <returns></returns>
         public static string EraseFromCursors()

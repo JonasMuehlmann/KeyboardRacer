@@ -11,59 +11,34 @@ namespace LEA
         //TODO:ADD updatePlayerStatistic void
 
 
-        private const string   StatsDir = "../../../data/statistics";
-        private       double   _avgErrors;
-        private       int      _avgWpm;
-        private       string[] _datapoints;
-        private       string   _name;
-        private       int      _races;
+        private const string StatsDir = "../../../data/statistics";
 
         #region Properties
 
-        public string Name
-        {
-            get => _name;
-            set => _name = value;
-        }
+        public string Name { get; set; }
 
-        public string[] Datapoints
-        {
-            get => _datapoints;
-            set => _datapoints = value;
-        }
+        public string[] Datapoints { get; set; }
 
-        public int Races
-        {
-            get => _races;
-            set => _races = value;
-        }
+        public int Races { get; set; }
 
-        public int AvgWpm
-        {
-            get => _avgWpm;
-            set => _avgWpm = value;
-        }
+        public int AvgWpm { get; set; }
 
-        public double AvgErrors
-        {
-            get => _avgErrors;
-            set => _avgErrors = value;
-        }
+        public double AvgErrors { get; set; }
 
         #endregion
 
 
         /// <summary>
-        /// <para>Returns:</para>
-        /// True if the player has a non-empty statistics file, false otherwise
+        ///     <para>Returns:</para>
+        ///     True if the player has a non-empty statistics file, false otherwise
         /// </summary>
         /// <param name="player">
-        /// Who's statistics file to check for
+        ///     Who's statistics file to check for
         /// </param>
         /// <returns>
-        /// True if the player has a non-empty statistics file, false otherwise
+        ///     True if the player has a non-empty statistics file, false otherwise
         /// </returns>
-        public static bool HasStatistics(string player)
+        private static bool HasStatistics(string player)
         {
             string statsFile     = $"{StatsDir}/{player}";
             var    statsFileInfo = new FileInfo(statsFile);
@@ -73,13 +48,13 @@ namespace LEA
 
 
         /// <summary>
-        /// <para>
-        /// Returns:
-        /// </para>
-        /// A list of player names who have existing and non-empty statistics files
+        ///     <para>
+        ///         Returns:
+        ///     </para>
+        ///     A list of player names who have existing and non-empty statistics files
         /// </summary>
         /// <returns>
-        /// A list of player names who have existing and non-empty statistics files
+        ///     A list of player names who have existing and non-empty statistics files
         /// </returns>
         public string[] GetPlayerNames()
         {
@@ -92,9 +67,9 @@ namespace LEA
 
 
         /// <summary>
-        /// Form a datapoint with the PostGameStats object's members in the desired format for writing
-        /// <para>Returns:</para>
-        /// A datapoint in a ready-to-write format
+        ///     Form a datapoint with the PostGameStats object's members in the desired format for writing
+        ///     <para>Returns:</para>
+        ///     A datapoint in a ready-to-write format
         /// </summary>
         /// <param name="stats"></param>
         /// <returns></returns>
@@ -103,12 +78,12 @@ namespace LEA
             int    raceDuration = Convert.ToInt32((stats.EndOfRace - stats.StartOfRace).TotalSeconds);
             double errorRate    = stats.TotalErrors / (double) (stats.TextLength + stats.TotalErrors);
 
-            return ($"{stats.RaceId},,{stats.Wpm},,{Math.Round(errorRate, 2)},,{raceDuration}");
+            return $"{stats.RaceId},,{stats.Wpm},,{Math.Round(errorRate, 2)},,{raceDuration}";
         }
 
 
         /// <summary>
-        /// Take a stats object, use it to form a datapoint and write the datapoint to a players statistics file
+        ///     Take a stats object, use it to form a datapoint and write the datapoint to a players statistics file
         /// </summary>
         /// <param name="stats">A PostGameStats object to take values from</param>
         public void AddRaceData(PostGameStats stats)
@@ -151,7 +126,7 @@ namespace LEA
                 sumErrorRate += Convert.ToDouble(items[3]);
             }
 
-            return Math.Round(sumErrorRate / (double) datapoints.Length, 2);
+            return Math.Round(sumErrorRate / datapoints.Length, 2);
         }
     }
 }

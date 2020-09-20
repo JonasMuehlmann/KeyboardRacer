@@ -8,51 +8,43 @@ using System.Text;
 namespace LEA
 {
     /// <summary>
-    /// A network-host who runs a race
+    ///     A network-host who runs a race
     /// </summary>
     public class Host
     {
-        private byte[] _buffer = new byte[Network.BufferSize];
-
-        private List<Socket> _clientSockets = new List<Socket>();
-
-        private Socket _serverSocket =
-            new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
         #region Properties
 
         /// <summary>
-        /// Contains a received message
+        ///     Contains a received message
         /// </summary>
-        public byte[] Buffer
-        {
-            get => _buffer;
-            set => _buffer = value;
-        }
+        public byte[] Buffer { get; set; }
 
         /// <summary>
-        /// Contains the sockets of connected clients
+        ///     Contains the sockets of connected clients
         /// </summary>
-        public List<Socket> ClientSockets
-        {
-            get => _clientSockets;
-            set => _clientSockets = value;
-        }
+        public List<Socket> ClientSockets { get; set; }
 
         /// <summary>
-        /// The Hosts on socket
+        ///     The Hosts on socket
         /// </summary>
-        public Socket ServerSocket
+        public Socket ServerSocket { get; set; }
+
+        #endregion
+
+        #region Constructors
+
+        public Host()
         {
-            get => _serverSocket;
-            set => _serverSocket = value;
+            ServerSocket  = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            ClientSockets = new List<Socket>();
+            Buffer        = new byte[Network.BufferSize];
         }
 
         #endregion
 
 
         /// <summary>
-        /// Setup server and start accepting connections
+        ///     Setup server and start accepting connections
         /// </summary>
         private void Setup()
         {
@@ -67,7 +59,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Request all connected clients to close their connection to the server
+        ///     Request all connected clients to close their connection to the server
         /// </summary>
         private void CloseAllSockets()
         {
@@ -82,10 +74,10 @@ namespace LEA
 
 
         /// <summary>
-        /// Accept the given connection attempt
+        ///     Accept the given connection attempt
         /// </summary>
         /// <param name="asyncRequest">
-        /// The request representing the connection attempt
+        ///     The request representing the connection attempt
         /// </param>
         private void AcceptConnection(IAsyncResult asyncRequest)
         {
@@ -118,11 +110,11 @@ namespace LEA
 
 
         /// <summary>
-        /// Start receiving messages from the client sending the asyncRequest and save it to this.Buffer
-        /// Closes connection to client if he sends 'exit'
+        ///     Start receiving messages from the client sending the asyncRequest and save it to this.Buffer
+        ///     Closes connection to client if he sends 'exit'
         /// </summary>
         /// <param name="asyncRequest">
-        /// A request representing the transmission of a message
+        ///     A request representing the transmission of a message
         /// </param>
         private void ReceiveMessage(IAsyncResult asyncRequest)
         {
@@ -168,7 +160,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Gracefully disconnect client
+        ///     Gracefully disconnect client
         /// </summary>
         /// <param name="current"></param>
         private void DisconnectClient(Socket current)

@@ -8,56 +8,21 @@ namespace LEA
 {
     public class Race
     {
-        private List<Participant> _completionOrder;
-        private int               _completionTime;
-        private Host              _gameHost;
-        private List<Participant> _participants;
-        private bool              _raceCompleted;
-        private DateTime          _startOfRace;
-        private string            _text;
-
         #region Properties
 
-        public string Text
-        {
-            get => _text;
-            set => _text = value;
-        }
+        public string Text { get; }
 
-        public DateTime StartOfRace
-        {
-            get => _startOfRace;
-            set => _startOfRace = value;
-        }
+        public DateTime StartOfRace { get; }
 
-        public List<Participant> Participants
-        {
-            get => _participants;
-            set => _participants = value;
-        }
+        public List<Participant> Participants { get; }
 
-        public List<Participant> CompletionOrder
-        {
-            get => _completionOrder;
-            set => _completionOrder = value;
-        }
+        public List<Participant> CompletionOrder { get; }
 
-        public int CompletionTime
-        {
-            get => _completionTime;
-            set => _completionTime = value;
-        }
+        private int CompletionTime { get; }
 
-        public bool RaceCompleted
-        {
-            get => _raceCompleted;
-            set => _raceCompleted = value;
-        }
+        private bool RaceCompleted { get; set; }
 
-        public Host GameHost
-        {
-            get => _gameHost;
-        }
+        public Host GameHost { get; }
 
         #endregion
 
@@ -70,7 +35,7 @@ namespace LEA
             CompletionOrder = new List<Participant>();
             StartOfRace     = DateTime.Now;
             CompletionTime  = DateTime.Now.AddSeconds(Text.Length * 3.0).Second;
-            _gameHost       = new Host();
+            GameHost        = new Host();
         }
 
         #endregion
@@ -124,7 +89,7 @@ namespace LEA
                 task.Start();
             }
 
-            Console.WriteLine(Task.WaitAll(tasks, TimeSpan.FromSeconds(8)) ? "Completed" : "Timed out");
+            Console.WriteLine(Task.WaitAll(tasks, TimeSpan.FromSeconds(CompletionTime)) ? "Completed" : "Timed out");
             // participant.TypeText();
 
             // EndRace();

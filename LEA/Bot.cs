@@ -8,32 +8,14 @@ namespace LEA
     {
         private static readonly Random Rng = new Random();
 
-        private int _difficulty;
-
-        //Speed is measured in characters per second
-        private double _speed;
-        private int    _typedChars;
-
         #region Properties
 
-        public int TypedChars
-        {
-            get { return _typedChars; }
-            set { _typedChars = value; }
-        }
+        private int TypedChars { get; set; }
 
 
-        public int Difficulty
-        {
-            get => _difficulty;
-            set => _difficulty = value;
-        }
+        public int Difficulty { get; set; }
 
-        public double Speed
-        {
-            get => _speed;
-            set => _speed = value;
-        }
+        private double Speed { get; }
 
         #endregion
 
@@ -42,7 +24,7 @@ namespace LEA
         public Bot(string name, string color, Race currentRace, int difficulty) :
             base(name, color, currentRace)
         {
-            Speed = difficulty * 1.66 + (Rng.Next(0, 167) / 100.0);
+            Speed = difficulty * 1.66 + Rng.Next(0, 167) / 100.0;
         }
 
         #endregion
@@ -63,7 +45,7 @@ namespace LEA
 
 
         /// <summary>
-        /// Simulate the bot playing the game
+        ///     Simulate the bot playing the game
         /// </summary>
         public override void TypeText()
         {
@@ -77,7 +59,7 @@ namespace LEA
                 }
 
                 Thread.Sleep(rndSeconds * 100);
-                int steps = Convert.ToInt32((rndSeconds * Speed) / 10);
+                int steps = Convert.ToInt32(rndSeconds * Speed / 10);
 
                 for (int i = 0; i < steps; i++)
                 {

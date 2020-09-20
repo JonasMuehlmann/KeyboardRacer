@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/assaro/RiderProjects/LEA/LEA/LEA.csproj": {}
+    "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj": {}
   },
   "projects": {
-    "/home/assaro/RiderProjects/LEA/LEA/LEA.csproj": {
+    "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/assaro/RiderProjects/LEA/LEA/LEA.csproj",
+        "projectUniqueName": "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj",
         "projectName": "LEA",
-        "projectPath": "/home/assaro/RiderProjects/LEA/LEA/LEA.csproj",
-        "packagesPath": "/home/assaro/.nuget/packages/",
-        "outputPath": "/home/assaro/RiderProjects/LEA/LEA/obj/",
+        "projectPath": "/home/jonas/RiderProjects/LEA/LEA/LEA.csproj",
+        "packagesPath": "/home/jonas/.nuget/packages/",
+        "outputPath": "/home/jonas/RiderProjects/LEA/LEA/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/assaro/.nuget/NuGet/NuGet.Config"
+          "/home/jonas/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -45,12 +45,18 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.8, 3.1.8]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.402/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/3.1.108/RuntimeIdentifierGraph.json"
         }
       }
     }
