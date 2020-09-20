@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 
 namespace LEA
@@ -100,7 +102,7 @@ namespace LEA
         /// </summary>
         /// <param name="participantData">A participants current race data encoded into a string</param>
         /// <returns>A constructed frame ready to be drawn</returns>
-        private string CreateCompleteRaceFrameSolo(Dictionary<string, int> participantData)
+        private void DrawCompleteRaceFrameSolo(Dictionary<string, int> participantData)
         {
             // Own data
             string frame = CreateFrameFragment(GetProgress(), Color, Name) + '\n';
@@ -117,7 +119,114 @@ namespace LEA
                 frame += CreateFrameFragment(progress, color, name) + "\n";
             }
 
-            return frame;
+            Console.Write(frame);
+            DrawFinishingLine();
+            DrawTotalErrors();
+            DrawCurErrors();
+            DrawWpm();
+        }
+
+
+        private void ClearRaceView()
+        {
+            // Moving the cursor down voids clearing the typed text
+            Cursor.Down(1);
+
+            Console.Write(string.Concat(Enumerable.Repeat(new string(' ', RaceView.MaxWidth),
+                                                          Car.Height * (CurrentRace.Participants.Count + 2)
+                                                         )
+                                       )
+                         );
+
+            // Resets cursors to first row of race view, below the typed text
+            Cursor.To(3, 1);
+        }
+
+
+        private void DrawFinishingLine()
+        {
+            // Sets cursor to first row of the race frame
+            Cursor.To(4, 1);
+
+            for (int i = 1; i < RaceView.LaneHeight * CurrentRace.Participants.Count; i++)
+            {
+                Cursor.ToCol(RaceView.MaxWidth);
+
+                Console.Write(i % 2 == 0
+                                  ? $"{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Fg.Reset}"
+                                  : $"{Fg.Reset}#{Fg.Black}#{Fg.Reset}#"
+                             );
+
+                Cursor.Down(1);
+            }
+
+            // Resets cursor to correct position in typed text
+            Cursor.To(1, TypedText.Count + 1);
+        }
+
+
+        /// <summary>
+        ///     Calculates the current Words-Per-Minute (WPM) rating
+        ///     <para />
+        ///     <para>Returns:</para>
+        ///     The current WPM rating as an integer
+        /// </summary>
+        /// <returns>The current WPM rating as an integer</returns>
+        public override int GetWpm()
+        {
+            double timeInSeconds  = (DateTime.Now - CurrentRace.StartOfRace).TotalSeconds;
+            double charsPerSecond = TypedText.Count / timeInSeconds;
+            double wordsPerSecond = charsPerSecond  / 5;
+            int    wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
+
+            return wordsPerMinute;
+        }
+
+
+        private void DrawTotalErrors()
+        {
+            // Set cursors above the finishing line
+            Cursor.To(1, RaceView.MaxWidth);
+            Console.Write($"{TotalErrors.ToString().PadLeft(3, ' ')} Total errors");
+            // Resets cursor to correct position in typed text
+            Cursor.To(1, TypedText.Count + 1);
+        }
+
+
+        private void DrawCurErrors()
+        {
+            // Set cursors above the finishing line
+            Cursor.To(2, RaceView.MaxWidth);
+            Console.Write($"{CurErrors.ToString().PadLeft(3, ' ')} Current errors");
+            // Resets cursor to correct position in typed text
+            Cursor.To(1, TypedText.Count + 1);
+        }
+
+
+        private void DrawWpm()
+        {
+            // Set cursors above the finishing line
+            Cursor.To(3, RaceView.MaxWidth);
+            Console.Write($"{GetWpm().ToString().PadLeft(3, ' ')} WPM");
+            // Resets cursor to correct position in typed text
+            Cursor.To(1, TypedText.Count + 1);
+        }
+
+
+        private async Task RenderLoopAsync(CancellationToken cancellationToken)
+        {
+            while (true)
+            {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
+
+                ClearRaceView();
+                DrawCompleteRaceFrameSolo(CurrentRace.CollectProgress());
+
+                await Task.Delay(TimeSpan.FromMilliseconds(50), cancellationToken);
+            }
         }
 
 
@@ -127,55 +236,30 @@ namespace LEA
         public override void TypeText()
         {
             // Check: If Backbuffering the console view might be useful: https://stackoverflow.com/questions/29920056/c-sharp-something-faster-than-console-write
-            // TODO: Cleanup method
-            // TODO: Print WPM
-            // TODO: Asynchronously render race view at fixed frame rate
+            // TODO: Make player names follow their cars
             Console.Clear();
             Console.CursorVisible = false;
-            Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}{Fg.Reset}");
+            Console.Write($"{Fg.BrightBlack}{CurrentRace.Text}{Fg.Reset}\n\n");
+
+            DrawCompleteRaceFrameSolo(CurrentRace.CollectProgress());
+
+            var cancellationTokenSource = new CancellationTokenSource();
+            var cancellationToken       = cancellationTokenSource.Token;
+
+            RenderLoopAsync(cancellationToken);
 
             while (!HasCompletedText())
             {
-                Console.Write($"\n\n{CreateCompleteRaceFrameSolo(CurrentRace.CollectProgress())}");
-                Console.Write(Cursor.To(4, TypedText.Count));
-
-                DrawFinishingLine();
-
-                Console.Write(Cursor.To(1, TypedText.Count + 1));
                 var enteredKey = Console.ReadKey(true);
                 HandleKeyPress(enteredKey);
-                Console.Write(Cursor.Down(1));
-
-                Console.Write(string.Concat(Enumerable.Repeat(new string(' ', RaceView.MaxWidth),
-                                                              Car.Height * (CurrentRace.Participants.Count + 2)
-                                                             )
-                                           )
-                             );
-
-                Console.Write(Cursor.To(1, TypedText.Count + 1));
             }
 
+            cancellationTokenSource.Cancel();
+
+            Cursor.To(1, 1);
             Console.CursorVisible = true;
 
             CurrentRace.CompletionOrder.Add(this);
-        }
-
-
-        private void DrawFinishingLine()
-        {
-            for (int i = 1; i < RaceView.LaneHeight * CurrentRace.Participants.Count; i++)
-            {
-                if (i % 2 == 0)
-                {
-                    Console.Write($"{Cursor.ToCol(RaceView.MaxWidth)}{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Fg.Reset}#{Cursor.Down(1)}"
-                                 );
-                }
-                else
-                {
-                    Console.Write($"{Cursor.ToCol(RaceView.MaxWidth)}{Fg.Reset}#{Fg.Black}#{Fg.Reset}#{Fg.Black}#{Cursor.Down(1)}"
-                                 );
-                }
-            }
         }
 
 
