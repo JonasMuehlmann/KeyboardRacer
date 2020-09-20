@@ -1,6 +1,3 @@
-using System;
-
-
 namespace LEA
 {
     public abstract class Participant
@@ -41,22 +38,7 @@ namespace LEA
         public abstract bool HasCompletedText();
 
 
-        /// <summary>
-        ///     Calculates the current Words-Per-Minute (WPM) rating
-        ///     <para />
-        ///     <para>Returns:</para>
-        ///     The current WPM rating as an integer
-        /// </summary>
-        /// <returns>The current WPM rating as an integer</returns>
-        public int WordsPerMinute()
-        {
-            double timeInSeconds  = (DateTime.Now - CurrentRace.StartOfRace).TotalSeconds;
-            double charsPerSecond = CurrentRace.Text.Length / timeInSeconds;
-            double wordsPerSecond = charsPerSecond          / 5;
-            int    wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
-
-            return wordsPerMinute;
-        }
+        public abstract int GetWpm();
 
 
         public abstract void TypeText();

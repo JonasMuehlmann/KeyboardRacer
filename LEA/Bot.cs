@@ -30,6 +30,24 @@ namespace LEA
         #endregion
 
 
+        /// <summary>
+        ///     Calculates the current Words-Per-Minute (WPM) rating
+        ///     <para />
+        ///     <para>Returns:</para>
+        ///     The current WPM rating as an integer
+        /// </summary>
+        /// <returns>The current WPM rating as an integer</returns>
+        public override int GetWpm()
+        {
+            double timeInSeconds  = (DateTime.Now - CurrentRace.StartOfRace).TotalSeconds;
+            double charsPerSecond = TypedChars     / timeInSeconds;
+            double wordsPerSecond = charsPerSecond / 5;
+            int    wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
+
+            return wordsPerMinute;
+        }
+
+
         public override int GetProgress()
         {
             double correctChars = TypedChars;
@@ -49,6 +67,7 @@ namespace LEA
         /// </summary>
         public override void TypeText()
         {
+            // TODO: Fix instantaneous completion
             while (!HasCompletedText())
             {
                 int rndSeconds = Rng.Next(3, 6);
