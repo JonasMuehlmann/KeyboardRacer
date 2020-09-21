@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj",
+    "projectUniqueName": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/Launcher.csproj",
     "projectName": "Launcher",
-    "projectPath": "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj",
-    "outputPath": "/home/jonas/RiderProjects/LEA/Launcher/obj/",
+    "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/Launcher.csproj",
+    "outputPath": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/obj/",
     "projectStyle": "PackageReference",
     "originalTargetFrameworks": [
       "netcoreapp3.1"
