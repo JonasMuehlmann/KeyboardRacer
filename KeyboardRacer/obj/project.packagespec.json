@@ -25,6 +25,12 @@
     },
     "frameworks": {
         "netcoreapp3.1": {
+            "dependencies": {
+                "Terminal.Gui": {
+                    "target": "Package",
+                    "version": "[0.81.0, )"
+                }
+            },
             "imports": [
                 "net461",
                 "net462",

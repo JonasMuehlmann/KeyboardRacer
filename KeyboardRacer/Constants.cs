@@ -23,12 +23,46 @@ namespace KeyboardRacer
         public static readonly int LaneHeight = Car.Height + 1;
     }
 
+    public static class Banners
+    {
+        // Font: small slant
+        public static readonly string Name = @"
+   __ __               __                          __        ___                       
+  / //_/ ___   __ __  / /   ___   ___ _  ____  ___/ /       / _ \  ___ _  ____  ___   ____
+ / ,<   / -_) / // / / _ \ / _ \ / _ `/ / __/ / _  /       / , _/ / _ `/ / __/ / -_) / __/
+/_/|_|  \__/  \_, / /_.__/ \___/ \_,_/ /_/    \_,_/       /_/|_|  \_,_/  \__/  \__/ /_/   
+             /___/                                                                  
+";
+
+        public static readonly string Winner = @"
+  _      __  _                          __
+ | | /| / / (_) ___   ___  ___   ____  / /
+ | |/ |/ / / / / _ \ / _ \/ -_) / __/ /_/ 
+ |__/|__/ /_/ /_//_//_//_/\__/ /_/   (_)  
+";
+
+        public static readonly string Completed = @"
+  _____                      __       __           __   __
+ / ___/ ___   __ _    ___   / / ___  / /_ ___  ___/ /  / /
+/ /__  / _ \ /  ' \  / _ \ / / / -_)/ __// -_)/ _  /  /_/ 
+\___/  \___//_/_/_/ / .__//_/  \__/ \__/ \__/ \_,_/  (_)  
+                   /_/                                    
+";
+
+        public static readonly string TimedOut = @"
+ ______  _                   __    ____           __    __
+/_  __/ (_) __ _   ___   ___/ /   / __ \  __ __  / /_  / /
+ / /   / / /  ' \ / -_) / _  /   / /_/ / / // / / __/ /_/ 
+/_/   /_/ /_/_/_/ \__/  \_,_/    \____/  \_,_/  \__/ (_)  
+";
+    }
+
     public static class Network
     {
         // ReSharper disable once InconsistentNaming
-        private static readonly string IPAddress  = "85.202.163.32";
-        public static readonly  int    Port       = 100;
-        public static readonly  int    BufferSize = 33;
+        public static readonly string IPAddress  = "85.202.163.32";
+        public static readonly int    Port       = 100;
+        public static readonly int    BufferSize = 33;
     }
 
     public static class Fg

@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "N/iIwo1/o4pUSvGy+DAECLDdaEeSp9DgwCaYl7wIWKT0zDvQ3GfDU59bOtOiFBYBK956EBDWB4MpipAug5Sg7Q==",
+  "dgSpecHash": "gaa7tz4GvnA2B3Jp6Up76uZ0BA3oFUh1o6Ee9k9cHR37Ep5bbdT81mCNLBeq/zmK2NGgmCMx8VLnFYuY3g7PBw==",
   "success": true,
   "projectFilePath": "/home/jonas/RiderProjects/KeyboardRacer/KeyboardRacer/KeyboardRacer.csproj",
   "expectedPackageFiles": [
+    "/home/jonas/.nuget/packages/nstack.core/0.14.0/nstack.core.0.14.0.nupkg.sha512",
+    "/home/jonas/.nuget/packages/terminal.gui/0.81.0/terminal.gui.0.81.0.nupkg.sha512",
     "/home/jonas/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.8/microsoft.aspnetcore.app.ref.3.1.8.nupkg.sha512"
   ],
   "logs": []

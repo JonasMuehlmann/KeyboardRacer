@@ -1,11 +1,63 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "NStack.Core/0.14.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/NStack.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/NStack.dll": {}
+        }
+      },
+      "Terminal.Gui/0.81.0": {
+        "type": "package",
+        "dependencies": {
+          "NStack.Core": "0.14.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Terminal.Gui.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Terminal.Gui.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "NStack.Core/0.14.0": {
+      "sha512": "zYNd8033b7BPIw7LSNMFu3H1WovQa2XQXd3cZ+Xs/0EPqy0ZhT6bKr4+8eqFpvpD0yx2QvwkvLL0bCqSnJxKNA==",
+      "type": "package",
+      "path": "nstack.core/0.14.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/NStack.dll",
+        "nstack.core.0.14.0.nupkg.sha512",
+        "nstack.core.nuspec"
+      ]
+    },
+    "Terminal.Gui/0.81.0": {
+      "sha512": "HSW9pvxXC+tzspTlUaqksNCoum5L7purbf/vXZgaMHHG5oye7DtxlOKjvSXMSKlxHN4JxZvfEGPUbjcA2B81sQ==",
+      "type": "package",
+      "path": "terminal.gui/0.81.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net472/Terminal.Gui.dll",
+        "lib/net472/Terminal.Gui.xml",
+        "lib/netstandard2.0/Terminal.Gui.dll",
+        "lib/netstandard2.0/Terminal.Gui.xml",
+        "terminal.gui.0.81.0.nupkg.sha512",
+        "terminal.gui.nuspec"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "Terminal.Gui >= 0.81.0"
+    ]
   },
   "packageFolders": {
     "/home/jonas/.nuget/packages/": {}
@@ -41,6 +93,12 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
+        "dependencies": {
+          "Terminal.Gui": {
+            "target": "Package",
+            "version": "[0.81.0, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",
