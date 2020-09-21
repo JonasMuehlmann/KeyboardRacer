@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/Launcher.csproj",
-      "projectName": "Launcher",
-      "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/Launcher.csproj",
+      "projectUniqueName": "/home/jonas/RiderProjects/KeyboardRacer/KeyboardRacer/KeyboardRacer.csproj",
+      "projectName": "KeyboardRacer",
+      "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/KeyboardRacer/KeyboardRacer.csproj",
       "packagesPath": "/home/jonas/.nuget/packages/",
-      "outputPath": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/obj/",
+      "outputPath": "/home/jonas/RiderProjects/KeyboardRacer/KeyboardRacer/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/jonas/.nuget/NuGet/NuGet.Config"

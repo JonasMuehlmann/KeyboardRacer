@@ -7,7 +7,9 @@ namespace Launcher
     {
         private static void Main(string[] args)
         {
-            Process.Start("/usr/bin/konsole", "-e /home/jonas/RiderProjects/LEA/LEA/bin/Debug/netcoreapp3.1/LEA");
+            Process.Start("/usr/bin/konsole",
+                          "-e /home/jonas/RiderProjects/KeyboardRacer/KeyboardRacer/bin/Debug/netcoreapp3.1/KeyboardRacer"
+                         );
         }
     }
 }
