@@ -7,9 +7,11 @@ namespace Launcher
     {
         private static void Main(string[] args)
         {
-            Process.Start("/usr/bin/konsole",
-                          "-e /home/jonas/RiderProjects/KeyboardRacer/KeyboardRacer/bin/Debug/netcoreapp3.1/KeyboardRacer"
-                         );
+            var run = Process.Start("docker", "run -it -d --name keyboardracer keyboardracer");
+            run.WaitForExit();
+            var attach = Process.Start("docker", "attach keyboardracer");
+            attach.WaitForExit();
+            Process.Start("docker", "rm keyboardracer");
         }
     }
 }
