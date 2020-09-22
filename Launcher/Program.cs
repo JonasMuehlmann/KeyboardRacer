@@ -1,15 +1,18 @@
 ﻿using System.Diagnostics;
 
 
-namespace Launcher
+namespace KeyboardRacer
 {
-    internal class Program
+    namespace Launcher
     {
-        private static void Main(string[] args)
+        internal class Program
         {
-            Process.Start("/usr/bin/konsole",
-                          "-e /home/jonas/RiderProjects/KeyboardRacer/KeyboardRacer/bin/Debug/netcoreapp3.1/KeyboardRacer"
-                         );
+            private static void Main(string[] args)
+            {
+                Process.Start("/usr/bin/konsole",
+                              "-e /home/jonas/RiderProjects/Backend/Backend/bin/Debug/netcoreapp3.1/Backend"
+                             );
+            }
         }
     }
 }

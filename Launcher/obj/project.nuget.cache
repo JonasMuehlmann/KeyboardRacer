@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "GWiMnFW/O13eUNgxENADloQufICa9/y4xmq7O2S19AmsMScd5uOOYgRLZv12dkkY6/PZlmzCN8aKnD+fUlhDbw==",
+  "dgSpecHash": "kohhq/NF32E/r2D2yccIOTkFKu5gaadS3xOp53+kj9v9Q1MDfdiSescmaGMvHLbxic38FY9g4hW0pINFZAymwg==",
   "success": true,
-  "projectFilePath": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/Launcher.csproj",
+  "projectFilePath": "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj",
   "expectedPackageFiles": [
     "/home/jonas/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.8/microsoft.aspnetcore.app.ref.3.1.8.nupkg.sha512"
   ],

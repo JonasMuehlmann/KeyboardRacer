@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/Launcher.csproj",
+      "projectUniqueName": "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj",
       "projectName": "Launcher",
-      "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/Launcher.csproj",
+      "projectPath": "/home/jonas/RiderProjects/LEA/Launcher/Launcher.csproj",
       "packagesPath": "/home/jonas/.nuget/packages/",
-      "outputPath": "/home/jonas/RiderProjects/KeyboardRacer/Launcher/obj/",
+      "outputPath": "/home/jonas/RiderProjects/LEA/Launcher/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/jonas/.nuget/NuGet/NuGet.Config"

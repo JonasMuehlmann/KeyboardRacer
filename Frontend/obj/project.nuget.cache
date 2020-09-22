@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "w5PqRxX9bzfoE8D5qTKb6k2mndpNxyQbDok8SKrUSvOZsCv3T7EykiKIrj7A/90HfQWzxESJ7JmT6gnQmCNVfw==",
+  "success": true,
+  "projectFilePath": "/home/jonas/RiderProjects/LEA/Frontend/Frontend.csproj",
+  "expectedPackageFiles": [
+    "/home/jonas/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "/home/jonas/.nuget/packages/nstack.core/0.14.0/nstack.core.0.14.0.nupkg.sha512",
+    "/home/jonas/.nuget/packages/microsoft.aspnetcore.app.ref/3.1.8/microsoft.aspnetcore.app.ref.3.1.8.nupkg.sha512"
+  ],
+  "logs": []
+}

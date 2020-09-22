@@ -1,0 +1,10 @@
+/tmp/gui.cs/Terminal.Gui/bin/Debug/net472/Terminal.Gui.dll
+/tmp/gui.cs/Terminal.Gui/bin/Debug/net472/Terminal.Gui.pdb
+/tmp/gui.cs/Terminal.Gui/bin/Debug/net472/Terminal.Gui.xml
+/tmp/gui.cs/Terminal.Gui/bin/Debug/net472/NStack.dll
+/tmp/gui.cs/Terminal.Gui/obj/Debug/net472/Terminal.Gui.csprojAssemblyReference.cache
+/tmp/gui.cs/Terminal.Gui/obj/Debug/net472/Terminal.Gui.AssemblyInfoInputs.cache
+/tmp/gui.cs/Terminal.Gui/obj/Debug/net472/Terminal.Gui.AssemblyInfo.cs
+/tmp/gui.cs/Terminal.Gui/obj/Debug/net472/Terminal.Gui.csproj.CopyComplete
+/tmp/gui.cs/Terminal.Gui/obj/Debug/net472/Terminal.Gui.dll
+/tmp/gui.cs/Terminal.Gui/obj/Debug/net472/Terminal.Gui.pdb
