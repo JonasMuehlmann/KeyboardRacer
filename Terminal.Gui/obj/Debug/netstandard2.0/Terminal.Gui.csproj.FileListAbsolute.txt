@@ -1,0 +1,9 @@
+/tmp/gui.cs/Terminal.Gui/bin/Debug/netstandard2.0/Terminal.Gui.deps.json
+/tmp/gui.cs/Terminal.Gui/bin/Debug/netstandard2.0/Terminal.Gui.dll
+/tmp/gui.cs/Terminal.Gui/bin/Debug/netstandard2.0/Terminal.Gui.pdb
+/tmp/gui.cs/Terminal.Gui/bin/Debug/netstandard2.0/Terminal.Gui.xml
+/tmp/gui.cs/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.csprojAssemblyReference.cache
+/tmp/gui.cs/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.AssemblyInfoInputs.cache
+/tmp/gui.cs/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.AssemblyInfo.cs
+/tmp/gui.cs/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.dll
+/tmp/gui.cs/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.pdb
