@@ -75,6 +75,7 @@ namespace KeyboardRacer
                 RaceCompleted = true;
                 Console.WriteLine("completed");
             }
+            //TODO: Add Stats to Database
         }
 
 

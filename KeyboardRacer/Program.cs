@@ -95,7 +95,7 @@
 
             #endregion RenderTest
 
-            Ui.Init();
+            //Ui.Init();
             // var text = "Lorem ipsum dolor sit amet, consetetur sadipscing elitr";
 
             // var race = new Race(ref text);
