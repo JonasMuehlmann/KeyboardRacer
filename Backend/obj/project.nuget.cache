@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "3tLwWk1PNPcLuNWplQ3zWojGrMHk745B65iDsVwDx4+0ZHPhSvtKzUhKvLVbe4ZSh1vLpWwB3VjlZS3rOvG5yg==",
+  "dgSpecHash": "8e1rs/ViQLl4P1DWytSVDxQRttwYVw8t7sUGfEIJPaPEjc8gAO09NPKRgBldqi01q6tX9lfMg6VaKZ8zPjDPiQ==",
   "success": true,
-  "projectFilePath": "/home/jonas/RiderProjects/LEA/Backend/Backend.csproj",
+  "projectFilePath": "/home/jonas/RiderProjects/KeyboardRacer/Backend/Backend.csproj",
   "expectedPackageFiles": [
     "/home/jonas/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
     "/home/jonas/.nuget/packages/nstack.core/0.14.0/nstack.core.0.14.0.nupkg.sha512",

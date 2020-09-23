@@ -67,7 +67,6 @@ namespace Backend
         /// </summary>
         public override void TypeText()
         {
-            // TODO: Fix instantaneous completion
             while (!HasCompletedText())
             {
                 int rndSeconds = Rng.Next(3, 6);

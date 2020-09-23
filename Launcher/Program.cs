@@ -1,18 +1,18 @@
 ﻿using System.Diagnostics;
 
 
-namespace KeyboardRacer
+namespace Launcher
 {
-    namespace Launcher
+    internal class Program
     {
-        internal class Program
+        private static void Main(string[] args)
         {
-            private static void Main(string[] args)
-            {
-                Process.Start("/usr/bin/konsole",
-                              "-e /home/jonas/RiderProjects/Backend/Backend/bin/Debug/netcoreapp3.1/Backend"
-                             );
-            }
+            // TODO: Run 'chcp 65001' before starting the game natively on windows
+            var run = Process.Start("docker", "run -it -d --name keyboardracer keyboardracer");
+            run.WaitForExit();
+            var attach = Process.Start("docker", "attach keyboardracer");
+            attach.WaitForExit();
+            Process.Start("docker", "rm keyboardracer");
         }
     }
 }

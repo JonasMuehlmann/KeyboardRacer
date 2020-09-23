@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Kw5ErkyZASkRsWcg1jbrJKvsZicM8VMmGF448cD1h1/l7oVf6kyrw/TDVQHkwEIB6c/QyGTb8zuJ+DK535kd/A==",
+  "dgSpecHash": "ohaPhuYbxh1/vFTMxe/AraJM4nwJKMmjAuyRjm4hxHn2EZIG62YsRbrMrn3XXupgV9NEwaxbTBtxw3lOkKhQQQ==",
   "success": true,
-  "projectFilePath": "/home/jonas/RiderProjects/LEA/Terminal.Gui/Terminal.Gui.csproj",
+  "projectFilePath": "/home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/Terminal.Gui.csproj",
   "expectedPackageFiles": [
     "/home/jonas/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/home/jonas/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",

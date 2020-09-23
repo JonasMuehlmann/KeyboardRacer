@@ -90,11 +90,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/jonas/RiderProjects/LEA/Backend/Backend.csproj",
+      "projectUniqueName": "/home/jonas/RiderProjects/KeyboardRacer/Backend/Backend.csproj",
       "projectName": "Backend",
-      "projectPath": "/home/jonas/RiderProjects/LEA/Backend/Backend.csproj",
+      "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Backend/Backend.csproj",
       "packagesPath": "/home/jonas/.nuget/packages/",
-      "outputPath": "/home/jonas/RiderProjects/LEA/Backend/obj/",
+      "outputPath": "/home/jonas/RiderProjects/KeyboardRacer/Backend/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/jonas/.nuget/NuGet/NuGet.Config"
@@ -108,8 +108,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "/home/jonas/RiderProjects/LEA/Frontend/Frontend.csproj": {
-              "projectPath": "/home/jonas/RiderProjects/LEA/Frontend/Frontend.csproj"
+            "/home/jonas/RiderProjects/KeyboardRacer/Frontend/Frontend.csproj": {
+              "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Frontend/Frontend.csproj"
             }
           }
         }

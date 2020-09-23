@@ -1,0 +1,77 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Backend/1.0.0": {
+        "dependencies": {
+          "Frontend": "1.0.0",
+          "Microsoft.NETFramework.ReferenceAssemblies": "1.0.0"
+        },
+        "runtime": {
+          "Backend.dll": {}
+        }
+      },
+      "Microsoft.NETFramework.ReferenceAssemblies/1.0.0": {},
+      "NStack.Core/0.14.0": {
+        "runtime": {
+          "lib/netstandard2.0/NStack.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Frontend/1.0.0": {
+        "dependencies": {
+          "Terminal.Gui": "1.0.0"
+        },
+        "runtime": {
+          "Frontend.dll": {}
+        }
+      },
+      "Terminal.Gui/1.0.0": {
+        "dependencies": {
+          "Microsoft.NETFramework.ReferenceAssemblies": "1.0.0",
+          "NStack.Core": "0.14.0"
+        },
+        "runtime": {
+          "Terminal.Gui.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Backend/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.NETFramework.ReferenceAssemblies/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7D2TMufjGiowmt0E941kVoTIS+GTNzaPopuzM1/1LSaJAdJdBrVP0SkZW7AgDd0a2U1DjsIeaKG1wxGVBNLDMw==",
+      "path": "microsoft.netframework.referenceassemblies/1.0.0",
+      "hashPath": "microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512"
+    },
+    "NStack.Core/0.14.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zYNd8033b7BPIw7LSNMFu3H1WovQa2XQXd3cZ+Xs/0EPqy0ZhT6bKr4+8eqFpvpD0yx2QvwkvLL0bCqSnJxKNA==",
+      "path": "nstack.core/0.14.0",
+      "hashPath": "nstack.core.0.14.0.nupkg.sha512"
+    },
+    "Frontend/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Terminal.Gui/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "Terminal.Gui/0.89.4": {
+      "Terminal.Gui/1.0.0": {
         "dependencies": {
           "Microsoft.NETFramework.ReferenceAssemblies": "1.0.0",
           "NETStandard.Library": "2.0.3",
@@ -35,7 +35,7 @@
     }
   },
   "libraries": {
-    "Terminal.Gui/0.89.4": {
+    "Terminal.Gui/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

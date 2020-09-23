@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/jonas/RiderProjects/LEA/Frontend/Frontend.csproj": {}
+    "/home/jonas/RiderProjects/KeyboardRacer/Frontend/Frontend.csproj": {}
   },
   "projects": {
-    "/home/jonas/RiderProjects/LEA/Frontend/Frontend.csproj": {
+    "/home/jonas/RiderProjects/KeyboardRacer/Frontend/Frontend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jonas/RiderProjects/LEA/Frontend/Frontend.csproj",
+        "projectUniqueName": "/home/jonas/RiderProjects/KeyboardRacer/Frontend/Frontend.csproj",
         "projectName": "Frontend",
-        "projectPath": "/home/jonas/RiderProjects/LEA/Frontend/Frontend.csproj",
+        "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Frontend/Frontend.csproj",
         "packagesPath": "/home/jonas/.nuget/packages/",
-        "outputPath": "/home/jonas/RiderProjects/LEA/Frontend/obj/",
+        "outputPath": "/home/jonas/RiderProjects/KeyboardRacer/Frontend/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/jonas/.nuget/NuGet/NuGet.Config"
@@ -25,8 +25,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "/home/jonas/RiderProjects/LEA/Terminal.Gui/Terminal.Gui.csproj": {
-                "projectPath": "/home/jonas/RiderProjects/LEA/Terminal.Gui/Terminal.Gui.csproj"
+              "/home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/Terminal.Gui.csproj": {
+                "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/Terminal.Gui.csproj"
               }
             }
           }
@@ -72,14 +72,14 @@
         }
       }
     },
-    "/home/jonas/RiderProjects/LEA/Terminal.Gui/Terminal.Gui.csproj": {
+    "/home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/Terminal.Gui.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/jonas/RiderProjects/LEA/Terminal.Gui/Terminal.Gui.csproj",
+        "projectUniqueName": "/home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/Terminal.Gui.csproj",
         "projectName": "Terminal.Gui",
-        "projectPath": "/home/jonas/RiderProjects/LEA/Terminal.Gui/Terminal.Gui.csproj",
+        "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/Terminal.Gui.csproj",
         "packagesPath": "/home/jonas/.nuget/packages/",
-        "outputPath": "/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/",
+        "outputPath": "/home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/obj/",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
