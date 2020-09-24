@@ -18,3 +18,13 @@
 /home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/obj/Debug/net472/Terminal.Gui.csproj.CopyComplete
 /home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/obj/Debug/net472/Terminal.Gui.dll
 /home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/obj/Debug/net472/Terminal.Gui.pdb
+/home/jonas/RiderProjects/LEA/Terminal.Gui/bin/Debug/net472/Terminal.Gui.dll
+/home/jonas/RiderProjects/LEA/Terminal.Gui/bin/Debug/net472/Terminal.Gui.pdb
+/home/jonas/RiderProjects/LEA/Terminal.Gui/bin/Debug/net472/Terminal.Gui.xml
+/home/jonas/RiderProjects/LEA/Terminal.Gui/bin/Debug/net472/NStack.dll
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/net472/Terminal.Gui.csprojAssemblyReference.cache
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/net472/Terminal.Gui.AssemblyInfoInputs.cache
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/net472/Terminal.Gui.AssemblyInfo.cs
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/net472/Terminal.Gui.csproj.CopyComplete
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/net472/Terminal.Gui.dll
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/net472/Terminal.Gui.pdb

@@ -1,6 +1,6 @@
 #region
 
-using System;
+using KeyboardRacer.Fronted;
 using NStack;
 using Terminal.Gui;
 
@@ -27,6 +27,7 @@ namespace KeyboardRacer
             private static readonly Label LblBotDifficultyTxt =
                 new Label("Bot difficulty") {X = Pos.Center(), Y = Pos.Center() + 2, Visible = true};
 
+            #region Fields
 
             private readonly Button BtnBack = new Button("Back")
                                               {
@@ -47,7 +48,7 @@ namespace KeyboardRacer
                                                       X     = Pos.Center() - 7,
                                                       Y     = Pos.Center() - 2,
                                                       Clicked = () => LblNumBots.Text =
-                                                                    DecrementStringNumber(LblNumBots.Text, 0)
+                                                                    Helpers.DecrementStringNumber(LblNumBots.Text, 0)
                                                   };
 
             private readonly Button BtnLessDifficult = new Button("-")
@@ -56,7 +57,10 @@ namespace KeyboardRacer
                                                            X     = Pos.Center() - 7,
                                                            Y     = Pos.Center() + 3,
                                                            Clicked = () => LblBotDifficulty.Text =
-                                                                         DecrementStringNumber(LblBotDifficulty.Text, 0)
+                                                                         Helpers.DecrementStringNumber(LblBotDifficulty
+                                                                                     .Text,
+                                                                                  0
+                                                                             )
                                                        };
 
             private readonly Button BtnMoreBots = new Button("+")
@@ -65,7 +69,7 @@ namespace KeyboardRacer
                                                       X     = Pos.Center() + 2,
                                                       Y     = Pos.Center() - 2,
                                                       Clicked = () => LblNumBots.Text =
-                                                                    IncrementStringNumber(LblNumBots.Text, 5)
+                                                                    Helpers.IncrementStringNumber(LblNumBots.Text, 5)
                                                   };
 
             private readonly Button BtnMoreDifficult = new Button("+")
@@ -74,7 +78,10 @@ namespace KeyboardRacer
                                                            X     = Pos.Center() + 2,
                                                            Y     = Pos.Center() + 3,
                                                            Clicked = () => LblBotDifficulty.Text =
-                                                                         IncrementStringNumber(LblBotDifficulty.Text, 5)
+                                                                         Helpers.IncrementStringNumber(LblBotDifficulty
+                                                                                     .Text,
+                                                                                  5
+                                                                             )
                                                        };
 
             private readonly Button BtnNext = new Button("Next")
@@ -90,6 +97,9 @@ namespace KeyboardRacer
                                                             }
                                               };
 
+            #endregion
+
+            #region Constructors
 
             public BotSelectionView(ustring title)
             {
@@ -111,35 +121,7 @@ namespace KeyboardRacer
                    );
             }
 
-
-            private static ustring IncrementStringNumber(ustring str, int max)
-            {
-                var asInt = Convert.ToInt32(str);
-
-                if (asInt < max)
-                {
-                    var incremented = ++asInt;
-
-                    return Convert.ToString(incremented);
-                }
-
-                return str;
-            }
-
-
-            private static ustring DecrementStringNumber(ustring str, int min)
-            {
-                var asInt = Convert.ToInt32(str);
-
-                if (asInt > min)
-                {
-                    var incremented = --asInt;
-
-                    return Convert.ToString(incremented);
-                }
-
-                return str;
-            }
+            #endregion
         }
     }
 }

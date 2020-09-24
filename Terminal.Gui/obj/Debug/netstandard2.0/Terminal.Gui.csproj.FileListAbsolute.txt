@@ -16,3 +16,12 @@
 /home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.AssemblyInfo.cs
 /home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.dll
 /home/jonas/RiderProjects/KeyboardRacer/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.pdb
+/home/jonas/RiderProjects/LEA/Terminal.Gui/bin/Debug/netstandard2.0/Terminal.Gui.deps.json
+/home/jonas/RiderProjects/LEA/Terminal.Gui/bin/Debug/netstandard2.0/Terminal.Gui.dll
+/home/jonas/RiderProjects/LEA/Terminal.Gui/bin/Debug/netstandard2.0/Terminal.Gui.pdb
+/home/jonas/RiderProjects/LEA/Terminal.Gui/bin/Debug/netstandard2.0/Terminal.Gui.xml
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.csprojAssemblyReference.cache
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.AssemblyInfoInputs.cache
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.AssemblyInfo.cs
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.dll
+/home/jonas/RiderProjects/LEA/Terminal.Gui/obj/Debug/netstandard2.0/Terminal.Gui.pdb

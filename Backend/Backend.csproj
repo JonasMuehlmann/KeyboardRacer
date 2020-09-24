@@ -8,6 +8,7 @@
     <ItemGroup>
       <Folder Include="data" />
       <Content Include="obj\project.packagespec.json" />
+      <Folder Include="obj\Debug\netcoreapp3.1" />
     </ItemGroup>
 
     <ItemGroup>

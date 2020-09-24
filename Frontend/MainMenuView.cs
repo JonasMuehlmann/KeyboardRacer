@@ -11,25 +11,6 @@ namespace KeyboardRacer
     {
         public class MainMenuView : Window
         {
-            #region Constructors
-
-            public MainMenuView()
-            {
-                Title  = "Main menu";
-                Width  = Dim.Fill();
-                Height = Dim.Fill();
-
-                Add(singlePayer,
-                    localGame,
-                    multiplayer,
-                    statistics,
-                    settings,
-                    quit
-                   );
-            }
-
-            #endregion
-
             #region Fields
 
             private readonly Button localGame = new Button("Local game")
@@ -92,6 +73,25 @@ namespace KeyboardRacer
                                                      Width         = 20,
                                                      TextAlignment = TextAlignment.Justified
                                                  };
+
+            #endregion
+
+            #region Constructors
+
+            public MainMenuView()
+            {
+                Title  = "Main menu";
+                Width  = Dim.Fill();
+                Height = Dim.Fill();
+
+                Add(singlePayer,
+                    localGame,
+                    multiplayer,
+                    statistics,
+                    settings,
+                    quit
+                   );
+            }
 
             #endregion
         }
