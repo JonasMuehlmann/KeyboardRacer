@@ -6,15 +6,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="data" />
-      <Content Include="obj\project.packagespec.json" />
-      <Folder Include="obj\Debug\netcoreapp3.1" />
+        <Content Include="obj\project.packagespec.json" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Frontend\Frontend.csproj" />
-        <Folder Include="data"/>
-        <Content Include="obj\project.packagespec.json"/>
+        <PackageReference Include="Terminal.Gui" Version="0.81.0" />
     </ItemGroup>
 
 </Project>
