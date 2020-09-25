@@ -48,6 +48,8 @@ namespace Backend
 
         public override int GetProgress()
         {
+            // FIX: TypedText.Count only gives the number of typed chars,
+            // not the number of correct typed chars
             double correctChars = TypedText.Count;
             var    curProgress  = Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
 
@@ -87,14 +89,16 @@ namespace Backend
         {
             var indentation = new string(' ', progress);
 
-            var indentedCar = string.Join(Environment.NewLine,
+            // The \r is needed because normal line-break behaviour bugs out when using gui.cs 
+            var indentedCar = string.Join("\n\r",
                                           new[] {indentation, indentation, indentation}
                                              .Zip(Car.Model.Split('\n'),
                                                   (a, b) => string.Join("", a, b)
                                                  )
                                          );
 
-            return $"\n{name}\n{color}{indentedCar}{Fg.Reset}";
+            // The \r is needed because normal line-break behaviour bugs out when using gui.cs 
+            return $"\n\n\n{name}\n\r{color}{indentedCar}{Fg.Reset}";
         }
 
 
@@ -123,7 +127,7 @@ namespace Backend
                 frame += CreateFrameFragment(progress, color, name) + "\n";
             }
 
-            Console.Write(frame);
+            Console.WriteLine(frame);
             DrawFinishingLine();
             DrawTotalErrors();
             DrawCurErrors();
@@ -133,7 +137,7 @@ namespace Backend
 
         private void ClearRaceView()
         {
-            // Moving the cursor down voids clearing the typed text
+            // Moving the cursor down avoids clearing the typed text
             Cursor.Down(1);
 
             Console.Write(string.Concat(Enumerable.Repeat(new string(' ', RaceView.MaxWidth),
@@ -150,7 +154,7 @@ namespace Backend
         private void DrawFinishingLine()
         {
             // Sets cursor to first row of the race frame
-            Cursor.To(4, 1);
+            Cursor.To(6, 1);
 
             for (var i = 1; i < RaceView.LaneHeight * CurrentRace.Participants.Count; i++)
             {
@@ -190,7 +194,7 @@ namespace Backend
         private void DrawTotalErrors()
         {
             // Set cursors above the finishing line
-            Cursor.To(1, RaceView.MaxWidth);
+            Cursor.To(2, RaceView.MaxWidth);
             Console.Write($"{TotalErrors.ToString().PadLeft(3, ' ')} Total errors");
             // Resets cursor to correct position in typed text
             Cursor.To(1, TypedText.Count + 1);
@@ -200,7 +204,7 @@ namespace Backend
         private void DrawCurErrors()
         {
             // Set cursors above the finishing line
-            Cursor.To(2, RaceView.MaxWidth);
+            Cursor.To(3, RaceView.MaxWidth);
             Console.Write($"{CurErrors.ToString().PadLeft(3, ' ')} Current errors");
             // Resets cursor to correct position in typed text
             Cursor.To(1, TypedText.Count + 1);
@@ -210,7 +214,7 @@ namespace Backend
         private void DrawWpm()
         {
             // Set cursors above the finishing line
-            Cursor.To(3, RaceView.MaxWidth);
+            Cursor.To(4, RaceView.MaxWidth);
             Console.Write($"{GetWpm().ToString().PadLeft(3, ' ')} WPM");
             // Resets cursor to correct position in typed text
             Cursor.To(1, TypedText.Count + 1);
@@ -289,7 +293,7 @@ namespace Backend
         {
             TypedText.Push(enteredChar);
 
-            if (enteredChar == ' ')
+            if (char.IsWhiteSpace(enteredChar) || enteredChar == '\t' || enteredChar == '\n')
             {
                 Console.Write($"{Bg.Red}{enteredChar}{Bg.Reset}");
             }
