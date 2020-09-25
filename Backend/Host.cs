@@ -1,8 +1,12 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+
+#endregion
 
 
 namespace Backend
@@ -63,7 +67,7 @@ namespace Backend
         /// </summary>
         private void CloseAllSockets()
         {
-            foreach (Socket socket in ClientSockets)
+            foreach (var socket in ClientSockets)
             {
                 socket.Shutdown(SocketShutdown.Both);
                 socket.Close();
@@ -118,8 +122,8 @@ namespace Backend
         /// </param>
         private void ReceiveMessage(IAsyncResult asyncRequest)
         {
-            Socket currentClient = (Socket) asyncRequest.AsyncState;
-            int    receivedBytes;
+            var currentClient = (Socket) asyncRequest.AsyncState;
+            int receivedBytes;
 
             try
             {
@@ -135,9 +139,9 @@ namespace Backend
                 return;
             }
 
-            byte[] receivedBuffer = new byte[receivedBytes];
+            var receivedBuffer = new byte[receivedBytes];
             Array.Copy(Buffer, receivedBuffer, receivedBytes);
-            string message = Encoding.ASCII.GetString(receivedBuffer);
+            var message = Encoding.ASCII.GetString(receivedBuffer);
             // FOR_DEBUGGING
             Console.WriteLine($"Received message: {message}");
 

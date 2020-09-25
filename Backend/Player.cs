@@ -1,8 +1,12 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
+#endregion
 
 
 namespace Backend
@@ -45,7 +49,7 @@ namespace Backend
         public override int GetProgress()
         {
             double correctChars = TypedText.Count;
-            int    curProgress  = Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
+            var    curProgress  = Convert.ToInt32(100 * (correctChars / CurrentRace.Text.Length));
 
             if (curProgress > MaxProgress)
             {
@@ -105,16 +109,16 @@ namespace Backend
         private void DrawCompleteRaceFrameSolo(Dictionary<string, int> participantData)
         {
             // Own data
-            string frame = CreateFrameFragment(GetProgress(), Color, Name) + '\n';
+            var frame = CreateFrameFragment(GetProgress(), Color, Name) + '\n';
 
             // Competitors data
             participantData.Remove(Name);
 
             foreach (var dataPoint in participantData)
             {
-                int    progress = dataPoint.Value;
-                string color    = CompetitorColors[dataPoint.Key];
-                string name     = dataPoint.Key;
+                var progress = dataPoint.Value;
+                var color    = CompetitorColors[dataPoint.Key];
+                var name     = dataPoint.Key;
 
                 frame += CreateFrameFragment(progress, color, name) + "\n";
             }
@@ -148,7 +152,7 @@ namespace Backend
             // Sets cursor to first row of the race frame
             Cursor.To(4, 1);
 
-            for (int i = 1; i < RaceView.LaneHeight * CurrentRace.Participants.Count; i++)
+            for (var i = 1; i < RaceView.LaneHeight * CurrentRace.Participants.Count; i++)
             {
                 Cursor.ToCol(RaceView.MaxWidth);
 
@@ -174,10 +178,10 @@ namespace Backend
         /// <returns>The current WPM rating as an integer</returns>
         public override int GetWpm()
         {
-            double timeInSeconds  = (DateTime.Now - CurrentRace.StartOfRace).TotalSeconds;
-            double charsPerSecond = TypedText.Count / timeInSeconds;
-            double wordsPerSecond = charsPerSecond  / 5;
-            int    wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
+            var timeInSeconds  = (DateTime.Now - CurrentRace.StartOfRace).TotalSeconds;
+            var charsPerSecond = TypedText.Count / timeInSeconds;
+            var wordsPerSecond = charsPerSecond  / 5;
+            var wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
 
             return wordsPerMinute;
         }

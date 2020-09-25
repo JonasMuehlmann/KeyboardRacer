@@ -1,5 +1,9 @@
+#region
+
 using System;
 using System.Threading;
+
+#endregion
 
 
 namespace Backend
@@ -39,10 +43,10 @@ namespace Backend
         /// <returns>The current WPM rating as an integer</returns>
         public override int GetWpm()
         {
-            double timeInSeconds  = (DateTime.Now - CurrentRace.StartOfRace).TotalSeconds;
-            double charsPerSecond = TypedChars     / timeInSeconds;
-            double wordsPerSecond = charsPerSecond / 5;
-            int    wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
+            var timeInSeconds  = (DateTime.Now - CurrentRace.StartOfRace).TotalSeconds;
+            var charsPerSecond = TypedChars     / timeInSeconds;
+            var wordsPerSecond = charsPerSecond / 5;
+            var wordsPerMinute = (int) Math.Floor(wordsPerSecond * 60);
 
             return wordsPerMinute;
         }
@@ -69,7 +73,7 @@ namespace Backend
         {
             while (!HasCompletedText())
             {
-                int rndSeconds = Rng.Next(3, 6);
+                var rndSeconds = Rng.Next(3, 6);
 
                 if (Rng.Next(1, 21) == 20)
                 {
@@ -77,9 +81,9 @@ namespace Backend
                 }
 
                 Thread.Sleep(rndSeconds * 100);
-                int steps = Convert.ToInt32(rndSeconds * Speed / 10);
+                var steps = Convert.ToInt32(rndSeconds * Speed / 10);
 
-                for (int i = 0; i < steps; i++)
+                for (var i = 0; i < steps; i++)
                 {
                     if (TypedChars < CurrentRace.Text.Length)
                     {

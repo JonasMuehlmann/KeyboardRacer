@@ -1,7 +1,11 @@
+#region
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+#endregion
 
 
 namespace Backend
@@ -28,7 +32,7 @@ namespace Backend
 
         #region Constructors
 
-        public Race(ref string text)
+        public Race(string text)
         {
             Text                = text;
             Participants        = new List<Participant>();
@@ -80,6 +84,7 @@ namespace Backend
 
         public void StartGameLoop()
         {
+            Console.Clear();
             SendCompetitorColors();
 
             var tasks = Participants.Select(participant => new Task(participant.TypeText)).ToArray();

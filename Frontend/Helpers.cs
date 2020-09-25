@@ -1,5 +1,9 @@
+#region
+
 using System;
 using NStack;
+
+#endregion
 
 
 namespace KeyboardRacer

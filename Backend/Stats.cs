@@ -1,6 +1,10 @@
+#region
+
 using System;
 using System.IO;
 using System.Linq;
+
+#endregion
 
 
 namespace Backend
@@ -40,8 +44,8 @@ namespace Backend
         /// </returns>
         private static bool HasStatistics(string player)
         {
-            string statsFile     = $"{StatsDir}/{player}";
-            var    statsFileInfo = new FileInfo(statsFile);
+            var statsFile     = $"{StatsDir}/{player}";
+            var statsFileInfo = new FileInfo(statsFile);
 
             return File.Exists(statsFile) && statsFileInfo.Length != 0;
         }
@@ -75,8 +79,8 @@ namespace Backend
         /// <returns></returns>
         private string FormatRaceData(PostGameStats stats)
         {
-            int    raceDuration = Convert.ToInt32((stats.EndOfRace - stats.StartOfRace).TotalSeconds);
-            double errorRate    = stats.TotalErrors / (double) (stats.TextLength + stats.TotalErrors);
+            var raceDuration = Convert.ToInt32((stats.EndOfRace - stats.StartOfRace).TotalSeconds);
+            var errorRate    = stats.TotalErrors / (double) (stats.TextLength + stats.TotalErrors);
 
             return $"{stats.RaceId},,{stats.Wpm},,{Math.Round(errorRate, 2)},,{raceDuration}";
         }
@@ -88,9 +92,9 @@ namespace Backend
         /// <param name="stats">A PostGameStats object to take values from</param>
         public void AddRaceData(PostGameStats stats)
         {
-            string data = FormatRaceData(stats);
+            var data = FormatRaceData(stats);
 
-            StreamWriter file = new StreamWriter($"{StatsDir}/{stats.Name}", true);
+            var file = new StreamWriter($"{StatsDir}/{stats.Name}", true);
 
             file.WriteLine(data);
         }
@@ -104,7 +108,7 @@ namespace Backend
 
         public int GetAverageWpm(string[] datapoints)
         {
-            int wpm = 0;
+            var wpm = 0;
 
             foreach (var line in datapoints)
             {

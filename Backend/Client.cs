@@ -1,8 +1,12 @@
+#region
+
 using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+
+#endregion
 
 
 namespace Backend
@@ -41,7 +45,7 @@ namespace Backend
         /// </exception>
         private void ConnectToServer(string ipAddress)
         {
-            int attemptsLeft = 20;
+            var attemptsLeft = 20;
 
             while (!ClientSocket.Connected)
             {
@@ -94,7 +98,7 @@ namespace Backend
         /// </param>
         private void SendMessage(string message)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes(message);
+            var buffer = Encoding.ASCII.GetBytes(message);
             ClientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
         }
 
@@ -109,7 +113,7 @@ namespace Backend
         private string ReceiveResponse()
         {
             var buffer        = new byte[Network.BufferSize];
-            int receivedBytes = ClientSocket.Receive(buffer, SocketFlags.None);
+            var receivedBytes = ClientSocket.Receive(buffer, SocketFlags.None);
 
             if (receivedBytes == 0)
             {

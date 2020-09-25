@@ -19,13 +19,13 @@
                       "projectPath": "/home/jonas/RiderProjects/KeyboardRacer/Frontend/Frontend.csproj"
                   }
               }
+          }
+      },
+      "warningProperties": {
+          "warnAsError": [
+              "NU1605"
+          ]
       }
-    },
-    "warningProperties": {
-      "warnAsError": [
-        "NU1605"
-      ]
-    }
   },
   "frameworks": {
     "netcoreapp3.1": {

@@ -1,4 +1,8 @@
-﻿using System.Diagnostics;
+﻿#region
+
+using System.Diagnostics;
+
+#endregion
 
 
 namespace Launcher

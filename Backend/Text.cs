@@ -1,14 +1,19 @@
+#region
+
 using System;
 using System.IO;
+
+#endregion
 
 
 namespace Backend
 
 
 {
-    public class Text
+    public static class Text
     {
         //TODO: Load Phrase based on Difficulty
+        private static readonly string _textDbPath = "../../../data/texts.csv";
 
 
         /// <summary>
@@ -18,14 +23,15 @@ namespace Backend
         /// <returns>
         ///     A random text from the text database
         /// </returns>
-        public string LoadRandomText()
+        public static string LoadRandomText()
         {
-            Random   rnd        = new Random();
-            string[] lines      = File.ReadAllLines("../../data/texts.csv");
-            int      lineNumber = rnd.Next(1, lines.Length);
-            string[] textToType = lines[lineNumber].Split(",,,");
+            var rnd          = new Random();
+            var lines        = File.ReadAllLines(_textDbPath);
+            var lineNumber   = rnd.Next(1, lines.Length);
+            var selectedText = lines[lineNumber].Split(",,,")[1];
+            var textToType   = selectedText.Substring(1, selectedText.Length - 2);
 
-            return textToType[2];
+            return textToType;
         }
 
 
@@ -39,9 +45,9 @@ namespace Backend
         /// <returns>
         ///     The text with the specified ID
         /// </returns>
-        public string LoadSpecificText(int id)
+        public static string LoadSpecificText(int id)
         {
-            string[] lines = File.ReadAllLines("../../data/texts.csv");
+            var lines = File.ReadAllLines(_textDbPath);
 
             return lines[id];
         }
@@ -57,7 +63,7 @@ namespace Backend
         /// <returns>
         ///     A string with the given files content
         /// </returns>
-        public string LoadExternalText(string path)
+        public static string LoadExternalText(string path)
         {
             return File.ReadAllText(path);
         }
