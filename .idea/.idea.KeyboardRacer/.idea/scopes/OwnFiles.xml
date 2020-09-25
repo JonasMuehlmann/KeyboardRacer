@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="OwnFiles" pattern="!file[riderModule]:Terminal.Gui//*||file[riderModule]:Frontend//*||file[riderModule]:KeyboardRacer//*||file[riderModule]:Launcher//*" />
+</component>
