@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Collections.Generic;
 using Backend;
 using KeyboardRacer.Frontend;
@@ -43,6 +44,9 @@ namespace KeyboardRacer
                 }
 
                 race.Participants.AddRange(_participants);
+                // Disable mouse input/tracking report to not interfere with rendering
+                Console.Write($"{Ansii.Csi}?1000l");
+                Console.Clear();
                 race.StartGameLoop();
             }
         }
