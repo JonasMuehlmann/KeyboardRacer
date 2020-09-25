@@ -14,6 +14,26 @@ namespace KeyboardRacer
     {
         public class TextSelectionView : Window
         {
+            #region Fields
+
+            private readonly Button _btnBack;
+
+            private readonly Button _btnLessDifficult;
+
+            private readonly Button _btnMoreDifficult;
+
+            private readonly Button _btnNext;
+
+            private readonly Label _lblSubMenuTitle;
+
+            private readonly Label _lblTextDifficulty;
+
+            private readonly Label _lblTextDifficultyTxt;
+
+            private readonly TextField _textFieldFilePath;
+
+            #endregion
+
             #region Constructors
 
             public TextSelectionView(ustring title)
@@ -114,26 +134,6 @@ namespace KeyboardRacer
                     _btnNext
                    );
             }
-
-            #endregion
-
-            #region Fields
-
-            private readonly Label _lblSubMenuTitle;
-
-            private readonly Label _lblTextDifficultyTxt;
-
-            private readonly Label _lblTextDifficulty;
-
-            private readonly TextField _textFieldFilePath;
-
-            private readonly Button _btnBack;
-
-            private readonly Button _btnLessDifficult;
-
-            private readonly Button _btnMoreDifficult;
-
-            private readonly Button _btnNext;
 
             #endregion
         }

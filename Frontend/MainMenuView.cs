@@ -11,6 +11,22 @@ namespace KeyboardRacer
     {
         public class MainMenuView : Window
         {
+            #region Fields
+
+            private readonly Button _localGame;
+
+            private readonly Button _multiplayer;
+
+            private readonly Button _quit;
+
+            private readonly Button _settings;
+
+            private readonly Button _singlePayer;
+
+            private readonly Button _statistics;
+
+            #endregion
+
             #region Constructors
 
             public MainMenuView()
@@ -80,22 +96,6 @@ namespace KeyboardRacer
                     _quit
                    );
             }
-
-            #endregion
-
-            #region Fields
-
-            private readonly Button _localGame;
-
-            private readonly Button _multiplayer;
-
-            private readonly Button _quit;
-
-            private readonly Button _settings;
-
-            private readonly Button _singlePayer;
-
-            private readonly Button _statistics;
 
             #endregion
         }

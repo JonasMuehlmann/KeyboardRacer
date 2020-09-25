@@ -14,6 +14,31 @@ namespace KeyboardRacer
     {
         public class BotSelectionView : Window
         {
+            #region Fields
+
+            private readonly Button _btnBack;
+
+            private readonly Button _btnLessBots;
+
+            private readonly Button _btnLessDifficult;
+
+            private readonly Button _btnMoreBots;
+
+            private readonly Button _btnMoreDifficult;
+
+            private readonly Button _btnNext;
+
+            private readonly Label _lblBotDifficulty;
+
+            private readonly Label _lblBotDifficultyTxt;
+
+            private readonly Label _lblNumBots;
+
+            private readonly Label _lblNumBotsTxt;
+            private readonly Label _lblSubMenuTitle;
+
+            #endregion
+
             #region Constructors
 
             public BotSelectionView(ustring title)
@@ -114,31 +139,6 @@ namespace KeyboardRacer
                     _lblBotDifficultyTxt
                    );
             }
-
-            #endregion
-
-            #region Fields
-
-            private readonly Button _btnBack;
-
-            private readonly Button _btnLessBots;
-
-            private readonly Button _btnLessDifficult;
-
-            private readonly Button _btnMoreBots;
-
-            private readonly Button _btnMoreDifficult;
-
-            private readonly Button _btnNext;
-
-            private readonly Label _lblBotDifficulty;
-
-            private readonly Label _lblBotDifficultyTxt;
-
-            private readonly Label _lblNumBots;
-
-            private readonly Label _lblNumBotsTxt;
-            private readonly Label _lblSubMenuTitle;
 
             #endregion
         }
