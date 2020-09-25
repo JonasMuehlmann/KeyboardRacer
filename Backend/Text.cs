@@ -13,7 +13,7 @@ namespace Backend
     public static class Text
     {
         //TODO: Load Phrase based on Difficulty
-        private static readonly string _textDbPath = "../../../data/texts.csv";
+        private static readonly string _textDbPath = "../../../../Backend/data/texts.csv";
 
 
         /// <summary>

@@ -15,7 +15,7 @@ namespace Backend
         //TODO:ADD updatePlayerStatistic void
 
 
-        private const string StatsDir = "../../../data/statistics";
+        private const string StatsDir = "../../../../Backend/data/statistics";
 
         #region Properties
 
