@@ -85,7 +85,9 @@ namespace Backend
 
                 for (var i = 0; i < steps; i++)
                 {
-                    if (TypedChars < CurrentRace.Text.Length)
+                    ++TypedChars;
+
+                    if (TypedChars > CurrentRace.Text.Length)
                     {
                         TypedChars = CurrentRace.Text.Length;
                     }
