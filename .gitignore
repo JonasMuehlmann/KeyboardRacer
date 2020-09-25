@@ -112,5 +112,10 @@ $RECYCLE.BIN/
 
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
-/**/bin/**/*
-/**/obj/**/*
+/*/bin/
+/*/obj/
+.idea/.idea.KeyboardRacer/.idea/.name
+.idea/.idea.KeyboardRacer/.idea/misc.xml
+.idea/.idea.KeyboardRacer/.idea/sonarIssues.xml
+.idea/.idea.LEA/.idea/sonarIssues.xml
+.idea/.idea.LEA/.idea/sonarSettings.xml
