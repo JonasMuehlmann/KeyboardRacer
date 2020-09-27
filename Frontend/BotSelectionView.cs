@@ -14,28 +14,29 @@ namespace KeyboardRacer
     {
         public class BotSelectionView : Window
         {
-            #region Fields
+            #region Properties
 
-            private readonly Button _btnBack;
+            public Button BtnBack { get; }
 
-            private readonly Button _btnLessBots;
+            public Button BtnLessBots { get; }
 
-            private readonly Button _btnLessDifficult;
+            public Button BtnLessDifficult { get; }
 
-            private readonly Button _btnMoreBots;
+            public Button BtnMoreBots { get; }
 
-            private readonly Button _btnMoreDifficult;
+            public Button BtnMoreDifficult { get; }
 
-            private readonly Button _btnNext;
+            public Button BtnNext { get; }
 
-            private readonly Label _lblBotDifficulty;
+            public Label LblBotDifficulty { get; }
 
-            private readonly Label _lblBotDifficultyTxt;
+            public Label LblBotDifficultyTxt { get; }
 
-            private readonly Label _lblNumBots;
+            public Label LblNumBots { get; }
 
-            private readonly Label _lblNumBotsTxt;
-            private readonly Label _lblSubMenuTitle;
+            public Label LblNumBotsTxt { get; }
+
+            public Label LblSubMenuTitle { get; }
 
             #endregion
 
@@ -45,98 +46,110 @@ namespace KeyboardRacer
             {
                 Title = title;
 
-                _btnBack = new Button("Back")
-                           {
-                               X             = Pos.Center() - 12,
-                               Y             = Pos.Percent(75),
-                               Width         = 10,
-                               TextAlignment = TextAlignment.Justified,
-                               Clicked = () =>
-                                         {
-                                             Application.RequestStop();
-                                             Application.Run(new MainMenuView());
-                                         }
-                           };
+                BtnBack = new Button("Back")
+                          {
+                              X             = Pos.Center() - 12,
+                              Y             = Pos.Percent(75),
+                              Width         = 10,
+                              TextAlignment = TextAlignment.Justified,
+                              Clicked = () =>
+                                        {
+                                            Ui.NumBots       = Convert.ToInt32(LblNumBots.Text);
+                                            Ui.BotDifficulty = Convert.ToInt32(LblBotDifficulty.Text);
+                                            Application.RequestStop();
+                                            Application.Run(new MainMenuView());
+                                        }
+                          };
 
-                _btnLessBots = new Button("-")
-                               {
-                                   Width = 5,
-                                   X     = Pos.Center() - 7,
-                                   Y     = Pos.Center() - 2,
-                                   Clicked = () => _lblNumBots.Text =
-                                                 Helpers.DecrementStringNumber(_lblNumBots.Text, 0)
-                               };
+                BtnLessBots = new Button("-")
+                              {
+                                  Width = 5,
+                                  X     = Pos.Center() - 7,
+                                  Y     = Pos.Center() - 2,
+                                  Clicked = () => LblNumBots.Text =
+                                                Helpers.DecrementStringNumber(LblNumBots.Text, 0)
+                              };
 
-                _btnLessDifficult = new Button("-")
-                                    {
-                                        Width = 5,
-                                        X     = Pos.Center() - 7,
-                                        Y     = Pos.Center() + 3,
-                                        Clicked = () => _lblBotDifficulty.Text =
-                                                      Helpers.DecrementStringNumber(_lblBotDifficulty
-                                                                  .Text,
-                                                               0
-                                                          )
-                                    };
+                BtnLessDifficult = new Button("-")
+                                   {
+                                       Width = 5,
+                                       X     = Pos.Center() - 7,
+                                       Y     = Pos.Center() + 3,
+                                       Clicked = () => LblBotDifficulty.Text =
+                                                     Helpers.DecrementStringNumber(LblBotDifficulty
+                                                                 .Text,
+                                                              0
+                                                         )
+                                   };
 
-                _btnMoreBots = new Button("+")
-                               {
-                                   Width = 5,
-                                   X     = Pos.Center() + 2,
-                                   Y     = Pos.Center() - 2,
-                                   Clicked = () => _lblNumBots.Text =
-                                                 Helpers.IncrementStringNumber(_lblNumBots.Text, 5)
-                               };
+                BtnMoreBots = new Button("+")
+                              {
+                                  Width = 5,
+                                  X     = Pos.Center() + 2,
+                                  Y     = Pos.Center() - 2,
+                                  Clicked = () => LblNumBots.Text =
+                                                Helpers.IncrementStringNumber(LblNumBots.Text, 4)
+                              };
 
-                _btnMoreDifficult = new Button("+")
-                                    {
-                                        Width = 5,
-                                        X     = Pos.Center() + 2,
-                                        Y     = Pos.Center() + 3,
-                                        Clicked = () => _lblBotDifficulty.Text =
-                                                      Helpers.IncrementStringNumber(_lblBotDifficulty
-                                                                  .Text,
-                                                               5
-                                                          )
-                                    };
+                BtnMoreDifficult = new Button("+")
+                                   {
+                                       Width = 5,
+                                       X     = Pos.Center() + 2,
+                                       Y     = Pos.Center() + 3,
+                                       Clicked = () => LblBotDifficulty.Text =
+                                                     Helpers.IncrementStringNumber(LblBotDifficulty
+                                                                 .Text,
+                                                              9
+                                                         )
+                                   };
 
-                _btnNext = new Button("Next")
-                           {
-                               Width         = 10,
-                               X             = Pos.Center() + 2,
-                               Y             = Pos.Percent(75),
-                               TextAlignment = TextAlignment.Justified,
-                               Clicked = () =>
-                                         {
-                                             Application.RequestStop();
-                                             Application.Run(new TextSelectionView("Singleplayer"));
-                                             Ui._numBots       = Convert.ToInt32(_lblNumBots.Text);
-                                             Ui._botDifficulty = Convert.ToInt32(_lblBotDifficulty.Text);
-                                         }
-                           };
+                BtnNext = new Button("Next")
+                          {
+                              Width         = 10,
+                              X             = Pos.Center() + 2,
+                              Y             = Pos.Percent(75),
+                              TextAlignment = TextAlignment.Justified,
+                              Clicked = () =>
+                                        {
+                                            Ui.NumBots       = Convert.ToInt32(LblNumBots.Text);
+                                            Ui.BotDifficulty = Convert.ToInt32(LblBotDifficulty.Text);
+                                            Application.RequestStop();
+                                            Application.Run(new TextSelectionView("Singleplayer"));
+                                        }
+                          };
 
                 Width  = Dim.Fill();
                 Height = Dim.Fill();
 
-                _lblSubMenuTitle = new Label("Bot Selection") {X = 1};
-                _lblNumBots = new Label("0") {X = Pos.Center(), Y = Pos.Center() - 2, Width = 1, Visible = true};
-                _lblNumBotsTxt = new Label("Number of bots") {X = Pos.Center(), Y = Pos.Center() - 3, Visible = true};
-                _lblBotDifficulty = new Label("0") {X = Pos.Center(), Y = Pos.Center() + 3, Width = 1, Visible = true};
+                LblSubMenuTitle = new Label("Bot Selection") {X = 1};
 
-                _lblBotDifficultyTxt =
+                LblNumBotsTxt = new Label("Number of bots") {X = Pos.Center(), Y = Pos.Center() - 3, Visible = true};
+
+                LblNumBots = new Label(Convert.ToString(Ui.NumBots))
+                             {
+                                 X = Pos.Center(), Y = Pos.Center() - 2, Width = 1, Visible = true
+                             };
+
+
+                LblBotDifficultyTxt =
                     new Label("Bot difficulty") {X = Pos.Center(), Y = Pos.Center() + 2, Visible = true};
 
-                Add(_lblSubMenuTitle,
-                    _lblNumBots,
-                    _lblBotDifficulty,
-                    _btnLessBots,
-                    _btnMoreBots,
-                    _btnLessDifficult,
-                    _btnMoreDifficult,
-                    _lblNumBotsTxt,
-                    _btnBack,
-                    _btnNext,
-                    _lblBotDifficultyTxt
+                LblBotDifficulty = new Label(Convert.ToString(Ui.BotDifficulty))
+                                   {
+                                       X = Pos.Center(), Y = Pos.Center() + 3, Width = 1, Visible = true
+                                   };
+
+                Add(LblSubMenuTitle,
+                    LblNumBots,
+                    LblBotDifficulty,
+                    BtnLessBots,
+                    BtnMoreBots,
+                    BtnLessDifficult,
+                    BtnMoreDifficult,
+                    LblNumBotsTxt,
+                    BtnBack,
+                    BtnNext,
+                    LblBotDifficultyTxt
                    );
             }
 

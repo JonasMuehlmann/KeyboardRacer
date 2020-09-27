@@ -1,16 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="RIDER_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$/../..">
-      <excludeFolder url="file://$MODULE_DIR$/../../Backend/bin" />
-      <excludeFolder url="file://$MODULE_DIR$/../../Backend/obj" />
-      <excludeFolder url="file://$MODULE_DIR$/../../Frontend/bin" />
-      <excludeFolder url="file://$MODULE_DIR$/../../Frontend/obj" />
-      <excludeFolder url="file://$MODULE_DIR$/../../Launcher/bin" />
-      <excludeFolder url="file://$MODULE_DIR$/../../Launcher/obj" />
-      <excludeFolder url="file://$MODULE_DIR$/../../Terminal.Gui/bin" />
-      <excludeFolder url="file://$MODULE_DIR$/../../Terminal.Gui/obj" />
-    </content>
+    <content url="file://$MODULE_DIR$/../.." />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="sonarModuleSettings">
