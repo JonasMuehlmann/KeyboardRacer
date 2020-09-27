@@ -1,6 +1,7 @@
 #region
 
 using System;
+using System.Collections.Generic;
 using Terminal.Gui;
 
 #endregion
@@ -12,19 +13,40 @@ namespace KeyboardRacer
     {
         public class Ui
         {
-            public static string _selectedMenuEntry;
-            public static int    _numBots;
-            public static int    _botDifficulty;
-            public static bool   _wantsRandomText;
-            public static bool   _wantsTextFromDifficulty;
-            public static string _selectedFile;
-            public static int    _textDifficulty;
+            #region Properties
+
+            public static string SelectedMenuEntry { get; set; }
+
+            public static int NumBots { get; set; }
+
+            public static int BotDifficulty { get; set; }
+
+            // Default value for the text selection
+            public static bool WantsRandomText { get; set; } = true;
+
+            public static bool WantsTextFromDifficulty { get; set; }
+
+            public static string SelectedFile { get; set; } = "";
+
+            public static int TextDifficulty { get; set; }
+
+            #endregion
 
 
-            public static void Init()
+            public static void ShowMainMenu()
             {
+                Console.Clear();
                 Console.CursorVisible = false;
-                Application.Run<MainMenuView>();
+                Application.Run(new MainMenuView());
+                Console.CursorVisible = true;
+            }
+
+
+            public static void ShowPostgameView(List<PostGameStats> stats)
+            {
+                Console.Clear();
+                Console.CursorVisible = false;
+                Application.Run(new PostGameView(stats));
                 Console.CursorVisible = true;
             }
         }

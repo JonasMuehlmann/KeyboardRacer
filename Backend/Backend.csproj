@@ -12,7 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Frontend\Frontend.csproj" />
+        <ProjectReference Include="..\Frontend\Frontend.csproj"/>
         <Folder Include="data"/>
         <Content Include="obj\project.packagespec.json"/>
     </ItemGroup>

@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using Backend;
 using KeyboardRacer.Frontend;
 
 #endregion
@@ -16,38 +15,40 @@ namespace KeyboardRacer
         {
             private static void Main(string[] args)
             {
-                Ui.Init();
+                Ui.ShowMainMenu();
+                // Disable mouse input/tracking report to not interfere with rendering
+                Console.Write($"{Ansii.Csi}?1000l");
 
                 var race = new Race("");
 
-                if (Ui._wantsRandomText)
+                if (Ui.WantsRandomText)
                 {
                     race = new Race(Text.LoadRandomText());
                 }
-                else if (Ui._wantsTextFromDifficulty)
+                else if (Ui.WantsTextFromDifficulty)
                 {
                     ;
                 }
                 else
                 {
-                    race = new Race(Text.LoadExternalText(Ui._selectedFile));
+                    race = new Race(Text.LoadExternalText(Ui.SelectedFile));
                 }
 
                 var _participants = new List<Participant> {new Player("Player", Fg.Magenta, race)};
 
-                if (Ui._selectedMenuEntry == "Singleplayer")
+                if (Ui.SelectedMenuEntry == "Singleplayer")
                 {
-                    for (var i = 0; i < Ui._numBots; i++)
+                    for (var i = 0; i < Ui.NumBots; i++)
                     {
-                        _participants.Add(new Bot($"Bot{i}", Fg.Blue, race, Ui._botDifficulty));
+                        _participants.Add(new Bot($"Bot{i}", Fg.Blue, race, Ui.BotDifficulty));
                     }
                 }
 
                 race.Participants.AddRange(_participants);
+                race.StartGameLoop();
+                Ui.ShowPostgameView(race.PostGameStats);
                 // Disable mouse input/tracking report to not interfere with rendering
                 Console.Write($"{Ansii.Csi}?1000l");
-                Console.Clear();
-                race.StartGameLoop();
             }
         }
     }
