@@ -1,5 +1,6 @@
 #region
 
+using System;
 using Terminal.Gui;
 
 #endregion
@@ -11,19 +12,19 @@ namespace KeyboardRacer
     {
         public class MainMenuView : Window
         {
-            #region Fields
+            #region Properties
 
-            private readonly Button _localGame;
+            public Button LocalGame { get; }
 
-            private readonly Button _multiplayer;
+            public Button Multiplayer { get; }
 
-            private readonly Button _quit;
+            public Button Quit { get; }
 
-            private readonly Button _settings;
+            public Button Settings { get; }
 
-            private readonly Button _singlePayer;
+            public Button SinglePayer { get; }
 
-            private readonly Button _statistics;
+            public Button Statistics { get; }
 
             #endregion
 
@@ -33,67 +34,71 @@ namespace KeyboardRacer
             {
                 Title = "Main menu";
 
-                _statistics = new Button("Statistics")
+                Statistics = new Button("Statistics")
+                             {
+                                 X = Pos.Center(), Y = 7, Width = 20, TextAlignment = TextAlignment.Justified
+                             };
+
+                SinglePayer = new Button("Singleplayer")
                               {
-                                  X = Pos.Center(), Y = 7, Width = 20, TextAlignment = TextAlignment.Justified
+                                  X             = Pos.Center(),
+                                  Y             = 1,
+                                  Width         = 20,
+                                  TextAlignment = TextAlignment.Justified,
+                                  Clicked = () =>
+                                            {
+                                                Application.RequestStop();
+
+                                                Application.Run(new BotSelectionView("Singleplayer"));
+                                                Ui.SelectedMenuEntry = "Singleplayer";
+                                            }
                               };
 
-                _singlePayer = new Button("Singleplayer")
-                               {
-                                   X             = Pos.Center(),
-                                   Y             = 1,
-                                   Width         = 20,
-                                   TextAlignment = TextAlignment.Justified,
-                                   Clicked = () =>
-                                             {
-                                                 Application.RequestStop();
+                Settings = new Button("Settings")
+                           {
+                               X = Pos.Center(), Y = 9, Width = 20, TextAlignment = TextAlignment.Justified
+                           };
 
-                                                 Application.Run(new BotSelectionView("Singleplayer"));
-                                                 Ui._selectedMenuEntry = "Singleplayer";
-                                             }
-                               };
+                Quit = new Button("Quit")
+                       {
+                           X             = Pos.Center(),
+                           Y             = 11,
+                           Width         = 20,
+                           TextAlignment = TextAlignment.Justified,
+                           Clicked = () =>
+                                     {
+                                         Console.Clear();
+                                         Environment.Exit(0);
+                                     }
+                       };
 
-                _settings = new Button("Settings")
+                Multiplayer = new Button("Multiplayer")
+                              {
+                                  X = Pos.Center(), Y = 5, Width = 20, TextAlignment = TextAlignment.Justified
+                              };
+
+                LocalGame = new Button("Local game")
                             {
-                                X = Pos.Center(), Y = 9, Width = 20, TextAlignment = TextAlignment.Justified
+                                X             = Pos.Center(),
+                                Y             = 3,
+                                Width         = 20,
+                                TextAlignment = TextAlignment.Justified,
+                                Clicked = () =>
+                                          {
+                                              Application.RequestStop();
+                                              Application.Run(new MatchBrowserLanView());
+                                          }
                             };
-
-                _quit = new Button("Quit")
-                        {
-                            X             = Pos.Center(),
-                            Y             = 11,
-                            Width         = 20,
-                            TextAlignment = TextAlignment.Justified,
-                            Clicked       = Application.RequestStop
-                        };
-
-                _multiplayer = new Button("Multiplayer")
-                               {
-                                   X = Pos.Center(), Y = 5, Width = 20, TextAlignment = TextAlignment.Justified
-                               };
-
-                _localGame = new Button("Local game")
-                             {
-                                 X             = Pos.Center(),
-                                 Y             = 3,
-                                 Width         = 20,
-                                 TextAlignment = TextAlignment.Justified,
-                                 Clicked = () =>
-                                           {
-                                               Application.RequestStop();
-                                               Application.Run<MatchBrowserLanView>();
-                                           }
-                             };
 
                 Width  = Dim.Fill();
                 Height = Dim.Fill();
 
-                Add(_singlePayer,
-                    _localGame,
-                    _multiplayer,
-                    _statistics,
-                    _settings,
-                    _quit
+                Add(SinglePayer,
+                    LocalGame,
+                    Multiplayer,
+                    Statistics,
+                    Settings,
+                    Quit
                    );
             }
 
