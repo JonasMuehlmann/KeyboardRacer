@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 #endregion
@@ -32,6 +33,42 @@ namespace KeyboardRacer
                 var lines        = File.ReadAllLines(_textDbPath);
                 var lineNumber   = rnd.Next(1, lines.Length);
                 var selectedText = lines[lineNumber].Split(",,,")[1];
+                // Substringing removes quotation marks
+                var textToType = selectedText.Substring(1, selectedText.Length - 2);
+
+                return textToType;
+            }
+
+
+            /// <summary>
+            ///     <para>Returns:</para>
+            ///     The text with a difficulty closest to the given difficulty
+            /// </summary>
+            /// <param name="difficulty">
+            ///     The approximate difficulty a player wants
+            /// </param>
+            /// <returns>
+            ///     The text with a difficulty closest to the given difficulty
+            /// </returns>
+            public static string LoadFromDifficulty(int difficulty)
+            {
+                var lines = File.ReadAllLines(_textDbPath);
+
+                // Index 3 has the difficulty rating
+                var selectedEntry = lines.Aggregate((lineA, lineB) =>
+                                                    {
+                                                        var cellsA = lineA.Split(",,,");
+                                                        var cellsB = lineB.Split(",,,");
+
+                                                        return Math.Abs(Convert.ToDouble(cellsA[3]) - difficulty)
+                                                             > Math.Abs(Convert.ToDouble(cellsB[3]) - difficulty)
+                                                            ? lineA
+                                                            : lineB;
+                                                    }
+                                                   );
+
+                // Index 1 has the text
+                var selectedText = selectedEntry.Split(",,,")[1];
                 // Substringing removes quotation marks
                 var textToType = selectedText.Substring(1, selectedText.Length - 2);
 

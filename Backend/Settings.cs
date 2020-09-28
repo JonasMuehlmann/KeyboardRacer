@@ -1,6 +1,8 @@
-using System;
+#region
+
 using System.IO;
-using System.Linq;
+
+#endregion
 
 
 namespace KeyboardRacer
@@ -9,12 +11,7 @@ namespace KeyboardRacer
     {
         #region Properties
 
-        private string playername;
-
-        public string Playername
-        {
-            get => playername;
-        }
+        public string Playername { get; private set; }
 
         #endregion
 
@@ -22,19 +19,21 @@ namespace KeyboardRacer
 
         public Settings()
         {
-            playername = File.ReadAllText("../../../data/settings.cfg");
+            Playername = File.ReadAllText("../../../data/settings.cfg");
         }
 
         #endregion
 
+
         public void ReloadSettings()
         {
-            playername = File.ReadAllText("../../../data/settings.cfg");
+            Playername = File.ReadAllText("../../../data/settings.cfg");
         }
+
 
         public void ChangePlayerName(string name)
         {
-            System.IO.File.WriteAllText("../../../data/settings.cfg", name);
+            File.WriteAllText("../../../data/settings.cfg", name);
             ReloadSettings();
         }
     }
