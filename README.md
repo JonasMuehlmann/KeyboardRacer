@@ -1,5 +1,5 @@
 # Keyboard Racer
-A Terminal-based typing game inspired by [Type Racer](https://play.typeracer.com/).
+A Terminal-based typing game inspired by [Type Racer](https://play.typeracer.com/), developed in a two-week pair-project phase.
 
 ![](images/ingame.png)
 ## Main menu
