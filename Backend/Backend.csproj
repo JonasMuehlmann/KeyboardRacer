@@ -2,27 +2,24 @@
 
     <PropertyGroup>
         <OutputType>Exe</OutputType>
-        <TargetFramework>netcoreapp3.1</TargetFramework>
+        <TargetFramework>netcoreapp5.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-<<<<<<< HEAD:KeyboardRacer/KeyboardRacer.csproj
         <Content Include="obj\project.packagespec.json" />
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Terminal.Gui" Version="0.81.0" />
-=======
+        <PackageReference Include="Terminal.Gui" Version="1.0.0-rc.1"/>
       <Folder Include="data" />
       <Content Include="obj\project.packagespec.json" />
-      <Folder Include="obj\Debug\netcoreapp3.1" />
+        <Folder Include="obj\Debug\netcoreapps5.0"/>
     </ItemGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\Frontend\Frontend.csproj"/>
         <Folder Include="data"/>
         <Content Include="obj\project.packagespec.json"/>
->>>>>>> Unstable:Backend/Backend.csproj
     </ItemGroup>
 
 </Project>

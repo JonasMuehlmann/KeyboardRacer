@@ -41,18 +41,16 @@ namespace KeyboardRacer
 
                 SinglePayer = new Button("Singleplayer")
                               {
-                                  X             = Pos.Center(),
-                                  Y             = 1,
-                                  Width         = 20,
-                                  TextAlignment = TextAlignment.Justified,
-                                  Clicked = () =>
-                                            {
-                                                Application.RequestStop();
-
-                                                Application.Run(new BotSelectionView("Singleplayer"));
-                                                Ui.SelectedMenuEntry = "Singleplayer";
-                                            }
+                                  X = Pos.Center(), Y = 1, Width = 20, TextAlignment = TextAlignment.Justified
                               };
+
+                SinglePayer.Clicked += () =>
+                                       {
+                                           Application.RequestStop();
+
+                                           Application.Run(new BotSelectionView("Singleplayer"));
+                                           Ui.SelectedMenuEntry = "Singleplayer";
+                                       };
 
                 Settings = new Button("Settings")
                            {
@@ -61,16 +59,14 @@ namespace KeyboardRacer
 
                 Quit = new Button("Quit")
                        {
-                           X             = Pos.Center(),
-                           Y             = 11,
-                           Width         = 20,
-                           TextAlignment = TextAlignment.Justified,
-                           Clicked = () =>
-                                     {
-                                         Console.Clear();
-                                         Environment.Exit(0);
-                                     }
+                           X = Pos.Center(), Y = 11, Width = 20, TextAlignment = TextAlignment.Justified
                        };
+
+                Quit.Clicked += () =>
+                                {
+                                    Console.Clear();
+                                    Environment.Exit(0);
+                                };
 
                 Multiplayer = new Button("Multiplayer")
                               {
@@ -79,16 +75,14 @@ namespace KeyboardRacer
 
                 LocalGame = new Button("Local game")
                             {
-                                X             = Pos.Center(),
-                                Y             = 3,
-                                Width         = 20,
-                                TextAlignment = TextAlignment.Justified,
-                                Clicked = () =>
-                                          {
-                                              Application.RequestStop();
-                                              Application.Run(new MatchBrowserLanView());
-                                          }
+                                X = Pos.Center(), Y = 3, Width = 20, TextAlignment = TextAlignment.Justified
                             };
+
+                LocalGame.Clicked += () =>
+                                     {
+                                         Application.RequestStop();
+                                         Application.Run(new MatchBrowserLanView());
+                                     };
 
                 Width  = Dim.Fill();
                 Height = Dim.Fill();

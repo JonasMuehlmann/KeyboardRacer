@@ -30,16 +30,14 @@ namespace KeyboardRacer
 
                 BtnBack = new Button("Quit")
                           {
-                              X             = Pos.Center(),
-                              Y             = Pos.Percent(75),
-                              Width         = 8,
-                              TextAlignment = TextAlignment.Justified,
-                              Clicked       = Application.RequestStop
+                              X = Pos.Center(), Y = Pos.Percent(75), Width = 8, TextAlignment = TextAlignment.Justified
                           };
 
-                var i = 1;
+                BtnBack.Clicked += Application.RequestStop;
 
-                foreach (var postGameStats in stats)
+                int i = 1;
+
+                foreach (PostGameStats postGameStats in stats)
                 {
                     Add(new
                         Label($"{i}# Place: {postGameStats.Name}  {postGameStats.Wpm} wpm  {postGameStats.TotalErrors} total errors"
