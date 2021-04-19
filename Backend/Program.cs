@@ -27,7 +27,7 @@ namespace KeyboardRacer
                 }
                 else if (Ui.WantsTextFromDifficulty)
                 {
-                    ;
+                    race = new Race(Text.LoadFromDifficulty(Ui.TextDifficulty));
                 }
                 else
                 {
